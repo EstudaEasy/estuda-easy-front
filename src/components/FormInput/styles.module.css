@@ -13,6 +13,19 @@
   color: #A8A8A8;
 }
 
+.input[type="date"] {
+  color: #3B4054;
+}
+
+.placeholderDate {
+  color: #A8A8A8 !important;
+}
+
+.input::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  filter: invert(0.5);
+}
+
 .input:focus {
   border-color: #3461FD;
   background-color: white;
@@ -25,9 +38,8 @@
 .eyeIcon {
   position: absolute;
   right: 15px;
-  top: 15px;
+  top: 20px;
   background: none;
   border: none;
   cursor: pointer;
-  opacity: 1;
 }

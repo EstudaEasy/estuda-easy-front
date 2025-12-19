@@ -5,7 +5,7 @@ import styles from './styles.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { api } from '@/services/api';
+import UserService from '@/services/UserService';
 import { Input } from '@/components/FormInput/page';
 import { Button } from '@/components/Button/page';
 
@@ -32,12 +32,14 @@ export default function RegisterPage() {
     }
 
     try {
-      await api.post('/users', {
+      const formattedBirthDate = birthDate ? new Date(birthDate).toISOString() : null;
+
+      await UserService.registerUser({
         name,
         email,
         password,
         phoneNumber,
-        birthDate,
+        birthdate: birthDate,
       });
 
       alert('Conta criada com sucesso!');

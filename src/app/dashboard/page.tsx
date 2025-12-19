@@ -1,31 +1,68 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import styles from './styles.module.css';
+import UserService from '@/services/UserService';
 
 export default function DashboardPage() {
   const router = useRouter();
+  const [userData, setUserData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const token = localStorage.getItem('@EstudaEasy:accessToken'); 
+    const userId = localStorage.getItem('@EstudaEasy:userId');
+
+  if (!token || !userId || userId === "undefined") {
+      console.log("Acesso negado, redirecionando...");
+      router.push('/login');
+      return;
+  }
+
+    if (!token || !userId) {
+        console.log("Acesso negado, redirecionando...");
+        router.push('/login');
+        return;
+    }
+
+    async function loadUserProfile() {
+        try {
+            const response = await UserService.getById(userId as string);
+            setUserData(response.data); 
+        } catch (error) {
+            console.error("Erro na API:", error);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    loadUserProfile();
+    }, [router]);
 
   const handleLogout = () => {
-    localStorage.removeItem('@EstudaEasy:accessToken');
-    localStorage.removeItem('@EstudaEasy:refreshToken');
-    localStorage.removeItem('@EstudaEasy:token'); 
-
+    localStorage.clear();
     router.push('/login');
   };
 
+  if (loading) return <div className={styles.loading}>Carregando...</div>;
+
   return (
     <div className={styles.container}>
-      <main>
-        <h1>Olá</h1>
-        <p>
-          Parabéns! Você está logado no EstudaEasy.
+      <main className={styles.card}>
+        <h1>Olá, {userData?.name || 'Estudante'}!</h1>
+
+        <p className={styles.welcomeText}>
+          Parabéns! Você está logado no EstudaEasy e aqui estão seus dados cadastrados:
         </p>
 
-        <button 
-          onClick={handleLogout}
-          className={styles.button}
-        >
+        <div className={styles.profileInfo}>
+          <p><strong>Email:</strong> {userData?.email}</p>
+          <p><strong>Telefone:</strong> {userData?.phoneNumber || 'Não informado'}</p>
+          <p><strong>Data de Nascimento:</strong> {userData?.birthdate ? new Date(userData.birthdate).toLocaleDateString('pt-BR') : 'Não informada'}</p>
+        </div>
+
+        <button onClick={handleLogout} className={styles.button}>
           Sair da conta
         </button>
       </main>

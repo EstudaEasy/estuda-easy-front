@@ -5,9 +5,10 @@ import styles from './styles.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { api } from '@/services/api';
 import { Input } from '@/components/FormInput/page';
 import { Button } from '@/components/Button/page';
+import UserService from '@/services/UserService';
+import { jwtDecode } from 'jwt-decode';
 
 import GoogleIcon from '@/assets/_Google.png';
 import EyeIcon from '@/assets/eyeicon.png';
@@ -20,26 +21,27 @@ export default function LoginPage() {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-
     try {
-      const response = await api.post('/auth/login', {
-        email,
-        password,
-      });
+      const response = await UserService.login({ email, password });
+      const { accessToken } = response.data;
 
-      if (response.data && response.data.accessToken) {
-        localStorage.setItem('@EstudaEasy:accessToken', response.data.accessToken);
-        localStorage.setItem('@EstudaEasy:refreshToken', response.data.refreshToken);
+      if (accessToken) {
+        localStorage.setItem('@EstudaEasy:accessToken', accessToken);
+        
+        const decoded: any = jwtDecode(accessToken);
+        const userId = decoded.user?.id; 
 
-        alert('Login realizado com sucesso!');
-
-        router.push('/dashboard'); 
-      } else {
-        alert("Erro: Token não recebido.");
+        if (userId) {
+          localStorage.setItem('@EstudaEasy:userId', String(userId));
+          alert('Login realizado com sucesso!');
+          router.push('/dashboard');
+        } else {
+          console.error("ID não encontrado dentro de decoded.user:", decoded.user);
+          alert("Erro ao identificar o ID do usuário.");
+        }
       }
     } catch (error: any) {
-      const message = error.response?.data?.message || 'E-mail ou senha inválidos';
-      alert(message);
+      alert("Erro no login");
     }
   };
 
