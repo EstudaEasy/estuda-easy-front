@@ -1,0 +1,33 @@
+.input {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  outline: none;
+  color: #3B4054;
+}
+
+.input::placeholder {
+  color: #A8A8A8;
+}
+
+.input:focus {
+  border-color: #3461FD;
+  background-color: white;
+}
+
+.inputWrapper {
+  position: relative;
+}
+
+.eyeIcon {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  opacity: 1;
+}
