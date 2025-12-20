@@ -122,7 +122,7 @@ export default function RegisterPage() {
         </form>
 
         <p className={styles.createAccount}>
-          Já tem uma conta? <Link href="/login" className={styles.link}>entre agora!</Link>
+          Já tem uma conta? <Link href="/login" className={styles.link}>Entre agora!</Link>
         </p>
       </main>
     </div>

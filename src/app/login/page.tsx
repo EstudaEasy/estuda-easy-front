@@ -87,7 +87,7 @@ export default function LoginPage() {
         </form>
 
         <p className={styles.createAccount}>
-          Ainda não tem uma conta? <Link href="/register" className={styles.link}>crie agora!</Link>
+          Ainda não tem uma conta? <Link href="/register" className={styles.link}>Crie agora!</Link>
         </p>
       </main>
     </div>
