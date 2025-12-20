@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from '@/components/FormInput/styles.module.css';
 import Image, { StaticImageData } from 'next/image';
 
@@ -11,6 +11,10 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 
 export function Input({ icon, onIconClick, type, ...props }: InputProps) {
   const [inputType, setInputType] = useState(type);
+
+  useEffect(() => {
+    setInputType(type);
+  }, [type]);
 
   const handleFocus = () => {
     if (type === 'date') setInputType('date');
