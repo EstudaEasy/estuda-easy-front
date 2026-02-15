@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import UserService from '@/services/UserService';
 import { Input } from '@/components/FormInput/page';
 import { Button } from '@/components/Button/page';
+import { PhoneInput } from '@/components/PhoneInput/page';
 
 import GoogleIcon from '@/assets/_Google.png';
 import EyeIcon from '@/assets/eyeicon.png';
@@ -34,11 +35,13 @@ export default function RegisterPage() {
     try {
       const formattedBirthDate = birthDate ? new Date(birthDate).toISOString() : null;
 
+      const formattedPhone = phoneNumber.replace(/[()]/g, '');
+
       await UserService.registerUser({
         name,
         email,
         password,
-        phoneNumber,
+        phoneNumber: formattedPhone,
         birthdate: birthDate,
       });
 
@@ -84,11 +87,9 @@ export default function RegisterPage() {
             required
           />
 
-          <Input 
-            type="text" 
-            placeholder="Telefone"
+          <PhoneInput
             value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
+            onChange={setPhoneNumber}
             required
           />
 
