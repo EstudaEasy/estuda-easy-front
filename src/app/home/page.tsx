@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import styles from './styles.module.css';
 import UserService from '@/services/UserService';
+import Sidebar from '@/components/Sidebar/sidebar';
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -40,31 +41,22 @@ export default function DashboardPage() {
     loadUserProfile();
     }, [router]);
 
-  const handleLogout = () => {
-    localStorage.clear();
-    router.push('/login');
-  };
-
   if (loading) return <div className={styles.loading}>Carregando...</div>;
 
   return (
     <div className={styles.container}>
+      <div className={styles.sidebar}>
+        <Sidebar></Sidebar>
+      </div>
       <main className={styles.card}>
-        <h1>Olá, {userData?.name || 'Estudante'}!</h1>
+        <h1 className={styles.estudante}>
+          Olá, {userData?.name || 'Estudante'}!
+        </h1>
 
-        <p className={styles.welcomeText}>
-          Parabéns! Você está logado no EstudaEasy e aqui estão seus dados cadastrados:
-        </p>
+        <h1 className={styles.welcomeText}>
+         Bem-vindo de Volta!
+        </h1>
 
-        <div className={styles.profileInfo}>
-          <p><strong>Email:</strong> {userData?.email}</p>
-          <p><strong>Telefone:</strong> {userData?.phoneNumber || 'Não informado'}</p>
-          <p><strong>Data de Nascimento:</strong> {userData?.birthdate ? new Date(userData.birthdate).toLocaleDateString('pt-BR') : 'Não informada'}</p>
-        </div>
-
-        <button onClick={handleLogout} className={styles.button}>
-          Sair da conta
-        </button>
       </main>
     </div>
   );

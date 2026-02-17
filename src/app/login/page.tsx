@@ -34,7 +34,7 @@ export default function LoginPage() {
         if (userId) {
           localStorage.setItem('@EstudaEasy:userId', String(userId));
           alert('Login realizado com sucesso!');
-          router.push('/dashboard');
+          router.push('/home');
         } else {
           console.error("ID não encontrado dentro de decoded.user:", decoded.user);
           alert("Erro ao identificar o ID do usuário.");
