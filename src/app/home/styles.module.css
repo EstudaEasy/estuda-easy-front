@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  min-height: 100vh;
+  background-color: #F9FAFB;
+}
+
+.card {
+  flex: 1;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+}
+
+.estudante{
+  font-weight: bold;
+  font-size: 40px;
+  color: rgb(0, 0, 0);
+}
+
+.welcomeText{
+  margin-bottom: auto;
+  color: #6A7282;
+}
+
+.sidebar{
+  width: 300px;
+}
