@@ -1,41 +1,41 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import styles from './styles.module.css';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import UserService from '@/services/UserService';
-import { Input } from '@/components/FormInput/page';
-import { Button } from '@/components/Button/page';
-import { PhoneInput } from '@/components/PhoneInput/page';
+import { useState } from "react";
+import styles from "./styles.module.css";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import UserService from "@/services/UserService";
+import { Input } from "@/components/FormInput/page";
+import { Button } from "@/components/Button/page";
+import { PhoneInput } from "@/components/PhoneInput/page";
 
-import GoogleIcon from '@/assets/_Google.png';
-import EyeIcon from '@/assets/eyeicon.png';
+import GoogleIcon from "@/assets/_Google.png";
+import EyeIcon from "@/assets/eyeicon.png";
 
 export default function RegisterPage() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [birthDate, setBirthDate] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [birthDate, setBirthDate] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  
+
   const router = useRouter();
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      alert('As senhas não coincidem!');
+      alert("As senhas não coincidem!");
       return;
     }
 
     try {
       const formattedBirthDate = birthDate ? new Date(birthDate).toISOString() : null;
 
-      const formattedPhone = phoneNumber.replace(/[()]/g, '');
+      const formattedPhone = phoneNumber.replace(/[()]/g, "");
 
       await UserService.registerUser({
         name,
@@ -45,10 +45,10 @@ export default function RegisterPage() {
         birthdate: birthDate,
       });
 
-      alert('Conta criada com sucesso!');
-      router.push('/login');
+      alert("Conta criada com sucesso!");
+      router.push("/login");
     } catch (error: any) {
-      const message = error.response?.data?.message || 'Erro ao criar conta.';
+      const message = error.response?.data?.message || "Erro ao criar conta.";
       alert(message);
     }
   };
@@ -57,9 +57,7 @@ export default function RegisterPage() {
     <div className={styles.container}>
       <main className={styles.card}>
         <h1 className={styles.title}>Crie sua Conta</h1>
-        <p className={styles.text}>
-          Registe-se para começar a organizar os seus estudos.
-        </p>
+        <p className={styles.text}>Registe-se para começar a organizar os seus estudos.</p>
 
         <button type="button" className={styles.googleButton}>
           <Image src={GoogleIcon} alt="Google" width={22} />
@@ -71,38 +69,34 @@ export default function RegisterPage() {
         </div>
 
         <form className={styles.form} onSubmit={handleRegister}>
-          <Input 
-            type="text" 
+          <Input
+            type="text"
             placeholder="Nome Completo"
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
           />
 
-          <Input 
-            type="email" 
+          <Input
+            type="email"
             placeholder="exemplo@gmail.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
 
-          <PhoneInput
-            value={phoneNumber}
-            onChange={setPhoneNumber}
-            required
-          />
+          <PhoneInput value={phoneNumber} onChange={setPhoneNumber} required />
 
-          <Input 
-            type="date" 
+          <Input
+            type="date"
             placeholder="Data de Nascimento"
             value={birthDate}
             onChange={(e) => setBirthDate(e.target.value)}
             required
           />
-          
-          <Input 
-            type={showPassword ? "text" : "password"} 
+
+          <Input
+            type={showPassword ? "text" : "password"}
             placeholder="Senha"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -111,8 +105,8 @@ export default function RegisterPage() {
             required
           />
 
-          <Input 
-            type="password" 
+          <Input
+            type="password"
             placeholder="Confirmar Senha"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
@@ -123,7 +117,10 @@ export default function RegisterPage() {
         </form>
 
         <p className={styles.createAccount}>
-          Já tem uma conta? <Link href="/login" className={styles.link}>Entre agora!</Link>
+          Já tem uma conta?{" "}
+          <Link href="/login" className={styles.link}>
+            Entre agora!
+          </Link>
         </p>
       </main>
     </div>

@@ -1,21 +1,11 @@
-'use client'
+"use client";
 
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import styles from './styles.module.css';
-import UserService from '@/services/UserService';
+import styles from "./styles.module.css";
 
-import { 
-    LuHouse,
-    LuLayoutGrid, 
-    LuSparkles, 
-    LuUsers,
-    LuUser
-  } from 'react-icons/lu';
+import { LuHouse, LuLayoutGrid, LuSparkles, LuUsers, LuUser } from "react-icons/lu";
 export default function Item() {
   return (
     <div className={styles.items}>
-      
       <div className={styles.item}>
         <LuHouse />
         <span>Início</span>
@@ -32,7 +22,7 @@ export default function Item() {
       </div>
 
       <div className={styles.item}>
-        <LuUsers/>
+        <LuUsers />
         <span>Grupos</span>
       </div>
 

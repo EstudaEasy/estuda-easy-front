@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import styles from './styles.module.css';
-import UserService from '@/services/UserService';
-import Sidebar from '@/components/Sidebar/sidebar';
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import styles from "./styles.module.css";
+import UserService from "@/services/UserService";
+import Sidebar from "@/components/Sidebar/sidebar";
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -12,34 +12,34 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem('@EstudaEasy:accessToken'); 
-    const userId = localStorage.getItem('@EstudaEasy:userId');
+    const token = localStorage.getItem("@EstudaEasy:accessToken");
+    const userId = localStorage.getItem("@EstudaEasy:userId");
 
-  if (!token || !userId || userId === "undefined") {
+    if (!token || !userId || userId === "undefined") {
       console.log("Acesso negado, redirecionando...");
-      router.push('/login');
+      router.push("/login");
       return;
-  }
+    }
 
     if (!token || !userId) {
-        console.log("Acesso negado, redirecionando...");
-        router.push('/login');
-        return;
+      console.log("Acesso negado, redirecionando...");
+      router.push("/login");
+      return;
     }
 
     async function loadUserProfile() {
-        try {
-            const response = await UserService.getById(userId as string);
-            setUserData(response.data); 
-        } catch (error) {
-            console.error("Erro na API:", error);
-        } finally {
-            setLoading(false);
-        }
+      try {
+        const response = await UserService.getById(userId as string);
+        setUserData(response.data);
+      } catch (error) {
+        console.error("Erro na API:", error);
+      } finally {
+        setLoading(false);
+      }
     }
 
     loadUserProfile();
-    }, [router]);
+  }, [router]);
 
   if (loading) return <div className={styles.loading}>Carregando...</div>;
 
@@ -49,14 +49,9 @@ export default function DashboardPage() {
         <Sidebar></Sidebar>
       </div>
       <main className={styles.card}>
-        <h1 className={styles.estudante}>
-          Olá, {userData?.name || 'Estudante'}!
-        </h1>
+        <h1 className={styles.estudante}>Olá, {userData?.name || "Estudante"}!</h1>
 
-        <h1 className={styles.welcomeText}>
-         Bem-vindo de Volta!
-        </h1>
-
+        <h1 className={styles.welcomeText}>Bem-vindo de Volta!</h1>
       </main>
     </div>
   );

@@ -1,12 +1,12 @@
-import { api } from './api';
+import { api } from "./api";
 
 const UserService = {
   login(data: any) {
-    return api.post('/auth/login', data);
+    return api.post("/auth/login", data);
   },
 
   registerUser(user: any) {
-    return api.post('/users', user);
+    return api.post("/users", user);
   },
 
   getById(id: string) {
@@ -19,7 +19,7 @@ const UserService = {
 
   deleteUser(id: string) {
     return api.delete(`/users/${id}`);
-  }
+  },
 };
 
 export default UserService;

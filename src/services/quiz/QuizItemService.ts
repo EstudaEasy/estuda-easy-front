@@ -1,5 +1,10 @@
-import { api } from '../api';
-import { CreateQuizItemDTO, UpdateQuizItemDTO, QuizItemResponse, QuizItemListResponse  } from '@/types/quiz';
+import { api } from "../api";
+import {
+  CreateQuizItemDTO,
+  UpdateQuizItemDTO,
+  QuizItemResponse,
+  QuizItemListResponse,
+} from "@/types/quiz";
 
 const QuizItemService = {
   create(quizId: string, data: CreateQuizItemDTO) {
@@ -20,7 +25,7 @@ const QuizItemService = {
 
   delete(quizId: string, quizItemId: number) {
     return api.delete(`/quizzes/${quizId}/items/${quizItemId}`);
-  }
+  },
 };
 
 export default QuizItemService;

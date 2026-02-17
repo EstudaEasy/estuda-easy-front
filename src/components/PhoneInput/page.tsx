@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useIMask } from 'react-imask';
-import styles from '@/components/FormInput/styles.module.css';
+import { useIMask } from "react-imask";
+import styles from "@/components/FormInput/styles.module.css";
 
 interface PhoneInputProps {
   value: string;
@@ -12,13 +12,13 @@ interface PhoneInputProps {
 export function PhoneInput({ value, onChange, required = false }: PhoneInputProps) {
   const { ref } = useIMask(
     {
-      mask: '+55 (00) 00000-0000',
+      mask: "+55 (00) 00000-0000",
     },
     {
       onAccept: (value) => {
         onChange(value as string);
       },
-    }
+    },
   );
 
   return (

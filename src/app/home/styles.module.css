@@ -1,7 +1,7 @@
 .container {
   display: flex;
   min-height: 100vh;
-  background-color: #F9FAFB;
+  background-color: #f9fafb;
 }
 
 .card {
@@ -11,17 +11,17 @@
   flex-direction: column;
 }
 
-.estudante{
+.estudante {
   font-weight: bold;
   font-size: 40px;
   color: rgb(0, 0, 0);
 }
 
-.welcomeText{
+.welcomeText {
   margin-bottom: auto;
-  color: #6A7282;
+  color: #6a7282;
 }
 
-.sidebar{
+.sidebar {
   width: 300px;
 }

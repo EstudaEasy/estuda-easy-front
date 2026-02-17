@@ -14,14 +14,14 @@
 }
 
 .title {
-  color: #2A4ECA;
+  color: #2a4eca;
   font-size: 2rem;
   font-weight: bold;
   margin-bottom: 10px;
 }
 
 .text {
-  color: #61677D;
+  color: #61677d;
   font-size: 0.9rem;
   margin-bottom: 30px;
   line-height: 1.4;
@@ -39,7 +39,7 @@
   gap: 10px;
   cursor: pointer;
   font-weight: 500;
-  color: #61677D;
+  color: #61677d;
 }
 
 .or {
@@ -60,12 +60,11 @@
   font-size: 0.8rem;
 }
 
-
 .forgotPassword {
   display: block;
   text-align: right;
   font-size: 0.8rem;
-  color: #7C8BA0;
+  color: #7c8ba0;
   text-decoration: none;
   margin-bottom: 20px;
 }
@@ -73,11 +72,11 @@
 .createAccount {
   margin-top: 20px;
   font-size: 0.9rem;
-  color: #3B4054;
+  color: #3b4054;
 }
 
 .link {
-  color: #3461FD;
+  color: #3461fd;
   font-weight: bold;
   text-decoration: none;
 }

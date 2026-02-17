@@ -9,7 +9,7 @@ export interface UpdateQuizDTO {
 }
 
 export interface QuizResponse {
-  id: string;  
+  id: string;
   title: string;
   description?: string;
   items: QuizItemResponse[];
@@ -24,7 +24,7 @@ export interface QuizListResponse {
 
 export interface CreateQuizItemDTO {
   question: string;
-  options: CreateQuizOptionDTO[]; 
+  options: CreateQuizOptionDTO[];
   position: number;
   timeLimit?: number;
   explanation?: string;
@@ -39,10 +39,10 @@ export interface UpdateQuizItemDTO {
 }
 
 export interface QuizItemResponse {
-  id: number; 
-  quizId: string;  
+  id: number;
+  quizId: string;
   question: string;
-  options: QuizOptionResponse[];  
+  options: QuizOptionResponse[];
   position: number;
   timeLimit?: number;
   explanation?: string;
@@ -55,21 +55,21 @@ export interface QuizItemListResponse {
   total: number;
 }
 
-export interface CreateQuizOptionDTO{
+export interface CreateQuizOptionDTO {
   text: string;
   isCorrect: boolean;
   position: number;
 }
 
-export interface UpdateQuizOptionDTO{
+export interface UpdateQuizOptionDTO {
   text: string;
-  isCorrect: boolean;   
+  isCorrect: boolean;
   position: number;
 }
 
 export interface QuizOptionResponse {
-  id: number; 
-  quizItemId: number; 
+  id: number;
+  quizItemId: number;
   text: string;
   isCorrect: boolean;
   position: number;
