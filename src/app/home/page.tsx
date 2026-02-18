@@ -45,7 +45,7 @@ export default function DashboardPage() {
   if (loading) return <div className={styles.loading}>Carregando...</div>;
 
   return (
-    <div className={styles.container}>
+    <div className={styles.containerHome}>
       <div className={styles.sidebar}>
         <Sidebar></Sidebar>
       </div>

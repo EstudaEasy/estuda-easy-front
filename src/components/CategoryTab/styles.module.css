@@ -1,0 +1,25 @@
+.categories {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  padding: 12px;
+}
+
+.category {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 12px;
+  background-color: #f1f5f9;
+  color: #475569;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.category:hover {
+  background-color: #dbeafe;
+  color: #2a4eca;
+  transform: translateY(-2px);
+}
