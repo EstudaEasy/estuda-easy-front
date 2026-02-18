@@ -55,6 +55,97 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  "/decks": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Buscar decks */
+    get: operations["DeckController_find"];
+    put?: never;
+    /** Criar um novo deck */
+    post: operations["DeckController_create"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/decks/shared": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Buscar decks compartilhados com o usuário */
+    get: operations["DeckController_findShared"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/decks/{deckId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Buscar um deck por ID */
+    get: operations["DeckController_findOne"];
+    put?: never;
+    post?: never;
+    /** Deletar um deck */
+    delete: operations["DeckController_delete"];
+    options?: never;
+    head?: never;
+    /** Atualizar um deck */
+    patch: operations["DeckController_update"];
+    trace?: never;
+  };
+  "/decks/{deckId}/flashcards": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Buscar flashcards de um deck */
+    get: operations["FlashcardController_find"];
+    put?: never;
+    /** Criar um novo flashcard */
+    post: operations["FlashcardController_create"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/decks/{deckId}/flashcards/{flashcardId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Buscar um flashcard por ID */
+    get: operations["FlashcardController_findOne"];
+    put?: never;
+    post?: never;
+    /** Deletar um flashcard */
+    delete: operations["FlashcardController_delete"];
+    options?: never;
+    head?: never;
+    /** Atualizar um flashcard */
+    patch: operations["FlashcardController_update"];
+    trace?: never;
+  };
   "/groups": {
     parameters: {
       query?: never;
@@ -109,23 +200,6 @@ export interface paths {
     patch: operations["GroupController_resetInviteCode"];
     trace?: never;
   };
-  "/groups/join": {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    get?: never;
-    put?: never;
-    /** Entrar em um grupo através do código de convite */
-    post: operations["GroupController_join"];
-    delete?: never;
-    options?: never;
-    head?: never;
-    patch?: never;
-    trace?: never;
-  };
   "/groups/{groupId}/members": {
     parameters: {
       query?: never;
@@ -136,7 +210,8 @@ export interface paths {
     /** Buscar membros de um grupo */
     get: operations["GroupMemberController_find"];
     put?: never;
-    post?: never;
+    /** Adicionar membro de grupo através do código de convite */
+    post: operations["GroupMemberController_add"];
     delete?: never;
     options?: never;
     head?: never;
@@ -447,6 +522,152 @@ export interface components {
       /** @description Novo refresh token */
       refreshToken: string;
     };
+    CreateDeckBodyDTO: {
+      /**
+       * @description Nome do deck
+       * @example Vocabulário de Inglês
+       */
+      name: string;
+      /**
+       * @description Descrição do deck
+       * @example Flashcards para estudar vocabulário em inglês
+       */
+      description?: string;
+    };
+    FlashcardResponseDTO: {
+      /**
+       * @description ID único do flashcard
+       * @example 1
+       */
+      id: number;
+      /**
+       * @description ID do deck
+       * @example 550e8400-e29b-41d4-a716-446655440000
+       */
+      deckId: string;
+      /**
+       * @description Frente do flashcard (pergunta)
+       * @example Qual é a capital da França?
+       */
+      front: string;
+      /**
+       * @description Verso do flashcard (resposta)
+       * @example Paris
+       */
+      back: string;
+      /**
+       * @description Posição do flashcard no deck
+       * @example 1
+       */
+      position: number;
+      /**
+       * Format: date-time
+       * @description Data de criação do registro
+       * @example 2024-01-15T10:30:00.000Z
+       */
+      createdAt: string;
+      /**
+       * Format: date-time
+       * @description Data da última atualização do registro
+       * @example 2024-01-15T10:30:00.000Z
+       */
+      updatedAt: string;
+    };
+    DeckResponseDTO: {
+      /**
+       * @description ID único do deck
+       * @example 550e8400-e29b-41d4-a716-446655440000
+       */
+      id: string;
+      /**
+       * @description Nome do deck
+       * @example Vocabulário de Inglês
+       */
+      name: string;
+      /**
+       * @description Descrição do deck
+       * @example Flashcards para estudar vocabulário em inglês
+       */
+      description?: string;
+      /** @description Flashcards do deck */
+      flashcards?: components["schemas"]["FlashcardResponseDTO"][];
+      /**
+       * Format: date-time
+       * @description Data de criação do registro
+       * @example 2024-01-15T10:30:00.000Z
+       */
+      createdAt: string;
+      /**
+       * Format: date-time
+       * @description Data da última atualização do registro
+       * @example 2024-01-15T10:30:00.000Z
+       */
+      updatedAt: string;
+    };
+    FindDeckResponseDTO: {
+      /** @description Lista de decks */
+      decks: components["schemas"]["DeckResponseDTO"][];
+      /**
+       * @description Total de decks encontrados
+       * @example 10
+       */
+      total: number;
+    };
+    UpdateDeckBodyDTO: {
+      /**
+       * @description Nome do deck
+       * @example Vocabulário de Inglês
+       */
+      name?: string;
+      /**
+       * @description Descrição do deck
+       * @example Flashcards para estudar vocabulário em inglês
+       */
+      description?: string;
+    };
+    CreateFlashcardBodyDTO: {
+      /**
+       * @description Frente do flashcard (pergunta)
+       * @example Qual é a capital da França?
+       */
+      front: string;
+      /**
+       * @description Verso do flashcard (resposta)
+       * @example Paris
+       */
+      back: string;
+      /**
+       * @description Posição do flashcard no deck
+       * @example 1
+       */
+      position: number;
+    };
+    FindFlashcardResponseDTO: {
+      /** @description Lista de flashcards */
+      flashcards: components["schemas"]["FlashcardResponseDTO"][];
+      /**
+       * @description Total de flashcards encontrados
+       * @example 10
+       */
+      total: number;
+    };
+    UpdateFlashcardBodyDTO: {
+      /**
+       * @description Frente do flashcard (pergunta)
+       * @example Qual é a capital da França?
+       */
+      front?: string;
+      /**
+       * @description Verso do flashcard (resposta)
+       * @example Paris
+       */
+      back?: string;
+      /**
+       * @description Posição do flashcard no deck
+       * @example 1
+       */
+      position?: number;
+    };
     CreateGroupBodyDTO: {
       /**
        * @description Nome do grupo
@@ -514,7 +735,7 @@ export interface components {
        */
       description?: string;
     };
-    JoinGroupBodyDTO: {
+    AddGroupMemberBodyDTO: {
       /**
        * @description Código de convite do grupo
        * @example ABC12345
@@ -1188,6 +1409,360 @@ export interface operations {
       };
     };
   };
+  DeckController_find: {
+    parameters: {
+      query?: {
+        /** @description ID do deck */
+        id?: string;
+        /** @description Nome do deck */
+        name?: string;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Decks retornados com sucesso */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["FindDeckResponseDTO"];
+        };
+      };
+    };
+  };
+  DeckController_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["CreateDeckBodyDTO"];
+      };
+    };
+    responses: {
+      /** @description Deck criado com sucesso */
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["DeckResponseDTO"];
+        };
+      };
+    };
+  };
+  DeckController_findShared: {
+    parameters: {
+      query?: {
+        /** @description ID do deck */
+        id?: string;
+        /** @description Nome do deck */
+        name?: string;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Decks retornados com sucesso */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["FindDeckResponseDTO"];
+        };
+      };
+    };
+  };
+  DeckController_findOne: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do deck */
+        deckId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Deck encontrado */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["DeckResponseDTO"];
+        };
+      };
+      /** @description Deck não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  DeckController_delete: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do deck */
+        deckId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Deck deletado com sucesso */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Permissões insuficientes para acessar o recurso */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Deck não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  DeckController_update: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do deck */
+        deckId: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["UpdateDeckBodyDTO"];
+      };
+    };
+    responses: {
+      /** @description Deck atualizado com sucesso */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["DeckResponseDTO"];
+        };
+      };
+      /** @description Permissões insuficientes para acessar o recurso */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Deck não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  FlashcardController_find: {
+    parameters: {
+      query?: {
+        /** @description ID do flashcard */
+        id?: number;
+        /** @description Frente do flashcard (pergunta) */
+        front?: string;
+      };
+      header?: never;
+      path: {
+        /** @description ID do deck */
+        deckId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Flashcards retornados com sucesso */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["FindFlashcardResponseDTO"];
+        };
+      };
+    };
+  };
+  FlashcardController_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do deck */
+        deckId: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["CreateFlashcardBodyDTO"];
+      };
+    };
+    responses: {
+      /** @description Flashcard criado com sucesso */
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["FlashcardResponseDTO"];
+        };
+      };
+      /** @description Permissões insuficientes para acessar o recurso */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  FlashcardController_findOne: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do deck */
+        deckId: string;
+        /** @description ID do flashcard */
+        flashcardId: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Flashcard encontrado */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["FlashcardResponseDTO"];
+        };
+      };
+      /** @description Flashcard não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  FlashcardController_delete: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do deck */
+        deckId: string;
+        /** @description ID do flashcard */
+        flashcardId: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Flashcard deletado com sucesso */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Permissões insuficientes para acessar o recurso */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Flashcard não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  FlashcardController_update: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do deck */
+        deckId: string;
+        /** @description ID do flashcard */
+        flashcardId: number;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["UpdateFlashcardBodyDTO"];
+      };
+    };
+    responses: {
+      /** @description Flashcard atualizado com sucesso */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["FlashcardResponseDTO"];
+        };
+      };
+      /** @description Permissões insuficientes para acessar o recurso */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Flashcard não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
   GroupController_find: {
     parameters: {
       query?: {
@@ -1382,44 +1957,6 @@ export interface operations {
       };
     };
   };
-  GroupController_join: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["JoinGroupBodyDTO"];
-      };
-    };
-    responses: {
-      /** @description Entrou no grupo com sucesso */
-      201: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["GroupMemberResponseDTO"];
-        };
-      };
-      /** @description Código de convite inválido */
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-      /** @description Usuário já é membro do grupo */
-      409: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-    };
-  };
   GroupMemberController_find: {
     parameters: {
       query?: {
@@ -1445,6 +1982,44 @@ export interface operations {
         content: {
           "application/json": components["schemas"]["FindGroupMembersResponseDTO"];
         };
+      };
+    };
+  };
+  GroupMemberController_add: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["AddGroupMemberBodyDTO"];
+      };
+    };
+    responses: {
+      /** @description Membro adicionado no grupo com sucesso */
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["GroupMemberResponseDTO"];
+        };
+      };
+      /** @description Código de convite inválido */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Usuário já é membro do grupo */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
       };
     };
   };
