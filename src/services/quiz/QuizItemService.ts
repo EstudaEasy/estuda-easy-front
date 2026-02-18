@@ -11,7 +11,7 @@ const QuizItemService = {
     return api.post<QuizItemResponse>(`/quizzes/${quizId}/items`, data);
   },
 
-  getAll(quizId: string) {
+  list(quizId: string) {
     return api.get<QuizItemsResponse>(`/quizzes/${quizId}/items`);
   },
 

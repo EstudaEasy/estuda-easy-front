@@ -6,7 +6,7 @@ const GroupService = {
     return api.post<GroupResponse>("/groups", data);
   },
 
-  getAll() {
+  list() {
     return api.get<GroupsResponse>("/groups");
   },
 

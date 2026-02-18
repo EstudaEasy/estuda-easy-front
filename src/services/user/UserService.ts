@@ -6,7 +6,7 @@ const UserService = {
     return api.post<UserResponse>("/users", user);
   },
 
-  getAll() {
+  list() {
     return api.get<UsersResponse>("/users");
   },
 

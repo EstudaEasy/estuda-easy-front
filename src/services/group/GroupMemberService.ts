@@ -11,7 +11,7 @@ const GroupMemberService = {
     return api.post<GroupMemberResponse>(`/groups/${groupId}/members`, data);
   },
 
-  getAll(groupId: string) {
+  list(groupId: string) {
     return api.get<GroupMembersResponse>(`/groups/${groupId}/members`);
   },
 

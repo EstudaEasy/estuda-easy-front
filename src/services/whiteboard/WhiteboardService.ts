@@ -11,8 +11,12 @@ const WhiteboardService = {
     return api.post<WhiteboardResponse>("/whiteboards", data);
   },
 
-  getAll() {
+  list() {
     return api.get<WhiteboardsResponse>("/whiteboards");
+  },
+
+  listShared() {
+    return api.get<WhiteboardsResponse>("/whiteboards/shared");
   },
 
   getById(whiteboardId: string) {

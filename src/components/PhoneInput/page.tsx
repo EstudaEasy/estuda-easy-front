@@ -10,13 +10,13 @@ interface PhoneInputProps {
 }
 
 export function PhoneInput({ value, onChange, required = false }: PhoneInputProps) {
-  const { ref } = useIMask(
+  const { ref } = useIMask<HTMLInputElement>(
     {
       mask: "+55 (00) 00000-0000",
     },
     {
       onAccept: (value) => {
-        onChange(value as string);
+        onChange(value);
       },
     },
   );

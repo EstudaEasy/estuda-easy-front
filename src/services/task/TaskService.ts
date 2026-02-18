@@ -6,8 +6,12 @@ const TaskService = {
     return api.post<TaskResponse>("/tasks", data);
   },
 
-  getAll() {
+  list() {
     return api.get<TasksResponse>("/tasks");
+  },
+
+  listShared() {
+    return api.get<TasksResponse>("/tasks/shared");
   },
 
   getById(taskId: string) {

@@ -6,8 +6,12 @@ const QuizService = {
     return api.post<QuizResponse>("/quizzes", data);
   },
 
-  getAll() {
+  list() {
     return api.get<QuizzesResponse>("/quizzes");
+  },
+
+  listShared() {
+    return api.get<QuizzesResponse>("/quizzes/shared");
   },
 
   getById(quizId: string) {
