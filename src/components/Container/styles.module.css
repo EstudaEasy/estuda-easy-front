@@ -1,0 +1,32 @@
+.style {
+  background-color: #ffffff;
+  display: flex;
+  height: 80px;
+  width: 200px;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  border-radius: 15px;
+  border: 1px solid #eef0f4;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.containerIcon {
+  background-color: #3b82f6;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.containerTitle {
+  font-size: 15px;
+  color: #000000;
+  font-family: var(--font-poppins), sans-serif;
+}
+
+.style:hover {
+  border-color: #3b82f6;
+}

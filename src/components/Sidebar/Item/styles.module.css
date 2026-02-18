@@ -1,7 +1,9 @@
 .items {
   display: flex;
   flex-direction: column;
+  gap: 4px;
 }
+
 .item {
   display: flex;
   align-items: center;
@@ -10,15 +12,16 @@
   border-radius: 8px;
   color: #475569;
   cursor: pointer;
+  text-decoration: none;
   transition: all 0.2s;
 }
 
 .active {
   background-color: #eff6ff;
   color: #2563eb;
-  font-weight: 600;
+  font-weight: 400;
 }
 
-.item:hover {
+.item:hover:not(.active) {
   background-color: #f1f5f9;
 }
