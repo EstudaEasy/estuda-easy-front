@@ -5,7 +5,7 @@ import styles from "./styles.module.css";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import UserService from "@/services/UserService";
+import UserService from "@/services/user/UserService";
 import { Input } from "@/components/FormInput/page";
 import { Button } from "@/components/Button/page";
 import { PhoneInput } from "@/components/PhoneInput/page";
@@ -37,7 +37,7 @@ export default function RegisterPage() {
 
       const formattedPhone = phoneNumber.replace(/[()]/g, "");
 
-      await UserService.registerUser({
+      await UserService.createUser({
         name,
         email,
         password,

@@ -3,12 +3,13 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import styles from "./styles.module.css";
-import UserService from "@/services/UserService";
+import UserService from "@/services/user/UserService";
 import Item from "./Item/item";
+import { User } from "@/types";
 
 export default function Sidebar() {
   const router = useRouter();
-  const [userData, setUserData] = useState<any>(null);
+  const [userData, setUserData] = useState<User>();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

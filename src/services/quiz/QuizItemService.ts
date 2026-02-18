@@ -1,30 +1,30 @@
 import { api } from "../api";
 import {
-  CreateQuizItemDTO,
-  UpdateQuizItemDTO,
+  QuizItemsResponse,
   QuizItemResponse,
-  QuizItemListResponse,
-} from "@/types/quiz";
+  CreateQuizItemRequest,
+  UpdateQuizItemRequest,
+} from "@/types";
 
 const QuizItemService = {
-  create(quizId: string, data: CreateQuizItemDTO) {
+  create(quizId: string, data: CreateQuizItemRequest) {
     return api.post<QuizItemResponse>(`/quizzes/${quizId}/items`, data);
   },
 
   getAll(quizId: string) {
-    return api.get<QuizItemListResponse>(`/quizzes/${quizId}/items`);
+    return api.get<QuizItemsResponse>(`/quizzes/${quizId}/items`);
   },
 
   getById(quizId: string, quizItemId: number) {
     return api.get<QuizItemResponse>(`/quizzes/${quizId}/items/${quizItemId}`);
   },
 
-  update(quizId: string, quizItemId: number, data: UpdateQuizItemDTO) {
+  update(quizId: string, quizItemId: number, data: UpdateQuizItemRequest) {
     return api.patch<QuizItemResponse>(`/quizzes/${quizId}/items/${quizItemId}`, data);
   },
 
   delete(quizId: string, quizItemId: number) {
-    return api.delete(`/quizzes/${quizId}/items/${quizItemId}`);
+    return api.delete<void>(`/quizzes/${quizId}/items/${quizItemId}`);
   },
 };
 

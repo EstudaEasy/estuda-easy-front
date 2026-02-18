@@ -1,25 +1,25 @@
 import { api } from "../api";
-import { CreateQuizDTO, UpdateQuizDTO, QuizResponse, QuizListResponse } from "@/types/quiz";
+import { CreateQuizRequest, QuizzesResponse, UpdateQuizRequest, QuizResponse } from "@/types";
 
 const QuizService = {
-  create(data: CreateQuizDTO) {
+  create(data: CreateQuizRequest) {
     return api.post<QuizResponse>("/quizzes", data);
   },
 
   getAll() {
-    return api.get<QuizListResponse>("/quizzes");
+    return api.get<QuizzesResponse>("/quizzes");
   },
 
-  getById(id: string) {
-    return api.get<QuizResponse>(`/quizzes/${id}`);
+  getById(quizId: string) {
+    return api.get<QuizResponse>(`/quizzes/${quizId}`);
   },
 
-  update(id: string, data: UpdateQuizDTO) {
-    return api.patch<QuizResponse>(`/quizzes/${id}`, data);
+  update(quizId: string, data: UpdateQuizRequest) {
+    return api.patch<QuizResponse>(`/quizzes/${quizId}`, data);
   },
 
-  delete(id: string) {
-    return api.delete(`/quizzes/${id}`);
+  delete(quizId: string) {
+    return api.delete<void>(`/quizzes/${quizId}`);
   },
 };
 

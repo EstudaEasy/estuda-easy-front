@@ -7,11 +7,12 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/FormInput/page";
 import { Button } from "@/components/Button/page";
-import UserService from "@/services/UserService";
+import AuthService from "@/services/auth/AuthService";
 import { jwtDecode } from "jwt-decode";
 
 import GoogleIcon from "@/assets/_Google.png";
 import EyeIcon from "@/assets/eyeicon.png";
+import { AccessTokenPayload } from "@/types";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -22,13 +23,13 @@ export default function LoginPage() {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await UserService.login({ email, password });
+      const response = await AuthService.login({ email, password });
       const { accessToken } = response.data;
 
       if (accessToken) {
         localStorage.setItem("@EstudaEasy:accessToken", accessToken);
 
-        const decoded: any = jwtDecode(accessToken);
+        const decoded: AccessTokenPayload = jwtDecode(accessToken);
         const userId = decoded.user?.id;
 
         if (userId) {
