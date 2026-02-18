@@ -1,76 +1,18 @@
-export interface CreateQuizDTO {
-  title: string;
-  description?: string;
-}
+import { components } from "./api";
 
-export interface UpdateQuizDTO {
-  title?: string;
-  description?: string;
-}
+export type Quiz = QuizResponse;
+export type QuizResponse = components["schemas"]["QuizResponseDTO"];
+export type QuizzesResponse = components["schemas"]["FindQuizResponseDTO"];
+export type CreateQuizRequest = components["schemas"]["CreateQuizBodyDTO"];
+export type UpdateQuizRequest = components["schemas"]["UpdateQuizBodyDTO"];
 
-export interface QuizResponse {
-  id: string;
-  title: string;
-  description?: string;
-  items: QuizItemResponse[];
-  createdAt: string;
-  updatedAt: string;
-}
+export type QuizItem = QuizItemResponse;
+export type QuizItemResponse = components["schemas"]["QuizItemResponseDTO"];
+export type QuizItemsResponse = components["schemas"]["FindQuizItemResponseDTO"];
+export type CreateQuizItemRequest = components["schemas"]["CreateQuizItemBodyDTO"];
+export type UpdateQuizItemRequest = components["schemas"]["UpdateQuizItemBodyDTO"];
 
-export interface QuizListResponse {
-  quizzes: QuizResponse[];
-  total: number;
-}
-
-export interface CreateQuizItemDTO {
-  question: string;
-  options: CreateQuizOptionDTO[];
-  position: number;
-  timeLimit?: number;
-  explanation?: string;
-}
-
-export interface UpdateQuizItemDTO {
-  question?: string;
-  position?: number;
-  timeLimit?: number;
-  explanation?: string;
-  options?: QuizOptionResponse[];
-}
-
-export interface QuizItemResponse {
-  id: number;
-  quizId: string;
-  question: string;
-  options: QuizOptionResponse[];
-  position: number;
-  timeLimit?: number;
-  explanation?: string;
-  createdAt: string;
-  updatedAt: string;
-}
-
-export interface QuizItemListResponse {
-  quizItems: QuizItemResponse[];
-  total: number;
-}
-
-export interface CreateQuizOptionDTO {
-  text: string;
-  isCorrect: boolean;
-  position: number;
-}
-
-export interface UpdateQuizOptionDTO {
-  text: string;
-  isCorrect: boolean;
-  position: number;
-}
-
-export interface QuizOptionResponse {
-  id: number;
-  quizItemId: number;
-  text: string;
-  isCorrect: boolean;
-  position: number;
-}
+export type QuizOption = QuizOptionResponse;
+export type QuizOptionResponse = components["schemas"]["QuizOptionResponseDTO"];
+export type CreateQuizOptionRequest = components["schemas"]["CreateQuizOptionDTO"];
+export type UpdateQuizOptionRequest = components["schemas"]["UpdateQuizOptionDTO"];
