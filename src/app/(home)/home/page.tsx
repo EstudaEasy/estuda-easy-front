@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import styles from "./styles.module.css";
 import UserService from "@/services/user/UserService";
-import Sidebar from "@/components/Sidebar/sidebar";
 import { User } from "@/types";
 
 import DashboardSection from "@/components/feature/dashboard/sections/DashboardSection";
@@ -50,9 +49,6 @@ export default function DashboardPage() {
 
   return (
     <div className={styles.containerHome}>
-      <aside className={styles.sidebar}>
-        <Sidebar></Sidebar>
-      </aside>
       <main className={styles.card}>
         <header className="mb-4">
           <div className="flex items-center justify-between">
