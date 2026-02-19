@@ -1,7 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode } from "react";
 import styles from "./styles.module.css";
 import Link from "next/link";
 import { Poppins } from "next/font/google";

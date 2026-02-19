@@ -1,21 +1,26 @@
 "use client";
 
 import styles from "./styles.module.css";
-import Container from "@/components/Container/container";
-import { LuGlobe } from "react-icons/lu";
 import CategoryTab from "@/components/CategoryTab/categoryTab";
+import ViewFlashcards from "@/components/ViewFlashcards/viewFlashcards";
+import { useState } from "react";
 
 export default function Tools() {
+  const [activeTab, setActiveTab] = useState("flashcards");
+
   return (
-    <div>
+    <div className={styles.containerTools}>
       <div className={styles.containerManagement}>
         <div className={styles.Categories}>
-          <CategoryTab></CategoryTab>
+          <CategoryTab activeTab={activeTab} setActiveTab={setActiveTab} />
         </div>
+
         <main className={styles.tools}>
-          <Container href="/home" title="Geografia" icon={<LuGlobe size={30} />} />
-          <Container href="/home" title="Geografia" icon={<LuGlobe size={30} />} />
-          <Container href="/home" title="Geografia" icon={<LuGlobe size={30} />} />
+          {activeTab === "quiz" && <div></div>}
+
+          {activeTab === "tarefas" && <div></div>}
+
+          {activeTab === "flashcards" && <ViewFlashcards />}
         </main>
       </div>
     </div>

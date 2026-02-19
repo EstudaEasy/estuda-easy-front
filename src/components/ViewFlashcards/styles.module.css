@@ -1,0 +1,91 @@
+.decksContainer,
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  width: 100%;
+  max-width: 900px;
+  padding-top: 20px;
+}
+
+.deckWrapper {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  display: flex;
+  justify-content: center;
+}
+
+.flashcardArea {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 900px;
+  align-items: flex-start;
+}
+
+.backButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  color: #3b82f6;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 20px;
+  transition: color 0.2s ease;
+}
+
+.backButton:hover {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+.deckTitle {
+  font-size: 24px;
+  color: #1e293b;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.flashcard {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 15px;
+  padding: 24px;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #000000;
+}
+
+.flashcard:hover {
+  border-color: #3b82f6;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+}
+
+.flashcard p {
+  color: #475569;
+  font-size: 16px;
+  margin: 8px 0;
+}
+
+.flashcard strong {
+  color: #1e293b;
+}
+
+.cardFront {
+  color: #2563eb;
+}
+
+.cardBack {
+  color: aquamarine;
+}
