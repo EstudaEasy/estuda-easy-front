@@ -48,27 +48,25 @@ export default function DashboardPage() {
   if (loading) return <div className={styles.loading}>Carregando...</div>;
 
   return (
-    <div className={styles.containerHome}>
-      <main className={styles.card}>
-        <header className="mb-4">
-          <div className="flex items-center justify-between">
-            <div className="flex flex-col items-start">
-              <h1 className={styles.estudante}>Olá, {userData?.name || "Estudante"}!</h1>
-              <h1 className={styles.welcomeText}>Bem-vindo de Volta!</h1>
-            </div>
-
-            <div className="flex items-center gap-4">
-              <button className="flex items-center justify-center text-center bg-primary-dark text-white rounded-full w-12 h-12">
-                <span className="text-heading-1">{userData?.name[0]}</span>
-              </button>
-            </div>
+    <main>
+      <header className="mb-4">
+        <div className="flex items-center justify-between">
+          <div className="flex flex-col items-start">
+            <h1 className={styles.estudante}>Olá, {userData?.name || "Estudante"}!</h1>
+            <h1 className={styles.welcomeText}>Bem-vindo de Volta!</h1>
           </div>
-        </header>
 
-        <DashboardSection />
-        <ActivitySection />
-        <QuickAccessSection />
-      </main>
-    </div>
+          <div className="flex items-center gap-4">
+            <button className="flex items-center justify-center text-center bg-primary-dark text-white rounded-full w-12 h-12">
+              <span className="text-heading-1">{userData?.name[0]}</span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <DashboardSection />
+      <ActivitySection />
+      <QuickAccessSection />
+    </main>
   );
 }
