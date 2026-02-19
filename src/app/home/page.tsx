@@ -49,7 +49,7 @@ export default function DashboardPage() {
   if (loading) return <div className={styles.loading}>Carregando...</div>;
 
   return (
-    <div className={styles.container}>
+    <div className={styles.containerHome}>
       <aside className={styles.sidebar}>
         <Sidebar></Sidebar>
       </aside>
