@@ -7,6 +7,10 @@ import UserService from "@/services/user/UserService";
 import Sidebar from "@/components/Sidebar/sidebar";
 import { User } from "@/types";
 
+import DashboardSection from "@/components/feature/dashboard/sections/DashboardSection";
+import ActivitySection from "@/components/feature/dashboard/sections/ActivitySection";
+import QuickAccessSection from "@/components/feature/dashboard/sections/QuickAccessSection";
+
 export default function DashboardPage() {
   const router = useRouter();
   const [userData, setUserData] = useState<User>();
@@ -46,13 +50,28 @@ export default function DashboardPage() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.sidebar}>
+      <aside className={styles.sidebar}>
         <Sidebar></Sidebar>
-      </div>
+      </aside>
       <main className={styles.card}>
-        <h1 className={styles.estudante}>Olá, {userData?.name || "Estudante"}!</h1>
+        <header className="mb-4">
+          <div className="flex items-center justify-between">
+            <div className="flex flex-col items-start">
+              <h1 className={styles.estudante}>Olá, {userData?.name || "Estudante"}!</h1>
+              <h1 className={styles.welcomeText}>Bem-vindo de Volta!</h1>
+            </div>
 
-        <h1 className={styles.welcomeText}>Bem-vindo de Volta!</h1>
+            <div className="flex items-center gap-4">
+              <button className="flex items-center justify-center text-center bg-primary-dark text-white rounded-full w-12 h-12">
+                <span className="text-heading-1">{userData?.name[0]}</span>
+              </button>
+            </div>
+          </div>
+        </header>
+
+        <DashboardSection />
+        <ActivitySection />
+        <QuickAccessSection />
       </main>
     </div>
   );

@@ -1,26 +1,93 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f9fafb;
+  --emphasis: #ff6900;
+  --foreground: #ffffff;
+  --card-background: #eff6ff;
+  --primary-dark: #2a4eca;
+  --primary: #2b7fff;
+  --primary-hover: #eff6ff;
+  --red: #fb2c36;
+  --green: #00c950;
+  --purple: #ad46ff;
+  --red-opacity: #ffeded;
+  --green-opacity: #dcfce7;
+  --purple-opacity: #f3e8ff;
+  --muted: #6a7262;
+  --washed-blue: #06b6d4;
+  --washed-blue-opacity: #cefafe;
+  --primary-background: #c9eaff;
+
+  --heading-1: 2.25rem;
+  --heading-2: 1.875rem;
+  --heading-3: 1.5rem;
+  --heading-4: 1.25rem;
+  --heading-5: 1.125rem;
+  --heading-6: 1rem;
+
+  --caption: 0.875rem;
+  --body: 1rem;
+  --small: 0.75rem;
 }
 
-@theme inline {
+@theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-emphasis: var(--emphasis);
+  --color-primary: var(--primary);
+  --color-primary-dark: var(--primary-dark);
+  --color-primary-hover: var(--primary-hover);
+  --color-muted: var(--muted);
+  --color-card-background: var(--card-background);
+  --color-red: var(--red);
+  --color-green: var(--green);
+  --color-purple: var(--purple);
+  --color-red-opacity: var(--red-opacity);
+  --color-green-opacity: var(--green-opacity);
+  --color-purple-opacity: var(--purple-opacity);
+  --color-washed-blue: var(--washed-blue);
+  --color-washed-blue-opacity: var(--washed-blue-opacity);
+  --color-primary-background: var(--primary-background);
+  --font-roboto: var(--font-roboto);
+
+  --font-size-heading-1: var(--heading-1);
+  --font-size-heading-2: var(--heading-2);
+  --font-size-heading-3: var(--heading-3);
+  --font-size-heading-4: var(--heading-4);
+  --font-size-heading-5: var(--heading-5);
+  --font-size-heading-6: var(--heading-6);
+  --font-size-caption: var(--caption);
+  --font-size-body: var(--body);
+  --font-size-small: var(--small);
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --emphasis: #ff8533;
+    --card-background: #1a1a1a;
+    --primary: #5b9fff;
+    --primary-hover: #1e3a5f;
+    --muted: #9ca3af;
   }
-}
+} */
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-roboto);
+}
+
+section[data-section-open="false"] .section-content {
+  max-height: 0;
+  opacity: 0;
+  margin-top: 0;
+  pointer-events: none;
+}
+
+section[data-section-open="true"] .section-content {
+  max-height: 100vh;
+  opacity: 1;
 }
