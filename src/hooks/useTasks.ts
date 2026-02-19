@@ -12,9 +12,13 @@ export function useTasks() {
     try {
       setLoading(true);
       const response = await TaskService.list();
-      setAllTasks(Array.isArray(response) ? response : []);
+
+      const data = response.data?.tasks || (Array.isArray(response.data) ? response.data : []);
+
+      setAllTasks(data);
     } catch (error) {
       console.error("Erro ao buscar tarefas:", error);
+      setAllTasks([]);
     } finally {
       setLoading(false);
     }
@@ -27,7 +31,10 @@ export function useTasks() {
   const filteredTasks = useMemo(() => {
     return allTasks.filter((task) => {
       if (!task.startDate) return false;
-      return isSameDay(parseISO(task.startDate), selectedDate);
+
+      const taskDate = parseISO(task.startDate);
+
+      return isSameDay(taskDate, selectedDate);
     });
   }, [allTasks, selectedDate]);
 

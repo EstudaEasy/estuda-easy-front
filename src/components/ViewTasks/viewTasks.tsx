@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react"; //
+import { useState } from "react";
 import { Typography } from "@/components/base/Typography";
 import { useTasks } from "@/hooks/useTasks";
 import { format, addMonths, subMonths, addDays, subDays, isSameDay, startOfMonth } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import { TaskCard } from "../../../../components/TaskCard";
+import { TaskCard } from "./components/TaskCard";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { CreateTaskModal } from "./components/CreateTaskModal";
 
@@ -94,7 +94,7 @@ export default function Tasks() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {tasks.map((task) => (
-            <TaskCard key={task.id} task={task} />
+            <TaskCard key={task.id} task={task} onRefresh={refreshTasks} />
           ))}
         </div>
       </div>

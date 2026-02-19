@@ -30,7 +30,7 @@ export function CreateTaskModal({ selectedDate, onSuccess, onClose }: Props) {
       const endDate = setMinutes(setHours(selectedDate, endH), endM).toISOString();
 
       await TaskService.create({
-        name: data.name, // O back-end espera 'name' como título
+        name: data.name,
         description: data.description,
         startDate,
         endDate,
@@ -54,35 +54,32 @@ export function CreateTaskModal({ selectedDate, onSuccess, onClose }: Props) {
         <h2 className="text-2xl font-bold text-[#1A2E5A] mb-6">Criar Nova Tarefa</h2>
 
         <div className="space-y-5">
-          {/* Campo de Título */}
           <div className="flex flex-col gap-1.5">
             <label className="text-sm font-bold text-gray-700 ml-1">Título da Tarefa</label>
             <input
               {...register("name")}
               placeholder="Ex: Estudar Álgebra"
-              className="w-full border border-gray-200 p-3.5 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all bg-gray-50/50"
+              className="w-full border border-gray-200 p-3 rounded-xl text-gray-900 focus:border-blue-500 outline-none bg-gray-50"
             />
             {errors.name && <p className="text-red-500 text-xs mt-1 ml-1">{errors.name.message}</p>}
           </div>
 
-          {/* Campo de Descrição */}
           <div className="flex flex-col gap-1.5">
             <label className="text-sm font-bold text-gray-700 ml-1">Descrição</label>
             <textarea
               {...register("description")}
               placeholder="Detalhes sobre a atividade..."
-              className="w-full border border-gray-200 p-3.5 rounded-2xl min-h-[120px] focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all bg-gray-50/50 resize-none"
+              className="w-full border border-gray-200 p-3 rounded-xl min-h-[100px] text-gray-900 focus:border-blue-500 outline-none bg-gray-50 resize-none"
             />
           </div>
 
-          {/* Campos de Horário */}
           <div className="grid grid-cols-2 gap-4">
             <div className="flex flex-col gap-1.5">
               <label className="text-sm font-bold text-gray-700 ml-1">Início</label>
               <input
                 type="time"
                 {...register("startTime")}
-                className="w-full border border-gray-200 p-3 rounded-xl focus:border-blue-500 outline-none bg-gray-50/50"
+                className="w-full border border-gray-200 p-3 rounded-xl text-gray-900 bg-gray-50"
               />
               {errors.startTime && (
                 <p className="text-red-500 text-xs mt-1">{errors.startTime.message}</p>
@@ -93,7 +90,7 @@ export function CreateTaskModal({ selectedDate, onSuccess, onClose }: Props) {
               <input
                 type="time"
                 {...register("endTime")}
-                className="w-full border border-gray-200 p-3 rounded-xl focus:border-blue-500 outline-none bg-gray-50/50"
+                className="w-full border border-gray-200 p-3 rounded-xl text-gray-900 bg-gray-50"
               />
               {errors.endTime && (
                 <p className="text-red-500 text-xs mt-1">{errors.endTime.message}</p>
@@ -102,7 +99,6 @@ export function CreateTaskModal({ selectedDate, onSuccess, onClose }: Props) {
           </div>
         </div>
 
-        {/* Botões de Ação */}
         <div className="flex gap-4 mt-8">
           <button
             type="button"

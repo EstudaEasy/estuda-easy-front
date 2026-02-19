@@ -3,6 +3,7 @@
 import styles from "./styles.module.css";
 import CategoryTab from "@/components/CategoryTab/categoryTab";
 import ViewFlashcards from "@/components/ViewFlashcards/viewFlashcards";
+import ViewTasks from "@/components/ViewTasks/viewTasks";
 import { useState } from "react";
 
 export default function Tools() {
@@ -18,7 +19,7 @@ export default function Tools() {
         <main className={styles.tools}>
           {activeTab === "quiz" && <div></div>}
 
-          {activeTab === "tarefas" && <div></div>}
+          {activeTab === "tarefas" && <ViewTasks />}
 
           {activeTab === "flashcards" && <ViewFlashcards />}
         </main>
