@@ -1,11 +1,11 @@
 .style {
   background-color: #ffffff;
   display: flex;
-  height: 80px;
-  width: 200px;
+  height: 100px;
+  width: 280px;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  gap: 60px;
   border-radius: 15px;
   border: 1px solid #eef0f4;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
@@ -22,7 +22,7 @@
 }
 
 .containerTitle {
-  font-size: 15px;
+  font-size: 17px;
   color: #000000;
   font-family: var(--font-poppins), sans-serif;
 }

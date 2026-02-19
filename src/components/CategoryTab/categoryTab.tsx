@@ -1,34 +1,34 @@
 "use client";
 
 import styles from "./styles.module.css";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+interface CategoryTabProps {
+  activeTab: string;
+  setActiveTab: (tab: string) => void;
+}
 
-export default function CategoryTab() {
-  const pathname = usePathname();
-
+export default function CategoryTab({ activeTab, setActiveTab }: CategoryTabProps) {
   return (
     <div className={styles.categories}>
-      <Link
-        href="/tools/quiz"
-        className={`${styles.category} ${pathname.startsWith("/tools/quiz") ? styles.active : ""}`}
+      <button
+        onClick={() => setActiveTab("quiz")}
+        className={`${styles.category} ${activeTab === "quiz" ? styles.active : ""}`}
       >
         <span className={styles.titleCategory}>Quiz</span>
-      </Link>
+      </button>
 
-      <Link
-        href="/tools/tasks"
-        className={`${styles.category} ${pathname.startsWith("/tools/tasks") ? styles.active : ""}`}
+      <button
+        onClick={() => setActiveTab("tarefas")}
+        className={`${styles.category} ${activeTab === "tarefas" ? styles.active : ""}`}
       >
         <span className={styles.titleCategory}>Tarefas</span>
-      </Link>
+      </button>
 
-      <Link
-        href="/tia"
-        className={`${styles.category} ${pathname.startsWith("/tools") ? styles.active : ""}`}
+      <button
+        onClick={() => setActiveTab("flashcards")}
+        className={`${styles.category} ${activeTab === "flashcards" ? styles.active : ""}`}
       >
         <span className={styles.titleCategory}>Flashcards</span>
-      </Link>
+      </button>
     </div>
   );
 }
