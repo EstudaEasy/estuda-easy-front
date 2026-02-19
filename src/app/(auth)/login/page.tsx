@@ -6,13 +6,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/FormInput/page";
-import { Button } from "@/components/Button/page";
 import AuthService from "@/services/auth/AuthService";
 import { jwtDecode } from "jwt-decode";
 
 import GoogleIcon from "@/assets/_Google.png";
 import EyeIcon from "@/assets/eyeicon.png";
 import { AccessTokenPayload } from "@/types";
+import { Button, Typography } from "@/components/base";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -52,10 +52,10 @@ export default function LoginPage() {
         <h1 className={styles.title}>Entrar</h1>
         <p className={styles.text}>Entre ou crie sua conta e simplifique sua rotina de estudos</p>
 
-        <button type="button" className={styles.googleButton}>
+        <Button type="button" variant="outline" className={styles.googleButton}>
           <Image src={GoogleIcon} alt="Google" width={22} />
           Google
-        </button>
+        </Button>
 
         <div className={styles.or}>
           <span>Ou</span>
@@ -84,7 +84,9 @@ export default function LoginPage() {
             Esqueceu sua senha?
           </a>
 
-          <Button text="Entrar" type="submit" />
+          <Button type="submit" variant="primary" size="full">
+            <Typography variant="body-1">Entrar</Typography>
+          </Button>
         </form>
 
         <p className={styles.createAccount}>

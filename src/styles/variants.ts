@@ -50,7 +50,7 @@ export type TypographVariant =
   | "small"
   | "muted";
 
-export type SizeVariant = "sm" | "md" | "lg";
+export type SizeVariant = "sm" | "md" | "lg" | "full";
 
 export type FontSizeVariant =
   | "xs"

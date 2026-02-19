@@ -17,8 +17,8 @@ export default function DashboardSection() {
         <SectionDropdown isOpen={false} />
       </SectionHeader>
 
-      <SectionContent>
-        <div className="flex gap-4">
+      <SectionContent className="px-0">
+        <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-3">
           <StatCard value={12} label="Dias seguidos" bgColor="bg-emphasis" textColor="white" />
           <StatCard value={47} label="Tarefas" />
           <StatCard value={"8h"} label="Esta semana" />

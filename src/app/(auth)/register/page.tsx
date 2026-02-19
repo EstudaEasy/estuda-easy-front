@@ -7,11 +7,11 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import UserService from "@/services/user/UserService";
 import { Input } from "@/components/FormInput/page";
-import { Button } from "@/components/Button/page";
 import { PhoneInput } from "@/components/PhoneInput/page";
 
 import GoogleIcon from "@/assets/_Google.png";
 import EyeIcon from "@/assets/eyeicon.png";
+import { Button, Typography } from "@/components/base";
 
 export default function RegisterPage() {
   const [name, setName] = useState("");
@@ -59,10 +59,10 @@ export default function RegisterPage() {
         <h1 className={styles.title}>Crie sua Conta</h1>
         <p className={styles.text}>Registe-se para começar a organizar os seus estudos.</p>
 
-        <button type="button" className={styles.googleButton}>
+        <Button type="button" variant="outline" className={styles.googleButton}>
           <Image src={GoogleIcon} alt="Google" width={22} />
           Google
-        </button>
+        </Button>
 
         <div className={styles.or}>
           <span>Ou</span>
@@ -113,7 +113,9 @@ export default function RegisterPage() {
             required
           />
 
-          <Button text="Criar conta" type="submit" />
+          <Button type="submit" variant="primary" size="full">
+            <Typography variant="body-1">Criar conta</Typography>
+          </Button>
         </form>
 
         <p className={styles.createAccount}>

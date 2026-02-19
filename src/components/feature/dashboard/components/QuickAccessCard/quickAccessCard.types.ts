@@ -8,4 +8,5 @@ export interface QuickAccessCardProps extends React.HTMLAttributes<HTMLDivElemen
   backgroundColor?: string;
   iconBackgroundColor?: BackgroundColorVariant;
   color?: ColorVariant;
+  href: string;
 }

@@ -6,6 +6,8 @@ import styles from "./styles.module.css";
 import UserService from "@/services/user/UserService";
 import Item from "./Item/item";
 import { User } from "@/types";
+import { Button } from "@/components/base";
+import { Typography } from "../base";
 
 export default function Sidebar() {
   const router = useRouter();
@@ -64,9 +66,9 @@ export default function Sidebar() {
       </div>
 
       <div className={styles.padding}>
-        <button onClick={handleLogout} className={styles.logoutButton}>
-          Sair da conta
-        </button>
+        <Button onClick={handleLogout} variant="primary" size="full">
+          <Typography variant="body-1">Sair da conta</Typography>
+        </Button>
       </div>
     </div>
   );

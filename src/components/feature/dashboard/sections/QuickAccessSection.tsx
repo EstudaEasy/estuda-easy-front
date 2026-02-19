@@ -16,6 +16,7 @@ export default function QuickAccessSection() {
       backgroundColor: "bg-primary-background",
       iconBackgroundColor: "bg-primary",
       color: "white",
+      href: "/tools/tasks",
     },
     {
       title: "Pomodoro",
@@ -24,6 +25,7 @@ export default function QuickAccessSection() {
       backgroundColor: "bg-red-opacity",
       iconBackgroundColor: "bg-red",
       color: "white",
+      href: "/tools/pomodoro",
     },
     {
       title: "Flashcards",
@@ -32,6 +34,7 @@ export default function QuickAccessSection() {
       backgroundColor: "bg-green-opacity",
       iconBackgroundColor: "bg-green",
       color: "white",
+      href: "/tools/flashcards",
     },
     {
       title: "Quiz",
@@ -40,6 +43,7 @@ export default function QuickAccessSection() {
       backgroundColor: "bg-purple-opacity",
       iconBackgroundColor: "bg-purple",
       color: "white",
+      href: "/tools/quiz",
     },
   ];
 

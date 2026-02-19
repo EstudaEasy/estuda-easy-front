@@ -10,15 +10,15 @@ export default function CategoryTab() {
   return (
     <div className={styles.categories}>
       <Link
-        href="/tools"
-        className={`${styles.category} ${pathname.startsWith("/tools") ? styles.active : ""}`}
+        href="/tools/quiz"
+        className={`${styles.category} ${pathname.startsWith("/tools/quiz") ? styles.active : ""}`}
       >
         <span className={styles.titleCategory}>Quiz</span>
       </Link>
 
       <Link
-        href="/tools"
-        className={`${styles.category} ${pathname.startsWith("/tools") ? styles.active : ""}`}
+        href="/tools/tasks"
+        className={`${styles.category} ${pathname.startsWith("/tools/tasks") ? styles.active : ""}`}
       >
         <span className={styles.titleCategory}>Tarefas</span>
       </Link>

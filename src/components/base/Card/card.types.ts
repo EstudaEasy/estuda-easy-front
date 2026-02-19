@@ -75,4 +75,5 @@ export const ICONS_SIZES: Record<SizeVariant, string> = {
   sm: "text-sm",
   md: "text-base",
   lg: "text-lg",
+  full: "text-xl",
 };
