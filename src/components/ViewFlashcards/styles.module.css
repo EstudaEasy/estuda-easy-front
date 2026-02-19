@@ -1,11 +1,12 @@
-.decksContainer,
-.cardsGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+.decksContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 20px;
   width: 100%;
   max-width: 900px;
   padding-top: 20px;
+  margin: 0 auto;
 }
 
 .deckWrapper {
@@ -15,27 +16,48 @@
   justify-content: center;
 }
 
-.flashcardArea {
+.deckWrapper:hover {
+  transform: translateY(-4px);
+}
+
+.flashcarsArea {
   display: flex;
   flex-direction: column;
   width: 100%;
   max-width: 900px;
-  align-items: flex-start;
+  align-items: center;
+  margin: 0 auto;
+  margin-top: -80px;
+  padding-top: 30px;
+  background-color: #fafafa;
+  position: relative;
+  z-index: 10;
+}
+
+.headerWrapper {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  width: 100%;
+  padding: 0 20px;
+  margin-bottom: 30px;
+  margin-top: 10px;
 }
 
 .backButton {
+  justify-self: start;
   display: flex;
   align-items: center;
   gap: 8px;
   background: none;
   border: none;
   color: #3b82f6;
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 600;
   cursor: pointer;
   padding: 0;
-  margin-bottom: 20px;
   transition: color 0.2s ease;
+  z-index: 20;
 }
 
 .backButton:hover {
@@ -44,48 +66,333 @@
 }
 
 .deckTitle {
-  font-size: 24px;
+  justify-self: center;
+  font-size: 26px;
   color: #1e293b;
   font-weight: 700;
-  margin-bottom: 20px;
+  margin: 0;
+  text-align: center;
+  white-space: nowrap;
 }
 
-.flashcard {
-  background-color: #ffffff;
+.studyBoard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding-top: 20px;
+  color: #0f172a;
+}
+
+.hud {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.hudCard {
+  flex: 1;
+  background: white;
   border: 1px solid #e2e8f0;
-  border-radius: 15px;
-  padding: 24px;
-  min-height: 180px;
+  border-radius: 12px;
+  padding: 12px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  cursor: pointer;
-  transition: all 0.2s ease;
-  color: #000000;
 }
 
-.flashcard:hover {
-  border-color: #3b82f6;
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+.hudLabel {
+  font-size: 11px;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 600;
+  text-transform: capitalize;
 }
 
-.flashcard p {
-  color: #475569;
-  font-size: 16px;
-  margin: 8px 0;
-}
-
-.flashcard strong {
+.hudValue {
+  font-size: 20px;
+  font-weight: 800;
   color: #1e293b;
+  margin-top: 4px;
 }
 
-.cardFront {
-  color: #2563eb;
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
 }
 
-.cardBack {
-  color: aquamarine;
+.dotRed {
+  background-color: #ef4444;
+}
+
+.dotGray {
+  background-color: #cbd5e1;
+}
+
+.dotGreen {
+  background-color: #22c55e;
+}
+
+.singleCardWrapper {
+  width: 100%;
+  margin-bottom: 40px;
+  perspective: 1000px;
+  position: relative;
+}
+
+.editCardBtn {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: white;
+  border: 1px solid #e2e8f0;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  transition: all 0.2s;
+}
+
+.editCardBtn:hover {
+  color: #3b82f6;
+  transform: scale(1.1);
+}
+
+.flashcardBlue {
+  background-color: #3b82f6;
+  border-radius: 16px;
+  height: 450px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+  position: relative;
+}
+
+.isFlipped {
+  transform: rotateY(180deg);
+}
+
+.isFlipped > * {
+  transform: rotateY(180deg);
+}
+
+.flashcardBlue h1,
+.flashcardBlue h2,
+.flashcardBlue span,
+.flashcardBlue p,
+.flashcardBlue div {
+  color: #ffffff !important;
+  font-size: 32px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.controls {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.controls button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  background-color: white;
+  border: 1px solid #e2e8f0;
+  cursor: pointer;
+  transition:
+    transform 0.2s,
+    background-color 0.2s;
+}
+
+.controls button:hover {
+  transform: translateY(-2px);
+}
+
+.btnWrong {
+  color: #ef4444;
+}
+
+.btnCorrect {
+  color: #22c55e;
+}
+
+.btnFlip {
+  background-color: #3b82f6 !important;
+  color: white !important;
+  border: none !important;
+}
+
+.menuArea {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.fabButton {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  width: 60px;
+  height: 60px;
+  border-radius: 15;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease;
+  z-index: 9999;
+}
+
+.fabButton:hover {
+  transform: scale(1.1);
+  background-color: #2563eb;
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+}
+
+.modalContent {
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.modalTitle {
+  font-size: 22px;
+  font-weight: bold;
+  color: #1e293b;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+.inputLabel {
+  font-size: 14px;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 6px;
+  text-align: left;
+}
+
+.inputField {
+  width: 100%;
+  padding: 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #0f172a;
+  background-color: #ffffff;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.inputField:focus {
+  border-color: #3b82f6;
+}
+
+.modalActions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.modalActionsRight {
+  display: flex;
+  gap: 12px;
+}
+
+.btnDelete {
+  background: none;
+  color: #ef4444;
+  border: 1px solid #ef4444;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btnDelete:hover {
+  background: #ef4444;
+  color: white;
+}
+
+.btnCancel {
+  background: #f1f5f9;
+  color: #64748b;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
+
+.btnCancel:hover {
+  background: #e2e8f0;
+}
+
+.btnSubmit {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
+
+.btnSubmit:hover {
+  background: #2563eb;
 }
