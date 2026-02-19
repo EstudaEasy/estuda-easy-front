@@ -9,7 +9,7 @@ const publicRoutes = [
 const WHEN_NOT_AUTHENTICATED_ROUTE = "/login";
 const AUTHENTICATED_HOME_ROUTE = "/home";
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const pathName = request.nextUrl.pathname;
 
   // Verificar se é uma rota pública

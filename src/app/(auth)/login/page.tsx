@@ -13,7 +13,7 @@ import { Button, Typography } from "@/components/base";
 import { useAuth } from "@/context/auth";
 
 export default function LoginPage() {
-  const { login } = useAuth();
+  const { login, isLoading } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -68,7 +68,7 @@ export default function LoginPage() {
             Esqueceu sua senha?
           </a>
 
-          <Button type="submit" variant="primary" size="full">
+          <Button type="submit" variant="primary" size="full" disabled={isLoading}>
             <Typography variant="body-1">Entrar</Typography>
           </Button>
         </form>

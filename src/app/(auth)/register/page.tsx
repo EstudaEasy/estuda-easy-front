@@ -5,15 +5,16 @@ import styles from "./styles.module.css";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import UserService from "@/services/user/UserService";
 import { Input } from "@/components/FormInput/page";
 import { PhoneInput } from "@/components/PhoneInput/page";
 
 import GoogleIcon from "@/assets/_Google.png";
 import EyeIcon from "@/assets/eyeicon.png";
 import { Button, Typography } from "@/components/base";
+import { useAuth } from "@/context/auth/authContext";
 
 export default function RegisterPage() {
+  const { register, isLoading } = useAuth();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -33,19 +34,15 @@ export default function RegisterPage() {
     }
 
     try {
-      const formattedBirthDate = birthDate ? new Date(birthDate).toISOString() : null;
-
       const formattedPhone = phoneNumber.replace(/[()]/g, "");
-
-      await UserService.createUser({
+      await register({
         name,
         email,
         password,
         phoneNumber: formattedPhone,
         birthdate: birthDate,
       });
-
-      alert("Conta criada com sucesso!");
+      await alert("Conta criada com sucesso!");
       router.push("/login");
     } catch (error: any) {
       const message = error.response?.data?.message || "Erro ao criar conta.";
@@ -113,7 +110,7 @@ export default function RegisterPage() {
             required
           />
 
-          <Button type="submit" variant="primary" size="full">
+          <Button type="submit" variant="primary" size="full" disabled={isLoading}>
             <Typography variant="body-1">Criar conta</Typography>
           </Button>
         </form>

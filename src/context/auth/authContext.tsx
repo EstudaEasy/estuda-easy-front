@@ -16,18 +16,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
     const token = localStorage.getItem("@EstudaEasy:accessToken");
     if (token) {
       try {
-        const userData = extractUserFromJWT();
-        if (userData) {
-          const userResponse: UserResponse = {
-            id: userData.id,
-            name: userData.name,
-            email: userData.email,
-            role: userData.role as "user" | "admin",
-            createdAt: "",
-            updatedAt: "",
-          };
-          setUser(userResponse);
-        }
+        loadUser();
       } catch (error) {
         console.log("Erro ao carregar usuário:", error);
         logout();
@@ -36,8 +25,23 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
     setIsLoading(false);
   }, []);
 
+  async function loadUser() {
+    try {
+      setIsLoading(true);
+      const userData = extractUserFromJWT();
+      const { data } = await UserService.getById(String(userData?.id));
+      setUser(data);
+    } catch {
+      logout();
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   async function login(request: LoginRequest) {
     try {
+      setIsLoading(true);
+
       const { data } = await AuthService.login(request);
 
       if (data.accessToken && data.refreshToken) {
@@ -53,24 +57,14 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
           }),
         });
 
-        const userData = extractUserFromJWT();
-        if (userData) {
-          const userResponse: UserResponse = {
-            id: userData.id,
-            name: userData.name,
-            email: userData.email,
-            role: userData.role as "user" | "admin",
-            createdAt: "",
-            updatedAt: "",
-          };
-          setUser(userResponse);
-        }
+        loadUser();
       }
     } catch (error) {
       throw error;
     }
   }
   async function logout() {
+    setIsLoading(true);
     localStorage.removeItem("@EstudaEasy:accessToken");
     localStorage.removeItem("@EstudaEasy:refreshToken");
 
@@ -80,13 +74,17 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
 
     setUser(null);
     window.location.reload();
+    setIsLoading(false);
   }
 
   async function register(request: CreateUserRequest) {
     try {
+      setIsLoading(true);
       await UserService.createUser(request);
     } catch (error) {
       throw error;
+    } finally {
+      setIsLoading(false);
     }
   }
 
