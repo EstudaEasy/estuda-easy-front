@@ -1,0 +1,166 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 32px;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+
+.illustrationContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px 0;
+}
+
+.illustration {
+  max-width: 300px;
+  height: auto;
+}
+
+
+.resultCard {
+  width: 100% !important;
+  max-width: 600px !important;
+  border-radius: 16px !important;
+}
+
+.resultContent {
+  padding: 40px !important;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: center;
+}
+
+
+.performanceHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: center;
+  width: 100%;
+}
+
+.scoreSection {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+  width: 100%;
+}
+
+.scoreCircle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  border: 8px solid;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.scorePercentage {
+  font-size: 48px !important;
+}
+
+.scoreDetails {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 24px;
+  border-radius: 12px;
+  background: #f8fafc;
+}
+
+.scoreItem {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+}
+
+.scoreDivider {
+  width: 1px;
+  height: 40px;
+  background: #e2e8f0;
+}
+
+
+.quizInfo {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding-top: 16px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.quizInfo strong {
+  color: #3b82f6;
+  font-weight: 600;
+}
+
+
+.actionsSection {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+  max-width: 600px;
+}
+
+.actionsSection button {
+  flex: 1;
+}
+
+
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+    gap: 24px;
+  }
+
+  .illustration {
+    max-width: 200px;
+  }
+
+  .resultContent {
+    padding: 24px !important;
+    gap: 24px;
+  }
+
+  .scoreCircle {
+    width: 140px;
+    height: 140px;
+    border-width: 6px;
+  }
+
+  .scorePercentage {
+    font-size: 36px !important;
+  }
+
+  .scoreDetails {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .scoreDivider {
+    width: 100%;
+    height: 1px;
+  }
+
+  .actionsSection {
+    flex-direction: column;
+  }
+
+  .actionsSection button {
+    width: 100%;
+  }
+}

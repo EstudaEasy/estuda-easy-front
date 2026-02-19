@@ -1,4 +1,4 @@
-import { api } from "../api";
+import { authApi } from "../api";
 import {
   LoginRequest,
   LoginResponse,
@@ -9,15 +9,15 @@ import {
 
 const AuthService = {
   login(data: LoginRequest) {
-    return api.post<LoginResponse>("/auth/login", data);
+    return authApi.post<LoginResponse>("/auth/login", data);
   },
 
   logout(data: LogoutRequest) {
-    return api.post("/auth/logout", data);
+    return authApi.post("/auth/logout", data);
   },
 
   refreshToken(data: RefreshTokenRequest) {
-    return api.post<RefreshTokenResponse>("/auth/refresh", data);
+    return authApi.post<RefreshTokenResponse>("/auth/refresh", data);
   },
 };
 
