@@ -6,15 +6,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/FormInput/page";
-import AuthService from "@/services/auth/AuthService";
-import { jwtDecode } from "jwt-decode";
 
 import GoogleIcon from "@/assets/_Google.png";
 import EyeIcon from "@/assets/eyeicon.png";
-import { AccessTokenPayload } from "@/types";
 import { Button, Typography } from "@/components/base";
+import { useAuth } from "@/context/auth";
 
 export default function LoginPage() {
+  const { login, isLoading } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -23,25 +22,10 @@ export default function LoginPage() {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await AuthService.login({ email, password });
-      const { accessToken } = response.data;
-
-      if (accessToken) {
-        localStorage.setItem("@EstudaEasy:accessToken", accessToken);
-
-        const decoded: AccessTokenPayload = jwtDecode(accessToken);
-        const userId = decoded.user?.id;
-
-        if (userId) {
-          localStorage.setItem("@EstudaEasy:userId", String(userId));
-          alert("Login realizado com sucesso!");
-          router.push("/home");
-        } else {
-          console.error("ID não encontrado dentro de decoded.user:", decoded.user);
-          alert("Erro ao identificar o ID do usuário.");
-        }
-      }
-    } catch {
+      await login({ email, password });
+      router.replace("/home");
+    } catch (error) {
+      console.log("Erro no login:", error);
       alert("Erro no login");
     }
   };
@@ -84,7 +68,7 @@ export default function LoginPage() {
             Esqueceu sua senha?
           </a>
 
-          <Button type="submit" variant="primary" size="full">
+          <Button type="submit" variant="primary" size="full" disabled={isLoading}>
             <Typography variant="body-1">Entrar</Typography>
           </Button>
         </form>

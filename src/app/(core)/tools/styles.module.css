@@ -4,14 +4,11 @@
   background-color: #f9fafb;
 }
 
-.sidebarTools {
-  width: 300px;
-}
-
 .tools {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
   padding: 20px;
 }
 
