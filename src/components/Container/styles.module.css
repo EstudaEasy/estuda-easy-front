@@ -30,3 +30,27 @@
 .style:hover {
   border-color: #3b82f6;
 }
+
+.editButton {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  padding: 6px;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+  z-index: 10;
+}
+
+.editButton:hover {
+  background-color: #f1f5f9;
+  color: #3b82f6;
+}
