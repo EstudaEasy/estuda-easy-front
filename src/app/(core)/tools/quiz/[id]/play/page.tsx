@@ -26,8 +26,6 @@ export default function QuizPlayPage() {
         setLoading(true);
         const response = await QuizService.getById(quizId);
         setQuiz(response.data);
-        
-        // Iniciar timer se a primeira pergunta tiver limite de tempo
         if (response.data.items?.[0]?.timeLimit) {
           setTimeRemaining(response.data.items[0].timeLimit);
         }
@@ -45,14 +43,12 @@ export default function QuizPlayPage() {
     }
   }, [quizId, router]);
 
-  // Timer countdown
   useEffect(() => {
     if (timeRemaining === null || timeRemaining <= 0) return;
 
     const timer = setInterval(() => {
       setTimeRemaining((prev) => {
         if (prev === null || prev <= 1) {
-          // Tempo esgotado, ir para próxima pergunta
           handleNext();
           return null;
         }
@@ -79,8 +75,6 @@ export default function QuizPlayPage() {
     if (currentQuestionIndex < quiz.items.length - 1) {
       const nextIndex = currentQuestionIndex + 1;
       setCurrentQuestionIndex(nextIndex);
-      
-      // Atualizar timer para a próxima pergunta
       const nextQuestion = quiz.items[nextIndex];
       if (nextQuestion.timeLimit) {
         setTimeRemaining(nextQuestion.timeLimit);
@@ -88,7 +82,6 @@ export default function QuizPlayPage() {
         setTimeRemaining(null);
       }
     } else {
-      // Última pergunta, ir para resultados
       handleFinish();
     }
   };
@@ -97,8 +90,6 @@ export default function QuizPlayPage() {
     if (currentQuestionIndex > 0) {
       const prevIndex = currentQuestionIndex - 1;
       setCurrentQuestionIndex(prevIndex);
-      
-      // Atualizar timer para pergunta anterior
       const prevQuestion = quiz?.items?.[prevIndex];
       if (prevQuestion?.timeLimit) {
         setTimeRemaining(prevQuestion.timeLimit);
@@ -110,8 +101,6 @@ export default function QuizPlayPage() {
 
   const handleFinish = () => {
     if (!quiz?.items) return;
-
-    // Calcular acertos
     let correctCount = 0;
     
     quiz.items.forEach((question) => {
@@ -123,8 +112,6 @@ export default function QuizPlayPage() {
         }
       }
     });
-
-    // Redirecionar para página de resultados com os dados
     router.push(`/tools/quiz/${quizId}/results?correct=${correctCount}&total=${quiz.items.length}`);
   };
 
