@@ -44,8 +44,8 @@ export default function RegisterPage() {
       });
       await alert("Conta criada com sucesso!");
       router.push("/login");
-    } catch (error: any) {
-      const message = error.response?.data?.message || "Erro ao criar conta.";
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Erro ao criar conta.";
       alert(message);
     }
   };
@@ -82,7 +82,7 @@ export default function RegisterPage() {
             required
           />
 
-          <PhoneInput value={phoneNumber} onChange={setPhoneNumber} required />
+          <PhoneInput value={phoneNumber} onChange={(value) => setPhoneNumber(value)} required />
 
           <Input
             type="date"
