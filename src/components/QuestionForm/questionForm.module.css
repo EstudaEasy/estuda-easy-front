@@ -41,7 +41,6 @@
 .textarea {
   min-height: 100px;
   resize: vertical;
-  font-family: inherit;
 }
 
 .error {

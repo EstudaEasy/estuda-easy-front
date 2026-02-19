@@ -15,7 +15,6 @@ interface QuestionFormProps {
 }
 
 export default function QuestionForm({
-  quizId,
   onSubmit,
   initialData,
   isLoading = false,
@@ -76,9 +75,7 @@ export default function QuestionForm({
           placeholder="Digite a pergunta do quiz..."
           disabled={isLoading}
         />
-        {errors.question && (
-          <span className={styles.errorMessage}>{errors.question.message}</span>
-        )}
+        {errors.question && <span className={styles.errorMessage}>{errors.question.message}</span>}
       </div>
 
       <div className={styles.optionsSection}>
@@ -102,7 +99,7 @@ export default function QuestionForm({
         <div className={styles.optionsList}>
           {fields.map((field, index) => {
             const isCorrect = watchAllFields.options?.[index]?.isCorrect === true;
-            
+
             return (
               <div
                 key={field.id}
@@ -127,7 +124,11 @@ export default function QuestionForm({
                     {...register(`options.${index}.isCorrect`)}
                     value={isCorrect ? "true" : "false"}
                   />
-                  <input type="hidden" {...register(`options.${index}.position`)} value={index + 1} />
+                  <input
+                    type="hidden"
+                    {...register(`options.${index}.position`)}
+                    value={index + 1}
+                  />
                 </div>
 
                 <div className={styles.optionContent}>
@@ -175,7 +176,9 @@ export default function QuestionForm({
       <div className={styles.fieldGroup}>
         <label className={styles.label}>Tempo Limite (segundos)</label>
         <input
-          {...register("timeLimit", { valueAsNumber: true })}
+          {...register("timeLimit", {
+            setValueAs: (value) => (value === "" ? undefined : parseInt(value, 10)),
+          })}
           type="number"
           min="10"
           max="300"

@@ -43,7 +43,6 @@
   background: #f1f5f9;
 }
 
-
 .infoCard {
   align-self: stretch;
   width: 100% !important;
@@ -206,7 +205,6 @@
 .emptyState > * {
   color: #64748b;
 }
-
 
 .actionSection {
   position: sticky;

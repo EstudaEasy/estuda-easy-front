@@ -18,7 +18,6 @@
   transition: all 0.2s ease;
   border: none;
   cursor: pointer;
-  font-family: inherit;
 }
 
 .category:hover {

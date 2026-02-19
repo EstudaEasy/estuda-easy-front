@@ -10,7 +10,7 @@ import { Typography } from "@/components/base/Typography";
 import { Modal, ModalBody, ModalFooter } from "@/components/base";
 import QuestionForm from "@/components/QuestionForm";
 import { QuestionFormData } from "@/components/QuestionForm/questionForm.schema";
-import { LuArrowLeft, LuPlus, LuPencil, LuPlay, LuTrash2 } from "react-icons/lu";
+import { LuArrowLeft, LuPencil, LuPlay, LuTrash2 } from "react-icons/lu";
 import styles from "./styles.module.css";
 
 export default function QuizDetailPage() {
@@ -24,7 +24,11 @@ export default function QuizDetailPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [editingQuestion, setEditingQuestion] = useState<QuizItem | null>(null);
-  const [deleteConfirmation, setDeleteConfirmation] = useState<{ isOpen: boolean; questionId?: number; questionText?: string }>({
+  const [deleteConfirmation, setDeleteConfirmation] = useState<{
+    isOpen: boolean;
+    questionId?: number;
+    questionText?: string;
+  }>({
     isOpen: false,
   });
 
@@ -49,11 +53,12 @@ export default function QuizDetailPage() {
 
   const transformToFormData = (item: QuizItem): QuestionFormData => ({
     question: item.question,
-    options: item.options?.map((opt) => ({
-      text: opt.text,
-      isCorrect: opt.isCorrect,
-      position: opt.position,
-    })) || [],
+    options:
+      item.options?.map((opt) => ({
+        text: opt.text,
+        isCorrect: opt.isCorrect,
+        position: opt.position,
+      })) || [],
     position: item.position,
     timeLimit: item.timeLimit,
     explanation: item.explanation || "",
@@ -62,7 +67,7 @@ export default function QuizDetailPage() {
   const handleCreateQuestion = async (data: QuestionFormData) => {
     try {
       setIsSubmitting(true);
-      
+
       if (editingQuestion) {
         // Editar pergunta existente
         await QuizItemService.update(quizId, editingQuestion.id, data);
@@ -98,14 +103,14 @@ export default function QuizDetailPage() {
 
     try {
       await QuizItemService.delete(quizId, deleteConfirmation.questionId);
-      
+
       // Recarregar o quiz
       const response = await QuizService.getById(quizId);
       setQuiz(response.data);
 
       // Fechar modal de confirmação
       setDeleteConfirmation({ isOpen: false });
-      
+
       console.log("Pergunta excluída com sucesso!");
     } catch (err) {
       console.error("Erro ao excluir pergunta:", err);
@@ -142,7 +147,7 @@ export default function QuizDetailPage() {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <button onClick={() => router.push('/tools')} className={styles.backButton}>
+        <button onClick={() => router.push("/tools")} className={styles.backButton}>
           <LuArrowLeft size={24} />
         </button>
         <Typography variant="heading-1" color="primary">
@@ -175,11 +180,7 @@ export default function QuizDetailPage() {
           <Typography variant="heading-2" color="primary">
             Perguntas ({quiz.items?.length || 0})
           </Typography>
-          <Button
-            variant="primary"
-            size="md"
-            onClick={openNewQuestionModal}
-          >
+          <Button variant="primary" size="md" onClick={openNewQuestionModal}>
             {/* <LuPlus size={20} /> */}
             Nova Pergunta
           </Button>
@@ -207,7 +208,13 @@ export default function QuizDetailPage() {
                     <LuPencil size={20} />
                   </button>
                   <button
-                    onClick={() => setDeleteConfirmation({ isOpen: true, questionId: item.id, questionText: item.question })}
+                    onClick={() =>
+                      setDeleteConfirmation({
+                        isOpen: true,
+                        questionId: item.id,
+                        questionText: item.question,
+                      })
+                    }
                     className={styles.deleteButton}
                     aria-label="Excluir pergunta"
                     title="Excluir pergunta"
@@ -277,12 +284,7 @@ export default function QuizDetailPage() {
           >
             Cancelar
           </Button>
-          <Button
-            variant="primary"
-            type="submit"
-            form="question-form"
-            disabled={isSubmitting}
-          >
+          <Button variant="primary" type="submit" form="question-form" disabled={isSubmitting}>
             {isSubmitting ? "Salvando..." : "Salvar Pergunta"}
           </Button>
         </ModalFooter>
@@ -300,7 +302,13 @@ export default function QuizDetailPage() {
               Tem certeza que deseja excluir esta pergunta?
             </Typography>
             {deleteConfirmation.questionText && (
-              <Typography variant="body-1" weight="semibold" color="primary" as="p" className={styles.deleteQuestionPreview}>
+              <Typography
+                variant="body-1"
+                weight="semibold"
+                color="primary"
+                as="p"
+                className={styles.deleteQuestionPreview}
+              >
                 "{deleteConfirmation.questionText}"
               </Typography>
             )}
@@ -310,16 +318,10 @@ export default function QuizDetailPage() {
           </div>
         </ModalBody>
         <ModalFooter>
-          <Button
-            variant="secondary"
-            onClick={() => setDeleteConfirmation({ isOpen: false })}
-          >
+          <Button variant="secondary" onClick={() => setDeleteConfirmation({ isOpen: false })}>
             Cancelar
           </Button>
-          <Button
-            variant="danger"
-            onClick={handleDeleteQuestion}
-          >
+          <Button variant="danger" onClick={handleDeleteQuestion}>
             Excluir
           </Button>
         </ModalFooter>

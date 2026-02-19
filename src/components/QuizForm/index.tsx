@@ -11,11 +11,7 @@ interface QuizFormProps {
   isLoading?: boolean;
 }
 
-export default function QuizForm({
-  onSubmit,
-  initialData,
-  isLoading = false,
-}: QuizFormProps) {
+export default function QuizForm({ onSubmit, initialData, isLoading = false }: QuizFormProps) {
   const {
     register,
     handleSubmit,
@@ -45,9 +41,7 @@ export default function QuizForm({
           disabled={isLoading}
           {...register("title")}
         />
-        {errors.title && (
-          <span className={styles.error}>{errors.title.message}</span>
-        )}
+        {errors.title && <span className={styles.error}>{errors.title.message}</span>}
       </div>
 
       <div className={styles.formGroup}>
@@ -61,12 +55,8 @@ export default function QuizForm({
           disabled={isLoading}
           {...register("description")}
         />
-        {errors.description && (
-          <span className={styles.error}>{errors.description.message}</span>
-        )}
-        <div className={styles.charCount}>
-          {description.length}/500 caracteres
-        </div>
+        {errors.description && <span className={styles.error}>{errors.description.message}</span>}
+        <div className={styles.charCount}>{description.length}/500 caracteres</div>
       </div>
     </form>
   );

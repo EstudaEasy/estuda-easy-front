@@ -76,12 +76,10 @@ export default function ViewQuiz() {
           Criar Quiz
         </Button>
       </div>
-      
+
       <div className={styles.quizzesContainer}>
         {quizzes.length === 0 ? (
-          <p className={styles.emptyMessage}>
-            Nenhum quiz encontrado. Crie seu primeiro quiz!
-          </p>
+          <p className={styles.emptyMessage}>Nenhum quiz encontrado. Crie seu primeiro quiz!</p>
         ) : (
           quizzes.map((quiz) => (
             <QuizCard
@@ -132,4 +130,3 @@ export default function ViewQuiz() {
     </div>
   );
 }
-

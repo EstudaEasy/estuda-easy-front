@@ -6,8 +6,6 @@ import { Quiz } from "@/types";
 import QuizService from "@/services/quiz/QuizService";
 import { Button, Card, CardContent } from "@/components/base";
 import { Typography } from "@/components/base/Typography";
-import Image from "next/image";
-import CompletedIllustration from "@/assets/undraw_completed_vjc6 (1).svg";
 import styles from "./styles.module.css";
 
 export default function QuizResultsPage() {
@@ -164,11 +162,7 @@ export default function QuizResultsPage() {
       </Card>
 
       <div className={styles.actionsSection}>
-        <Button
-          variant="secondary"
-          size="lg"
-          onClick={() => router.push("/tools")}
-        >
+        <Button variant="secondary" size="lg" onClick={() => router.push("/tools")}>
           Ver Quizzes
         </Button>
 

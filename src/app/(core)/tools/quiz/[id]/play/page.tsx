@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
-import { Quiz, QuizItem } from "@/types";
+import { Quiz } from "@/types";
 import QuizService from "@/services/quiz/QuizService";
 import { Button } from "@/components/base";
 import { Typography } from "@/components/base/Typography";
@@ -61,7 +61,7 @@ export default function QuizPlayPage() {
 
   const handleSelectAnswer = (optionId: number) => {
     if (!quiz?.items) return;
-    
+
     const currentQuestion = quiz.items[currentQuestionIndex];
     setSelectedAnswers((prev) => ({
       ...prev,
@@ -102,11 +102,11 @@ export default function QuizPlayPage() {
   const handleFinish = () => {
     if (!quiz?.items) return;
     let correctCount = 0;
-    
+
     quiz.items.forEach((question) => {
       const selectedOptionId = selectedAnswers[question.id];
       if (selectedOptionId) {
-        const selectedOption = question.options?.find(opt => opt.id === selectedOptionId);
+        const selectedOption = question.options?.find((opt) => opt.id === selectedOptionId);
         if (selectedOption?.isCorrect) {
           correctCount++;
         }
@@ -153,11 +153,17 @@ export default function QuizPlayPage() {
         >
           <LuArrowLeft size={24} />
         </button>
-        
-        <Typography variant="heading-2" weight="semibold" color="primary" as="h1" className={styles.headerTitle}>
+
+        <Typography
+          variant="heading-2"
+          weight="semibold"
+          color="primary"
+          as="h1"
+          className={styles.headerTitle}
+        >
           {quiz.title}
         </Typography>
-        
+
         {timeRemaining !== null ? (
           <Typography
             variant="heading-2"
@@ -177,12 +183,9 @@ export default function QuizPlayPage() {
         <Typography variant="body-1" weight="normal" as="p" className={styles.questionCounter}>
           Questão {currentQuestionIndex + 1}/{quiz.items.length}
         </Typography>
-        
+
         <div className={styles.progressBar}>
-          <div 
-            className={styles.progressFill}
-            style={{ width: `${progress}%` }}
-          />
+          <div className={styles.progressFill} style={{ width: `${progress}%` }} />
         </div>
       </div>
 
@@ -194,7 +197,7 @@ export default function QuizPlayPage() {
       <div className={styles.optionsList}>
         {currentQuestion.options?.map((option) => {
           const isSelected = selectedOptionId === option.id;
-          
+
           return (
             <button
               key={option.id}
@@ -218,13 +221,8 @@ export default function QuizPlayPage() {
         >
           Voltar
         </Button>
-        
-        <Button
-          variant="primary"
-          size="lg"
-          onClick={handleNext}
-          disabled={!selectedOptionId}
-        >
+
+        <Button variant="primary" size="lg" onClick={handleNext} disabled={!selectedOptionId}>
           {currentQuestionIndex === quiz.items.length - 1 ? "Finalizar" : "Próxima"}
         </Button>
       </div>

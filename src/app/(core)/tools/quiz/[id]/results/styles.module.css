@@ -9,7 +9,6 @@
   margin: 0 auto;
 }
 
-
 .illustrationContainer {
   display: flex;
   justify-content: center;
@@ -21,7 +20,6 @@
   max-width: 300px;
   height: auto;
 }
-
 
 .resultCard {
   width: 100% !important;
@@ -36,7 +34,6 @@
   gap: 32px;
   align-items: center;
 }
-
 
 .performanceHeader {
   display: flex;
@@ -94,7 +91,6 @@
   background: #e2e8f0;
 }
 
-
 .quizInfo {
   display: flex;
   justify-content: center;
@@ -108,7 +104,6 @@
   font-weight: 600;
 }
 
-
 .actionsSection {
   display: flex;
   gap: 16px;
@@ -119,7 +114,6 @@
 .actionsSection button {
   flex: 1;
 }
-
 
 @media (max-width: 768px) {
   .container {
