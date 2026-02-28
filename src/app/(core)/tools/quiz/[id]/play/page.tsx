@@ -4,10 +4,12 @@ import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { Quiz } from "@/types";
 import QuizService from "@/services/quiz/QuizService";
-import { Button } from "@/components/base";
-import { Typography } from "@/components/base/Typography";
+import { Button } from "@/components/ui/button";
+import { Typography } from "@/components/ui/typography";
+import { Progress } from "@/components/ui/progress";
+import { Card, CardContent } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 import { LuArrowLeft } from "react-icons/lu";
-import styles from "./styles.module.css";
 
 export default function QuizPlayPage() {
   const router = useRouter();
@@ -123,16 +125,18 @@ export default function QuizPlayPage() {
 
   if (loading) {
     return (
-      <div className={styles.container}>
-        <Typography variant="body-1">Carregando...</Typography>
+      <div className="flex items-center justify-center p-12">
+        <Typography variant="body-1" color="light">
+          Carregando...
+        </Typography>
       </div>
     );
   }
 
   if (!quiz || !quiz.items || quiz.items.length === 0) {
     return (
-      <div className={styles.container}>
-        <Typography variant="body-1" color="danger">
+      <div className="flex items-center justify-center p-12">
+        <Typography variant="body-1" color="error">
           Quiz não encontrado ou sem perguntas
         </Typography>
       </div>
@@ -144,85 +148,93 @@ export default function QuizPlayPage() {
   const selectedOptionId = selectedAnswers[currentQuestion.id];
 
   return (
-    <div className={styles.container}>
-      <div className={styles.header}>
-        <button
+    <div className="flex flex-col gap-6 p-6 max-w-2xl mx-auto">
+      {/* Header */}
+      <div className="flex items-center justify-between gap-3">
+        <Button
+          variant="ghost"
+          size="icon"
           onClick={() => router.push(`/tools/quiz/${quizId}`)}
-          className={styles.backButton}
           aria-label="Voltar"
         >
-          <LuArrowLeft size={24} />
-        </button>
+          <LuArrowLeft size={20} />
+        </Button>
 
         <Typography
-          variant="heading-2"
+          variant="heading-4"
           weight="semibold"
-          color="primary"
-          as="h1"
-          className={styles.headerTitle}
+          color="dark"
+          className="flex-1 text-center truncate"
         >
           {quiz.title}
         </Typography>
 
         {timeRemaining !== null ? (
           <Typography
-            variant="heading-2"
+            variant="heading-4"
             weight="semibold"
-            color={timeRemaining <= 10 ? "danger" : "danger"}
-            as="span"
-            className={styles.timer}
+            className={cn(
+              "tabular-nums",
+              timeRemaining <= 10 ? "text-destructive" : "text-muted-foreground",
+            )}
           >
             {formatTime(timeRemaining)}
           </Typography>
         ) : (
-          <div className={styles.timerPlaceholder} />
+          <div className="w-16" />
         )}
       </div>
 
-      <div className={styles.progressSection}>
-        <Typography variant="body-1" weight="normal" as="p" className={styles.questionCounter}>
-          Questão {currentQuestionIndex + 1}/{quiz.items.length}
+      {/* Progress */}
+      <div className="flex flex-col gap-1.5">
+        <Typography variant="caption" color="light">
+          Questão {currentQuestionIndex + 1} de {quiz.items.length}
         </Typography>
-
-        <div className={styles.progressBar}>
-          <div className={styles.progressFill} style={{ width: `${progress}%` }} />
-        </div>
+        <Progress value={progress} className="h-2" />
       </div>
 
-      <div className={styles.questionCard}>
-        <Typography variant="heading-2" weight="normal" as="h2" className={styles.questionText}>
-          {currentQuestion.question}
-        </Typography>
-      </div>
-      <div className={styles.optionsList}>
+      {/* Question */}
+      <Card>
+        <CardContent className="py-6">
+          <Typography variant="heading-4" weight="normal" color="dark">
+            {currentQuestion.question}
+          </Typography>
+        </CardContent>
+      </Card>
+
+      {/* Options */}
+      <div className="flex flex-col gap-3">
         {currentQuestion.options?.map((option) => {
           const isSelected = selectedOptionId === option.id;
-
           return (
             <button
               key={option.id}
               onClick={() => handleSelectAnswer(option.id)}
-              className={`${styles.option} ${isSelected ? styles.optionSelected : ""}`}
+              className={cn(
+                "w-full rounded-lg border px-5 py-4 text-left text-sm font-medium transition-colors",
+                "hover:bg-accent hover:text-accent-foreground",
+                isSelected
+                  ? "border-primary bg-primary/10 text-primary"
+                  : "border-border bg-card text-foreground",
+              )}
             >
-              <Typography variant="body-1" weight="normal" as="span">
-                {option.text}
-              </Typography>
+              {option.text}
             </button>
           );
         })}
       </div>
 
-      <div className={styles.navigationButtons}>
+      {/* Navigation */}
+      <div className="flex gap-3">
         <Button
-          variant="secondary"
-          size="lg"
+          variant="outline"
+          className="flex-1"
           onClick={handlePrevious}
           disabled={currentQuestionIndex === 0}
         >
           Voltar
         </Button>
-
-        <Button variant="primary" size="lg" onClick={handleNext} disabled={!selectedOptionId}>
+        <Button className="flex-1" onClick={handleNext} disabled={!selectedOptionId}>
           {currentQuestionIndex === quiz.items.length - 1 ? "Finalizar" : "Próxima"}
         </Button>
       </div>

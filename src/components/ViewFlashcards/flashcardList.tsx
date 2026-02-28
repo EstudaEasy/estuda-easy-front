@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import FlashcardService from "@/services/deck/FlashcardService";
 import { Flashcard } from "@/types";
 import styles from "./styles.module.css";
-import { Typography } from "../base";
 import { LuCheck, LuEye, LuX, LuPlus, LuPencil } from "react-icons/lu";
+import { Typography } from "../ui/typography";
 
 interface FlashcardListProps {
   deckId: string;

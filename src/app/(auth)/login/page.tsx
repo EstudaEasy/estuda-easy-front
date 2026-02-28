@@ -9,8 +9,8 @@ import { Input } from "@/components/FormInput/page";
 
 import GoogleIcon from "@/assets/_Google.png";
 import EyeIcon from "@/assets/eyeicon.png";
-import { Button, Typography } from "@/components/base";
 import { useAuth } from "@/context/auth";
+import { Button } from "@/components/ui/button";
 
 export default function LoginPage() {
   const { login, isLoading } = useAuth();
@@ -68,8 +68,8 @@ export default function LoginPage() {
             Esqueceu sua senha?
           </a>
 
-          <Button type="submit" variant="primary" size="full" disabled={isLoading}>
-            <Typography variant="body-1">Entrar</Typography>
+          <Button type="submit" variant={"default"} disabled={isLoading}>
+            Entrar
           </Button>
         </form>
 

@@ -16,18 +16,13 @@ export default function DashboardPage() {
             <h1 className={styles.estudante}>Olá, {user?.name || "Estudante"}!</h1>
             <h1 className={styles.welcomeText}>Bem-vindo de Volta!</h1>
           </div>
-
-          <div className="flex items-center gap-4">
-            <button className="flex items-center justify-center text-center bg-primary-dark text-white rounded-full w-12 h-12">
-              <span className="text-heading-1">{user?.name[0].toUpperCase()}</span>
-            </button>
-          </div>
         </div>
       </header>
-
-      <DashboardSection />
-      <ActivitySection />
-      <QuickAccessSection />
+      <div className="flex flex-col gap-4">
+        <DashboardSection />
+        <ActivitySection />
+        <QuickAccessSection />
+      </div>
     </main>
   );
 }

@@ -10,8 +10,8 @@ import { PhoneInput } from "@/components/PhoneInput/page";
 
 import GoogleIcon from "@/assets/_Google.png";
 import EyeIcon from "@/assets/eyeicon.png";
-import { Button, Typography } from "@/components/base";
 import { useAuth } from "@/context/auth/authContext";
+import { Button } from "@/components/ui/button";
 
 export default function RegisterPage() {
   const { register, isLoading } = useAuth();
@@ -110,8 +110,8 @@ export default function RegisterPage() {
             required
           />
 
-          <Button type="submit" variant="primary" size="full" disabled={isLoading}>
-            <Typography variant="body-1">Criar conta</Typography>
+          <Button type="submit" variant="default" disabled={isLoading}>
+            Criar conta
           </Button>
         </form>
 

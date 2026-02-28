@@ -1,14 +1,5 @@
-import { Typography } from "@/components/base/Typography";
-import { Input } from "@/components/FormInput/page";
+import ViewQuiz from "@/components/ViewQuiz/viewQuiz";
 
 export default function Quiz() {
-  return (
-    <div>
-      <Typography variant="heading-big" className="mb-4" color="primary">
-        Quiz
-      </Typography>
-
-      <Input></Input>
-    </div>
-  );
+  return <ViewQuiz />;
 }

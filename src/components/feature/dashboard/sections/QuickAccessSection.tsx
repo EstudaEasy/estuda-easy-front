@@ -1,64 +1,79 @@
-import {
-  Section,
-  SectionContent,
-  SectionDescription,
-  SectionHeader,
-  SectionTitle,
-} from "@/components/base";
-import { QuickAccessCard, QuickAccessCardProps } from "../components";
+import Link from "next/link";
+import { Card, CardContent } from "@/components/ui/card";
+import { Typography } from "@/components/ui/typography";
+import { Separator } from "@/components/ui/separator";
+import { LuBook, LuBookOpen, LuBrain, LuClock } from "react-icons/lu";
+import { cn } from "@/lib/utils";
+
+const quickAccessItems = [
+  {
+    title: "Tarefas",
+    description: "Gerencie suas tarefas",
+    Icon: LuBook,
+    href: "/tools/tasks",
+    cardClass: "bg-primary/10",
+    iconClass: "bg-primary text-white",
+  },
+  {
+    title: "Pomodoro",
+    description: "Comece uma sessão de estudo",
+    Icon: LuClock,
+    href: "/tools/pomodoro",
+    cardClass: "bg-red-50",
+    iconClass: "bg-red-500 text-white",
+  },
+  {
+    title: "Flashcards",
+    description: "Revise seus cards",
+    Icon: LuBookOpen,
+    href: "/tools/flashcards",
+    cardClass: "bg-green-50",
+    iconClass: "bg-green-500 text-white",
+  },
+  {
+    title: "Quiz",
+    description: "Teste seus conhecimentos",
+    Icon: LuBrain,
+    href: "/tools/quiz",
+    cardClass: "bg-purple-50",
+    iconClass: "bg-purple-500 text-white",
+  },
+];
 
 export default function QuickAccessSection() {
-  const quickAccessItems: QuickAccessCardProps[] = [
-    {
-      title: "Tarefas",
-      description: "Gerencie suas tarefas",
-      icon: "LuBook",
-      backgroundColor: "bg-primary-background",
-      iconBackgroundColor: "bg-primary",
-      color: "white",
-      href: "/tools/tasks",
-    },
-    {
-      title: "Pomodoro",
-      description: "Comece uma sessão de estudo",
-      icon: "LuClock",
-      backgroundColor: "bg-red-opacity",
-      iconBackgroundColor: "bg-red",
-      color: "white",
-      href: "/tools/pomodoro",
-    },
-    {
-      title: "Flashcards",
-      description: "Revise seus cards",
-      icon: "LuBookOpen",
-      backgroundColor: "bg-green-opacity",
-      iconBackgroundColor: "bg-green",
-      color: "white",
-      href: "/tools/flashcards",
-    },
-    {
-      title: "Quiz",
-      description: "Teste seus conhecimentos",
-      icon: "LuBrain",
-      backgroundColor: "bg-purple-opacity",
-      iconBackgroundColor: "bg-purple",
-      color: "white",
-      href: "/tools/quiz",
-    },
-  ];
-
   return (
-    <Section defaultOpen={true} className="px-0">
-      <SectionHeader>
-        <SectionTitle>Acesso rápido</SectionTitle>
-        <SectionDescription></SectionDescription>
-      </SectionHeader>
+    <div className="flex flex-col gap-4">
+      <div>
+        <Typography variant="heading-3" color="dark">
+          Acesso rápido
+        </Typography>
+        <Separator className="mt-2" />
+      </div>
 
-      <SectionContent className="flex gap-2">
-        {quickAccessItems.map((item, index) => (
-          <QuickAccessCard key={index} {...item} />
+      <div className="flex gap-2">
+        {quickAccessItems.map((item, i) => (
+          <Link key={i} href={item.href} className="flex-1">
+            <Card
+              className={cn(
+                "h-full cursor-pointer transition-opacity hover:opacity-70 rounded-lg py-8",
+                item.cardClass,
+              )}
+            >
+              <CardContent className="flex flex-col gap-3">
+                <div className={cn("w-fit rounded-md p-2", item.iconClass)}>
+                  <item.Icon size={20} />
+                </div>
+                <Typography variant="heading-4" color="dark">
+                  {item.title}
+                </Typography>
+                <Typography color="light" weight="normal" className="line-clamp-3">
+                  {item.description}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Link>
         ))}
-      </SectionContent>
-    </Section>
+      </div>
+    </div>
   );
 }

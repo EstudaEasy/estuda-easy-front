@@ -1,6 +1,6 @@
 "use client";
 
-import { Typography } from "@/components/base/Typography";
+import { Typography } from "../ui/typography";
 import styles from "./styles.module.css";
 
 export function TasksContent() {

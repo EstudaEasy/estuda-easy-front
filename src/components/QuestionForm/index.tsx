@@ -2,10 +2,10 @@
 
 import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@/components/base";
 import { LuPlus, LuTrash2 } from "react-icons/lu";
 import { questionFormSchema, QuestionFormData } from "./questionForm.schema";
 import styles from "./questionForm.module.css";
+import { Button } from "../ui/button";
 
 interface QuestionFormProps {
   quizId: string;

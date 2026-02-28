@@ -4,9 +4,11 @@ import { useEffect, useState } from "react";
 import { useRouter, useParams, useSearchParams } from "next/navigation";
 import { Quiz } from "@/types";
 import QuizService from "@/services/quiz/QuizService";
-import { Button, Card, CardContent } from "@/components/base";
-import { Typography } from "@/components/base/Typography";
-import styles from "./styles.module.css";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Typography } from "@/components/ui/typography";
+import { Progress } from "@/components/ui/progress";
+import { Separator } from "@/components/ui/separator";
 
 export default function QuizResultsPage() {
   const router = useRouter();
@@ -38,139 +40,122 @@ export default function QuizResultsPage() {
     }
   }, [quizId]);
 
-  const getPerformanceMessage = () => {
-    if (percentage === 100) {
+  const getPerformanceData = () => {
+    if (percentage === 100)
       return {
         title: "Perfeito!",
         message: "Você acertou todas as questões! Parabéns pelo excelente desempenho!",
-        color: "#10b981",
+        color: "text-emerald-500",
+        progressClass: "bg-emerald-500",
       };
-    } else if (percentage >= 70) {
+    if (percentage >= 70)
       return {
         title: "Muito bem!",
         message: "Ótimo desempenho! Continue assim!",
-        color: "#3b82f6",
+        color: "text-blue-500",
+        progressClass: "bg-blue-500",
       };
-    } else if (percentage >= 50) {
+    if (percentage >= 50)
       return {
         title: "Bom trabalho!",
         message: "Você está no caminho certo. Continue praticando!",
-        color: "#f59e0b",
+        color: "text-amber-500",
+        progressClass: "bg-amber-500",
       };
-    } else {
-      return {
-        title: "Continue tentando!",
-        message: "Não desanime! Revise o conteúdo e tente novamente.",
-        color: "#ef4444",
-      };
-    }
+    return {
+      title: "Continue tentando!",
+      message: "Não desanime! Revise o conteúdo e tente novamente.",
+      color: "text-red-500",
+      progressClass: "bg-red-500",
+    };
   };
 
-  const performanceData = getPerformanceMessage();
+  const perf = getPerformanceData();
 
   if (loading) {
     return (
-      <div className={styles.container}>
-        <Typography variant="body-1">Carregando...</Typography>
+      <div className="flex items-center justify-center p-12">
+        <Typography variant="body-1" color="light">
+          Carregando...
+        </Typography>
       </div>
     );
   }
 
   return (
-    <div className={styles.container}>
-      {/* <div className={styles.illustrationContainer}>
-        <Image
-          src={CompletedIllustration}
-          alt="Quiz completo"
-          className={styles.illustration}
-          width={300}
-          height={300}
-          priority
-        />
-      </div> */}
-      <Card className={styles.resultCard}>
-        <CardContent className={styles.resultContent}>
-          <div className={styles.performanceHeader}>
-            <Typography
-              variant="heading-1"
-              weight="bold"
-              as="h1"
-              style={{ color: performanceData.color }}
-            >
-              {performanceData.title}
+    <div className="flex flex-col items-center gap-6 p-6 max-w-lg mx-auto">
+      <Card className="w-full">
+        <CardContent className="flex flex-col items-center gap-6 py-8">
+          {/* Performance title & message */}
+          <div className="flex flex-col items-center gap-1 text-center">
+            <Typography variant="heading-2" className={perf.color}>
+              {perf.title}
             </Typography>
-            <Typography variant="body-1" color="primary" as="p">
-              {performanceData.message}
+            <Typography variant="body-1" color="light">
+              {perf.message}
             </Typography>
           </div>
 
-          <div className={styles.scoreSection}>
-            <div className={styles.scoreCircle} style={{ borderColor: performanceData.color }}>
-              <Typography
-                variant="heading-1"
-                weight="bold"
-                as="span"
-                className={styles.scorePercentage}
-                style={{ color: performanceData.color }}
-              >
-                {percentage}%
+          {/* Score circle */}
+          <div
+            className={`flex h-32 w-32 items-center justify-center rounded-full border-4 ${perf.color.replace("text-", "border-")}`}
+          >
+            <Typography variant="heading-1" weight="bold" className={perf.color}>
+              {percentage}%
+            </Typography>
+          </div>
+
+          {/* Progress bar */}
+          <Progress value={percentage} className="w-full h-3" />
+
+          <Separator />
+
+          {/* Score breakdown */}
+          <div className="grid grid-cols-3 w-full divide-x text-center">
+            <div className="flex flex-col items-center gap-1 px-4">
+              <Typography variant="heading-3" weight="semibold" color="dark">
+                {correctAnswers}
+              </Typography>
+              <Typography variant="caption" color="light">
+                Acertos
               </Typography>
             </div>
-
-            <div className={styles.scoreDetails}>
-              <div className={styles.scoreItem}>
-                <Typography variant="heading-2" weight="semibold" color="primary" as="div">
-                  {correctAnswers}
-                </Typography>
-                <Typography variant="caption" color="primary" as="div">
-                  Acertos
-                </Typography>
-              </div>
-
-              <div className={styles.scoreDivider} />
-
-              <div className={styles.scoreItem}>
-                <Typography variant="heading-2" weight="semibold" color="primary" as="div">
-                  {totalQuestions - correctAnswers}
-                </Typography>
-                <Typography variant="caption" color="primary" as="div">
-                  Erros
-                </Typography>
-              </div>
-
-              <div className={styles.scoreDivider} />
-
-              <div className={styles.scoreItem}>
-                <Typography variant="heading-2" weight="semibold" color="primary" as="div">
-                  {totalQuestions}
-                </Typography>
-                <Typography variant="caption" color="primary" as="div">
-                  Total
-                </Typography>
-              </div>
+            <div className="flex flex-col items-center gap-1 px-4">
+              <Typography variant="heading-3" weight="semibold" color="dark">
+                {totalQuestions - correctAnswers}
+              </Typography>
+              <Typography variant="caption" color="light">
+                Erros
+              </Typography>
+            </div>
+            <div className="flex flex-col items-center gap-1 px-4">
+              <Typography variant="heading-3" weight="semibold" color="dark">
+                {totalQuestions}
+              </Typography>
+              <Typography variant="caption" color="light">
+                Total
+              </Typography>
             </div>
           </div>
 
+          {/* Quiz name */}
           {quiz && (
-            <div className={styles.quizInfo}>
-              <Typography variant="body-1" color="secondary" as="p">
-                Quiz: <strong>{quiz.title}</strong>
+            <>
+              <Separator />
+              <Typography variant="caption" color="light">
+                Quiz: <strong className="text-foreground">{quiz.title}</strong>
               </Typography>
-            </div>
+            </>
           )}
         </CardContent>
       </Card>
 
-      <div className={styles.actionsSection}>
-        <Button variant="secondary" size="lg" onClick={() => router.push("/tools")}>
+      {/* Actions */}
+      <div className="flex w-full gap-3">
+        <Button variant="outline" className="flex-1" onClick={() => router.push("/tools/quiz")}>
           Ver Quizzes
         </Button>
-
-        <Button
-          variant="primary"
-          size="lg"
-          onClick={() => router.push(`/tools/quiz/${quizId}/play`)}
-        >
+        <Button className="flex-1" onClick={() => router.push(`/tools/quiz/${quizId}/play`)}>
           Refazer Quiz
         </Button>
       </div>
