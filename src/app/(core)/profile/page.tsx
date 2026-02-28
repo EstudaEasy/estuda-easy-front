@@ -1,15 +1,5 @@
 "use client";
 
-import {
-  Typography,
-  Card,
-  CardContent,
-  CardHeader,
-  InputGroup,
-  InputLabel,
-  Input,
-  Button,
-} from "@/components/base";
 import { useAuth } from "@/context/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
@@ -18,6 +8,12 @@ import { useEffect } from "react";
 import z from "zod";
 import UserService from "@/services/user/UserService";
 import { PhoneInput } from "@/components/PhoneInput/page";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Typography } from "@/components/ui/typography";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 
 const profileSchema = z
   .object({
@@ -130,124 +126,154 @@ export default function Profile() {
   };
 
   return (
-    <main>
+    <main className="flex flex-col gap-6 p-6">
       <header>
-        <Typography size="4xl" weight="bold" color="dark">
+        <Typography variant="heading-1" color="dark">
           Meu Perfil
         </Typography>
-        <Typography size="lg" weight="normal" color="dark">
+        <Typography size="lg" weight="normal" color="light">
           Gerencie suas informações pessoais
         </Typography>
+        <Separator className="mt-4" />
       </header>
 
       <div className="flex flex-wrap items-start gap-6">
-        <Card className="sticky">
+        <Card className="w-64 sticky top-6">
           <CardContent className="flex flex-col items-center gap-4 py-8">
-            <div className="w-32 h-32 flex items-center text-center text-4xl text-extrabold justify-center bg-primary rounded-full">
-              <span>{"U"}</span>
+            <div className="w-32 h-32 flex items-center justify-center bg-primary rounded-full text-4xl font-extrabold text-white">
+              <span>{user?.name?.[0]?.toUpperCase() ?? "U"}</span>
             </div>
             <div className="text-center">
               <Typography size="2xl" weight="bold" color="dark">
                 {user?.name || "Usuário"}
               </Typography>
-              <Typography size="base" weight="normal" color="dark">
+              <Typography size="md" weight="normal" color="light">
                 {user?.email || "usuario@exemplo.com"}
               </Typography>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="flex-1 min-w-[500px]">
+        <Card className="flex-1 min-w-[400px]">
           <CardHeader>
-            <Typography size="xl" weight="semibold" color="dark">
-              Informações Pessoais
-            </Typography>
+            <CardTitle>Informações Pessoais</CardTitle>
           </CardHeader>
 
           <CardContent>
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <div>
-                <InputGroup>
-                  <InputLabel htmlFor="name">Nome</InputLabel>
+            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+              <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-1.5">
+                  <Label htmlFor="name">Nome</Label>
                   <Controller
                     control={control}
                     name="name"
                     render={({ field, fieldState }) => (
-                      <Input {...field} error={fieldState.error?.message} />
+                      <>
+                        <Input id="name" {...field} aria-invalid={!!fieldState.error} />
+                        {fieldState.error && (
+                          <Typography size="sm" color="error">
+                            {fieldState.error.message}
+                          </Typography>
+                        )}
+                      </>
                     )}
                   />
-                </InputGroup>
-                {/* <InputGroup>
-                  <InputLabel htmlFor="email">E-mail</InputLabel>
-                  <Controller
-                    control={control}
-                    name="email"
-                    render={({ field, fieldState }) => (
-                      <Input {...field} error={fieldState.error?.message} />
-                    )}
-                  />
-                </InputGroup> */}
-                <InputGroup>
-                  <InputLabel htmlFor="phoneNumber">Telefone</InputLabel>
+                </div>
+
+                <div className="flex flex-col gap-1.5">
+                  <Label htmlFor="phoneNumber">Telefone</Label>
                   <Controller
                     control={control}
                     name="phoneNumber"
                     render={({ field, fieldState }) => (
                       <>
                         <PhoneInput {...field} />
-                        <Typography size="xs" color="danger" className="mt-1">
-                          {fieldState.error?.message}
-                        </Typography>
+                        {fieldState.error && (
+                          <Typography size="sm" color="error">
+                            {fieldState.error.message}
+                          </Typography>
+                        )}
                       </>
                     )}
                   />
-                </InputGroup>
+                </div>
 
-                <InputGroup>
-                  <InputLabel htmlFor="birthdate">Data de nascimento</InputLabel>
+                <div className="flex flex-col gap-1.5">
+                  <Label htmlFor="birthdate">Data de nascimento</Label>
                   <Controller
                     control={control}
                     name="birthdate"
                     render={({ field, fieldState }) => (
-                      <Input {...field} type="date" error={fieldState.error?.message} />
+                      <>
+                        <Input
+                          id="birthdate"
+                          {...field}
+                          type="date"
+                          aria-invalid={!!fieldState.error}
+                        />
+                        {fieldState.error && (
+                          <Typography size="sm" color="error">
+                            {fieldState.error.message}
+                          </Typography>
+                        )}
+                      </>
                     )}
                   />
-                </InputGroup>
+                </div>
 
-                <InputGroup>
-                  <InputLabel htmlFor="newPassword">Nova Senha</InputLabel>
+                <Separator />
+
+                <div className="flex flex-col gap-1.5">
+                  <Label htmlFor="newPassword">Nova Senha</Label>
                   <Controller
                     control={control}
                     name="newPassword"
                     render={({ field, fieldState }) => (
-                      <Input {...field} type="password" error={fieldState.error?.message} />
+                      <>
+                        <Input
+                          id="newPassword"
+                          {...field}
+                          type="password"
+                          aria-invalid={!!fieldState.error}
+                        />
+                        {fieldState.error && (
+                          <Typography size="sm" color="error">
+                            {fieldState.error.message}
+                          </Typography>
+                        )}
+                      </>
                     )}
                   />
-                </InputGroup>
-                <InputGroup>
-                  <InputLabel htmlFor="confirmNewPassword">Confirmar Nova Senha</InputLabel>
+                </div>
+
+                <div className="flex flex-col gap-1.5">
+                  <Label htmlFor="confirmNewPassword">Confirmar Nova Senha</Label>
                   <Controller
                     control={control}
                     name="confirmNewPassword"
                     render={({ field, fieldState }) => (
-                      <Input {...field} type="password" error={fieldState.error?.message} />
+                      <>
+                        <Input
+                          id="confirmNewPassword"
+                          {...field}
+                          type="password"
+                          aria-invalid={!!fieldState.error}
+                        />
+                        {fieldState.error && (
+                          <Typography size="sm" color="error">
+                            {fieldState.error.message}
+                          </Typography>
+                        )}
+                      </>
                     )}
                   />
-                </InputGroup>
+                </div>
               </div>
-              <div>
-                <Button
-                  type="submit"
-                  variant="primary"
-                  size="full"
-                  disabled={isSubmitting || isLoading}
-                >
-                  <Typography size="base" weight="medium">
-                    <LuSave className="inline-block mr-2" />
-                    Salvar Alterações
-                  </Typography>
-                </Button>
-              </div>
+
+              <Button type="submit" className="w-full mt-2" disabled={isSubmitting || isLoading}>
+                <LuSave />
+                Salvar Alterações
+              </Button>
             </form>
           </CardContent>
         </Card>

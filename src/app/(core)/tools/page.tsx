@@ -11,20 +11,18 @@ export default function Tools() {
   const [activeTab, setActiveTab] = useState("flashcards");
 
   return (
-    <div className={styles.containerTools}>
-      <div className={styles.containerManagement}>
-        <div className={styles.Categories}>
-          <CategoryTab activeTab={activeTab} setActiveTab={setActiveTab} />
-        </div>
-
-        <main className={styles.tools}>
-          {activeTab === "quiz" && <ViewQuiz />}
-
-          {activeTab === "tarefas" && <ViewTasks />}
-
-          {activeTab === "flashcards" && <ViewFlashcards />}
-        </main>
+    <div>
+      <div className={styles.Categories}>
+        <CategoryTab activeTab={activeTab} setActiveTab={setActiveTab} />
       </div>
+
+      <main className={styles.tools}>
+        {activeTab === "quiz" && <ViewQuiz />}
+
+        {activeTab === "tarefas" && <ViewTasks />}
+
+        {activeTab === "flashcards" && <ViewFlashcards />}
+      </main>
     </div>
   );
 }

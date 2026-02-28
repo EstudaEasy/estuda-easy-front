@@ -1,4 +1,4 @@
-import { Typography } from "@/components/base/Typography";
+import { Typography } from "@/components/ui/typography";
 
 export default function Groups() {
   return (

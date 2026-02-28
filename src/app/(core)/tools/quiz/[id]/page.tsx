@@ -5,13 +5,21 @@ import { useRouter, useParams } from "next/navigation";
 import { Quiz, QuizItem } from "@/types";
 import QuizService from "@/services/quiz/QuizService";
 import QuizItemService from "@/services/quiz/QuizItemService";
-import { Button, Card, CardContent } from "@/components/base";
-import { Typography } from "@/components/base/Typography";
-import { Modal, ModalBody, ModalFooter } from "@/components/base";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Typography } from "@/components/ui/typography";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
 import QuestionForm from "@/components/QuestionForm";
 import { QuestionFormData } from "@/components/QuestionForm/questionForm.schema";
-import { LuArrowLeft, LuPencil, LuPlay, LuTrash2 } from "react-icons/lu";
-import styles from "./styles.module.css";
+import { LuArrowLeft, LuPencil, LuPlay, LuPlus, LuTrash2 } from "react-icons/lu";
 
 export default function QuizDetailPage() {
   const router = useRouter();
@@ -125,19 +133,21 @@ export default function QuizDetailPage() {
 
   if (loading) {
     return (
-      <div className={styles.container}>
-        <Typography variant="body-1">Carregando...</Typography>
+      <div className="flex items-center justify-center p-12">
+        <Typography variant="body-1" color="light">
+          Carregando...
+        </Typography>
       </div>
     );
   }
 
   if (error || !quiz) {
     return (
-      <div className={styles.container}>
-        <Typography variant="body-1" color="danger">
+      <div className="flex flex-col items-center gap-4 p-12">
+        <Typography variant="body-1" color="error">
           {error || "Quiz não encontrado"}
         </Typography>
-        <Button variant="secondary" onClick={() => router.back()} className="mt-4">
+        <Button variant="outline" onClick={() => router.back()}>
           Voltar
         </Button>
       </div>
@@ -145,29 +155,29 @@ export default function QuizDetailPage() {
   }
 
   return (
-    <div className={styles.container}>
-      <div className={styles.header}>
-        <button onClick={() => router.push("/tools")} className={styles.backButton}>
-          <LuArrowLeft size={24} />
-        </button>
-        <Typography variant="heading-1" color="primary">
+    <div className="flex flex-col gap-6">
+      <div className="flex items-center gap-3">
+        <Button variant="ghost" size="icon" onClick={() => router.back()} aria-label="Voltar">
+          <LuArrowLeft size={20} />
+        </Button>
+        <Typography variant="heading-3" color="primary">
           {quiz.title}
         </Typography>
       </div>
 
-      <Card className={styles.infoCard}>
-        <CardContent className={styles.infoContent}>
+      <Card>
+        <CardContent className="flex flex-col gap-2 py-4">
           {quiz.description && (
-            <Typography variant="body-1" color="secondary" className={styles.description}>
+            <Typography variant="body-1" color="light">
               {quiz.description}
             </Typography>
           )}
-          <div className={styles.metadata}>
-            <Typography variant="caption" color="secondary">
+          <div className="flex flex-wrap gap-4">
+            <Typography variant="caption" color="light">
               Criado em: {new Date(quiz.createdAt).toLocaleDateString("pt-BR")}
             </Typography>
             {quiz.updatedAt && (
-              <Typography variant="caption" color="secondary">
+              <Typography variant="caption" color="light">
                 Atualizado em: {new Date(quiz.updatedAt).toLocaleDateString("pt-BR")}
               </Typography>
             )}
@@ -175,62 +185,70 @@ export default function QuizDetailPage() {
         </CardContent>
       </Card>
 
-      <div className={styles.questionsSection}>
-        <div className={styles.questionsSectionHeader}>
-          <Typography variant="heading-2" color="primary">
-            Perguntas ({quiz.items?.length || 0})
-          </Typography>
-          <Button variant="primary" size="md" onClick={openNewQuestionModal}>
-            {/* <LuPlus size={20} /> */}
+      <div className="flex flex-col gap-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Typography variant="heading-4" color="dark">
+              Perguntas
+            </Typography>
+            <Badge variant="secondary">{quiz.items?.length || 0}</Badge>
+          </div>
+          <Button onClick={openNewQuestionModal}>
+            <LuPlus />
             Nova Pergunta
           </Button>
         </div>
 
+        <Separator />
+
         {quiz.items && quiz.items.length > 0 ? (
-          <div className={styles.questionsList}>
+          <div className="flex flex-col gap-3">
             {quiz.items.map((item, index) => (
-              <div key={item.id} className={styles.questionItem}>
-                <div className={styles.questionContent}>
-                  <Typography variant="body-1" weight="semibold" color="primary" as="div">
-                    {index + 1}. {item.question}
-                  </Typography>
-                  <Typography variant="caption" color="primary" as="div">
-                    {item.options?.length || 0} alternativas
-                  </Typography>
-                </div>
-                <div className={styles.questionActions}>
-                  <button
-                    onClick={() => handleEditQuestion(item)}
-                    className={styles.editButton}
-                    aria-label="Editar pergunta"
-                    title="Editar pergunta"
-                  >
-                    <LuPencil size={20} />
-                  </button>
-                  <button
-                    onClick={() =>
-                      setDeleteConfirmation({
-                        isOpen: true,
-                        questionId: item.id,
-                        questionText: item.question,
-                      })
-                    }
-                    className={styles.deleteButton}
-                    aria-label="Excluir pergunta"
-                    title="Excluir pergunta"
-                  >
-                    <LuTrash2 size={20} />
-                  </button>
-                </div>
-              </div>
+              <Card key={item.id}>
+                <CardContent className="flex items-center justify-between py-4">
+                  <div className="flex flex-col gap-1">
+                    <Typography variant="body-2" weight="semibold" color="dark">
+                      {index + 1}. {item.question}
+                    </Typography>
+                    <Typography variant="caption" color="light">
+                      {item.options?.length || 0} alternativas
+                    </Typography>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Button
+                      variant="ghost"
+                      size="icon-sm"
+                      onClick={() => handleEditQuestion(item)}
+                      aria-label="Editar pergunta"
+                    >
+                      <LuPencil size={16} />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon-sm"
+                      className="text-destructive hover:text-destructive"
+                      onClick={() =>
+                        setDeleteConfirmation({
+                          isOpen: true,
+                          questionId: item.id,
+                          questionText: item.question,
+                        })
+                      }
+                      aria-label="Excluir pergunta"
+                    >
+                      <LuTrash2 size={16} />
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
             ))}
           </div>
         ) : (
-          <div className={styles.emptyState}>
-            <Typography variant="body-1" color="secondary">
+          <div className="flex flex-col items-center gap-2 py-12 text-center">
+            <Typography variant="body-1" color="light">
               Nenhuma pergunta criada ainda.
             </Typography>
-            <Typography variant="caption" color="secondary">
+            <Typography variant="caption" color="light">
               Clique em "Nova Pergunta" para começar
             </Typography>
           </div>
@@ -238,94 +256,82 @@ export default function QuizDetailPage() {
       </div>
 
       {quiz.items && quiz.items.length > 0 && (
-        <div className={styles.actionSection}>
-          <Button
-            variant="primary"
-            size="full"
-            onClick={() => {
-              router.push(`/tools/quiz/${quiz.id}/play`);
-            }}
-          >
-            <LuPlay size={20} />
-            Iniciar Quiz
-          </Button>
-        </div>
+        <Button className="w-full" onClick={() => router.push(`/tools/quiz/${quiz.id}/play`)}>
+          <LuPlay />
+          Iniciar Quiz
+        </Button>
       )}
 
-      <Modal
-        isOpen={isModalOpen}
-        onClose={() => {
+      <Dialog
+        open={isModalOpen}
+        onOpenChange={(open) => {
           if (!isSubmitting) {
-            setIsModalOpen(false);
-            setEditingQuestion(null);
+            setIsModalOpen(open);
+            if (!open) setEditingQuestion(null);
           }
         }}
-        title={editingQuestion ? "Editar Pergunta" : "Nova Pergunta"}
-        size="lg"
-        closeOnBackdropClick={!isSubmitting}
-        closeOnEscape={!isSubmitting}
       >
-        <ModalBody>
+        <DialogContent className="sm:max-w-2xl">
+          <DialogHeader>
+            <DialogTitle>{editingQuestion ? "Editar Pergunta" : "Nova Pergunta"}</DialogTitle>
+          </DialogHeader>
           <QuestionForm
             quizId={quizId}
             onSubmit={handleCreateQuestion}
             initialData={editingQuestion ? transformToFormData(editingQuestion) : undefined}
             isLoading={isSubmitting}
           />
-        </ModalBody>
-        <ModalFooter>
-          <Button
-            variant="secondary"
-            onClick={() => {
-              setIsModalOpen(false);
-              setEditingQuestion(null);
-            }}
-            disabled={isSubmitting}
-          >
-            Cancelar
-          </Button>
-          <Button variant="primary" type="submit" form="question-form" disabled={isSubmitting}>
-            {isSubmitting ? "Salvando..." : "Salvar Pergunta"}
-          </Button>
-        </ModalFooter>
-      </Modal>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => {
+                setIsModalOpen(false);
+                setEditingQuestion(null);
+              }}
+              disabled={isSubmitting}
+            >
+              Cancelar
+            </Button>
+            <Button type="submit" form="question-form" disabled={isSubmitting}>
+              {isSubmitting ? "Salvando..." : "Salvar Pergunta"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
-      <Modal
-        isOpen={deleteConfirmation.isOpen}
-        onClose={() => setDeleteConfirmation({ isOpen: false })}
-        title="Excluir Pergunta"
-        size="sm"
+      <Dialog
+        open={deleteConfirmation.isOpen}
+        onOpenChange={(open) => {
+          if (!open) setDeleteConfirmation({ isOpen: false });
+        }}
       >
-        <ModalBody>
-          <div className={styles.deleteConfirmation}>
-            <Typography variant="body-1" as="p">
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Excluir Pergunta</DialogTitle>
+          </DialogHeader>
+          <div className="flex flex-col gap-3">
+            <Typography variant="body-1" color="dark">
               Tem certeza que deseja excluir esta pergunta?
             </Typography>
             {deleteConfirmation.questionText && (
-              <Typography
-                variant="body-1"
-                weight="semibold"
-                color="primary"
-                as="p"
-                className={styles.deleteQuestionPreview}
-              >
+              <Typography variant="body-2" weight="semibold" color="primary">
                 "{deleteConfirmation.questionText}"
               </Typography>
             )}
-            <Typography variant="caption" color="secondary" as="p">
+            <Typography variant="caption" color="light">
               Esta ação não pode ser desfeita.
             </Typography>
           </div>
-        </ModalBody>
-        <ModalFooter>
-          <Button variant="secondary" onClick={() => setDeleteConfirmation({ isOpen: false })}>
-            Cancelar
-          </Button>
-          <Button variant="danger" onClick={handleDeleteQuestion}>
-            Excluir
-          </Button>
-        </ModalFooter>
-      </Modal>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setDeleteConfirmation({ isOpen: false })}>
+              Cancelar
+            </Button>
+            <Button variant="destructive" onClick={handleDeleteQuestion}>
+              Excluir
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

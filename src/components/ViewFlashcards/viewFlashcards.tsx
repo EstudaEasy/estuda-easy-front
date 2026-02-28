@@ -2,11 +2,12 @@
 
 import { useEffect, useState } from "react";
 import Container from "@/components/Container/container";
-import { LuLayers, LuArrowLeft, LuPlus } from "react-icons/lu";
+import { LuLayers, LuArrowLeft } from "react-icons/lu";
 import { Deck } from "@/types";
 import DeckService from "@/services/deck/DeckService";
 import styles from "./styles.module.css";
 import FlashcardList from "./flashcardList";
+import PageHeader from "../PageHeader";
 
 export default function ViewFlashcards() {
   const [decks, setDecks] = useState<Deck[]>([]);
@@ -112,80 +113,80 @@ export default function ViewFlashcards() {
   }
 
   return (
-    <div className={styles.menuArea}>
-      <div className={styles.decksContainer}>
-        {decks.map((deck) => (
-          <div
-            key={deck.id}
-            onClick={(e) => {
-              e.preventDefault();
-              setSelectedDeck(deck);
-            }}
-            className={styles.deckWrapper}
-          >
-            <Container
-              href="#"
-              title={deck.name}
-              icon={<LuLayers size={30} />}
-              onEditClick={() => openEditModal(deck)}
-            />
-          </div>
-        ))}
-      </div>
+    <div className="flex flex-col gap-6">
+      <PageHeader title="Meus Decks" buttonText="Criar Deck" onButtonClick={openCreateModal} />
 
-      <button className={styles.fabButton} onClick={openCreateModal}>
-        <LuPlus size={30} />
-      </button>
-
-      {isModalOpen && (
-        <div className={styles.modalOverlay}>
-          <div className={styles.modalContent}>
-            <h3 className={styles.modalTitle}>
-              {editingDeckId ? "Editar Deck" : "Criar Novo Deck"}
-            </h3>
-
-            <div className={styles.inputGroup}>
-              <label className={styles.inputLabel}>Nome do Deck</label>
-              <input
-                type="text"
-                placeholder="Ex: Vocabulário de Inglês"
-                value={deckName}
-                onChange={(e) => setDeckName(e.target.value)}
-                className={styles.inputField}
+      <div className={styles.menuArea}>
+        <div className={styles.decksContainer}>
+          {decks.map((deck) => (
+            <div
+              key={deck.id}
+              onClick={(e) => {
+                e.preventDefault();
+                setSelectedDeck(deck);
+              }}
+              className={styles.deckWrapper}
+            >
+              <Container
+                href="#"
+                title={deck.name}
+                icon={<LuLayers size={30} />}
+                onEditClick={() => openEditModal(deck)}
               />
             </div>
-
-            <div className={styles.inputGroup}>
-              <label className={styles.inputLabel}>Descrição</label>
-              <input
-                type="text"
-                placeholder="Ex: Flashcards para estudar vocabulário"
-                value={deckDescription}
-                onChange={(e) => setDeckDescription(e.target.value)}
-                className={styles.inputField}
-              />
-            </div>
-
-            <div className={styles.modalActions}>
-              <div>
-                {editingDeckId && (
-                  <button onClick={handleDeleteDeck} className={styles.btnDelete}>
-                    Excluir
-                  </button>
-                )}
-              </div>
-              <div className={styles.modalActionsRight}>
-                <button onClick={() => setIsModalOpen(false)} className={styles.btnCancel}>
-                  Cancelar
-                </button>
-                <button onClick={handleSaveDeck} className={styles.btnSubmit}>
-                  Salvar
-                </button>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
-      )}
+
+        {isModalOpen && (
+          <div className={styles.modalOverlay}>
+            <div className={styles.modalContent}>
+              <h3 className={styles.modalTitle}>
+                {editingDeckId ? "Editar Deck" : "Criar Novo Deck"}
+              </h3>
+
+              <div className={styles.inputGroup}>
+                <label className={styles.inputLabel}>Nome do Deck</label>
+                <input
+                  type="text"
+                  placeholder="Ex: Vocabulário de Inglês"
+                  value={deckName}
+                  onChange={(e) => setDeckName(e.target.value)}
+                  className={styles.inputField}
+                />
+              </div>
+
+              <div className={styles.inputGroup}>
+                <label className={styles.inputLabel}>Descrição</label>
+                <input
+                  type="text"
+                  placeholder="Ex: Flashcards para estudar vocabulário"
+                  value={deckDescription}
+                  onChange={(e) => setDeckDescription(e.target.value)}
+                  className={styles.inputField}
+                />
+              </div>
+
+              <div className={styles.modalActions}>
+                <div>
+                  {editingDeckId && (
+                    <button onClick={handleDeleteDeck} className={styles.btnDelete}>
+                      Excluir
+                    </button>
+                  )}
+                </div>
+                <div className={styles.modalActionsRight}>
+                  <button onClick={() => setIsModalOpen(false)} className={styles.btnCancel}>
+                    Cancelar
+                  </button>
+                  <button onClick={handleSaveDeck} className={styles.btnSubmit}>
+                    Salvar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

@@ -1,13 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { Typography } from "@/components/base/Typography";
+import { Typography } from "@/components/ui/typography";
+import { Button } from "@/components/ui/button";
 import { useTasks } from "@/hooks/useTasks";
 import { format, addMonths, subMonths, addDays, subDays, isSameDay, startOfMonth } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { TaskCard } from "./components/TaskCard";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { CreateTaskModal } from "./components/CreateTaskModal";
+import PageHeader from "../PageHeader";
 
 export default function Tasks() {
   const { selectedDate, setSelectedDate, tasks, refreshTasks } = useTasks();
@@ -27,30 +29,41 @@ export default function Tasks() {
 
   return (
     <div className="relative min-h-screen">
-      <div className="flex flex-col gap-8 p-6">
+      <PageHeader
+        title="Minhas Tarefas"
+        buttonText="Criar Tarefa"
+        onButtonClick={() => setIsModalOpen(true)}
+      />
+      <div className="flex flex-col gap-4">
         <header className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <Typography className="text-gray-500">
+          <Typography variant="body-1" color="light">
             Simplifique sua rotina. Gerencie pendências com facilidade e foque no que realmente
             importa.
           </Typography>
 
-          <div className="flex items-center gap-4 bg-gray-50 p-2 rounded-xl border border-gray-100">
-            <button
+          <div className="flex items-center gap-2 bg-gray-50 p-2 rounded-xl border border-gray-100">
+            <Button
+              variant="ghost"
+              size="icon-sm"
               onClick={handlePrevMonth}
-              className="p-1 hover:bg-white hover:shadow-sm rounded-lg transition-all text-gray-600"
+              aria-label="Mês anterior"
             >
-              <ChevronLeft size={20} />
-            </button>
-            <Typography className="min-w-[140px] text-center font-bold capitalize text-[#1A2E5A]">
+              <ChevronLeft size={18} />
+            </Button>
+            <Typography
+              weight="bold"
+              className="min-w-[140px] text-center capitalize text-[#1A2E5A]"
+            >
               {format(selectedDate, "MMMM yyyy", { locale: ptBR })}
             </Typography>
-
-            <button
+            <Button
+              variant="ghost"
+              size="icon-sm"
               onClick={handleNextMonth}
-              className="p-1 hover:bg-white hover:shadow-sm rounded-lg transition-all text-gray-600"
+              aria-label="Próximo mês"
             >
-              <ChevronRight size={20} />
-            </button>
+              <ChevronRight size={18} />
+            </Button>
           </div>
         </header>
 
@@ -98,13 +111,6 @@ export default function Tasks() {
           ))}
         </div>
       </div>
-
-      <button
-        onClick={() => setIsModalOpen(true)}
-        className="fixed bottom-8 right-8 w-14 h-14 bg-[#3B82F6] rounded-2xl flex items-center justify-center text-white shadow-lg hover:brightness-110 transition-all z-40"
-      >
-        <span className="text-4xl font-light leading-none">+</span>
-      </button>
 
       {isModalOpen && (
         <CreateTaskModal

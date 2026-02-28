@@ -28,7 +28,7 @@ export default function QuizForm({ onSubmit, initialData, isLoading = false }: Q
   const description = watch("description") || "";
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+    <form id="quiz-form" onSubmit={handleSubmit(onSubmit)} className={styles.form}>
       <div className={styles.formGroup}>
         <label htmlFor="title" className={styles.label}>
           Título<span className={styles.required}>*</span>

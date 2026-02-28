@@ -5,12 +5,19 @@ import { useRouter } from "next/navigation";
 import { Quiz, CreateQuizRequest } from "@/types";
 import QuizService from "@/services/quiz/QuizService";
 import QuizCard from "./QuizCard";
-import { Button } from "@/components/base";
-import { Modal, ModalBody, ModalFooter } from "@/components/base";
+import { Button } from "@/components/ui/button";
+import { Typography } from "@/components/ui/typography";
+import { Separator } from "@/components/ui/separator";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
 import QuizForm from "@/components/QuizForm";
 import { QuizFormData } from "@/components/QuizForm/quizForm.schema";
-import { LuPlus } from "react-icons/lu";
-import styles from "./styles.module.css";
+import PageHeader from "../PageHeader";
 
 export default function ViewQuiz() {
   const router = useRouter();
@@ -45,7 +52,6 @@ export default function ViewQuiz() {
       const response = await QuizService.create(quizData);
       setIsCreateModalOpen(false);
       await fetchQuizzes();
-      // Navegar para a página de detalhes do quiz recém-criado
       router.push(`/tools/quiz/${response.data.id}`);
     } catch (error) {
       console.error("Erro ao criar quiz:", error);
@@ -57,52 +63,55 @@ export default function ViewQuiz() {
 
   if (loading) {
     return (
-      <div className={styles.loadingContainer}>
-        <p>Carregando quizzes...</p>
+      <div className="flex items-center justify-center p-12">
+        <Typography variant="body-1" color="light">
+          Carregando quizzes...
+        </Typography>
       </div>
     );
   }
 
   return (
-    <div className={styles.container}>
-      <div className={styles.header}>
-        <h2 className={styles.title}>Meus Quizzes</h2>
-        <Button
-          variant="primary"
-          onClick={() => setIsCreateModalOpen(true)}
-          className={styles.createButton}
-        >
-          <LuPlus size={20} />
-          Criar Quiz
-        </Button>
-      </div>
+    <div className="flex flex-col gap-6">
+      <PageHeader
+        title="Meus Quizzes"
+        buttonText="Criar Quiz"
+        onButtonClick={() => setIsCreateModalOpen(true)}
+      />
 
-      <div className={styles.quizzesContainer}>
-        {quizzes.length === 0 ? (
-          <p className={styles.emptyMessage}>Nenhum quiz encontrado. Crie seu primeiro quiz!</p>
-        ) : (
-          quizzes.map((quiz) => (
+      <Separator />
+
+      {quizzes.length === 0 ? (
+        <div className="flex flex-col items-center gap-2 py-12 text-center">
+          <Typography variant="body-1" color="light">
+            Nenhum quiz encontrado. Crie seu primeiro quiz!
+          </Typography>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {quizzes.map((quiz) => (
             <QuizCard
               key={quiz.id}
               title={quiz.title}
               questionsCount={quiz.items?.length || 0}
               onClick={() => router.push(`/tools/quiz/${quiz.id}`)}
             />
-          ))
-        )}
-      </div>
+          ))}
+        </div>
+      )}
 
-      {isCreateModalOpen && (
-        <Modal
-          isOpen={isCreateModalOpen}
-          onClose={() => !isCreating && setIsCreateModalOpen(false)}
-          title="Criar Novo Quiz"
-          size="md"
-        >
-          <ModalBody>
-            <QuizForm onSubmit={handleCreateQuiz} isLoading={isCreating} />
-          </ModalBody>
-          <ModalFooter>
+      <Dialog
+        open={isCreateModalOpen}
+        onOpenChange={(open) => {
+          if (!isCreating) setIsCreateModalOpen(open);
+        }}
+      >
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Criar Novo Quiz</DialogTitle>
+          </DialogHeader>
+          <QuizForm onSubmit={handleCreateQuiz} isLoading={isCreating} />
+          <DialogFooter>
             <Button
               variant="outline"
               onClick={() => setIsCreateModalOpen(false)}
@@ -110,23 +119,12 @@ export default function ViewQuiz() {
             >
               Cancelar
             </Button>
-            <Button
-              variant="primary"
-              type="submit"
-              form="quiz-form"
-              disabled={isCreating}
-              onClick={() => {
-                const form = document.querySelector("form");
-                if (form) {
-                  form.requestSubmit();
-                }
-              }}
-            >
+            <Button type="submit" form="quiz-form" disabled={isCreating}>
               {isCreating ? "Criando..." : "Criar Quiz"}
             </Button>
-          </ModalFooter>
-        </Modal>
-      )}
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
