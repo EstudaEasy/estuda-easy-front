@@ -1,4 +1,5 @@
 import axios from "axios";
+import AuthService from "./auth/AuthService";
 
 // Instância separada para chamadas de autenticação (sem interceptors)
 export const authApi = axios.create({
@@ -33,8 +34,7 @@ api.interceptors.response.use(
       try {
         const refreshToken = localStorage.getItem("@EstudaEasy:refreshToken");
         if (refreshToken) {
-          // Usar authApi para evitar loop infinito nos interceptors
-          const { data: response } = await authApi.post("/auth/refresh", { refreshToken });
+          const { data: response } = await AuthService.refreshToken({ refreshToken });
 
           localStorage.setItem("@EstudaEasy:accessToken", response.accessToken);
           localStorage.setItem("@EstudaEasy:refreshToken", response.refreshToken);
@@ -58,11 +58,6 @@ api.interceptors.response.use(
 
         // Remover cookies via API route
         await fetch("/api/auth/set-cookies", { method: "DELETE" });
-
-        // Redirecionar para login apenas no browser
-        if (typeof window !== "undefined") {
-          window.location.href = "/login";
-        }
 
         return Promise.reject(err);
       }

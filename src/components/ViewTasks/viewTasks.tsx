@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { Typography } from "@/components/ui/typography";
 import { Button } from "@/components/ui/button";
 import { useTasks } from "@/hooks/useTasks";
@@ -8,12 +7,9 @@ import { format, addMonths, subMonths, addDays, subDays, isSameDay, startOfMonth
 import { ptBR } from "date-fns/locale";
 import { TaskCard } from "./components/TaskCard";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { CreateTaskModal } from "./components/CreateTaskModal";
-import PageHeader from "../PageHeader";
 
 export default function Tasks() {
   const { selectedDate, setSelectedDate, tasks, refreshTasks } = useTasks();
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const days = Array.from({ length: 17 }, (_, i) => addDays(subDays(selectedDate, 8), i));
 
@@ -28,19 +24,9 @@ export default function Tasks() {
   };
 
   return (
-    <div className="relative min-h-screen">
-      <PageHeader
-        title="Minhas Tarefas"
-        buttonText="Criar Tarefa"
-        onButtonClick={() => setIsModalOpen(true)}
-      />
+    <>
       <div className="flex flex-col gap-4">
-        <header className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <Typography variant="body-1" color="light">
-            Simplifique sua rotina. Gerencie pendências com facilidade e foque no que realmente
-            importa.
-          </Typography>
-
+        <header className="flex flex-col md:flex-row md:items-center justify-center gap-4">
           <div className="flex items-center gap-2 bg-gray-50 p-2 rounded-xl border border-gray-100">
             <Button
               variant="ghost"
@@ -111,14 +97,6 @@ export default function Tasks() {
           ))}
         </div>
       </div>
-
-      {isModalOpen && (
-        <CreateTaskModal
-          selectedDate={selectedDate}
-          onSuccess={refreshTasks}
-          onClose={() => setIsModalOpen(false)}
-        />
-      )}
-    </div>
+    </>
   );
 }
