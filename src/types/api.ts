@@ -55,6 +55,40 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  "/auth/password/forgot": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** Enviar e-mail para redefinição de senha */
+    post: operations["AuthController_sendPasswordResetEmail"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/auth/password/reset": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** Enviar e-mail para redefinição de senha */
+    post: operations["AuthController_resetPassword"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   "/decks": {
     parameters: {
       query?: never;
@@ -107,6 +141,60 @@ export interface paths {
     head?: never;
     /** Atualizar um deck */
     patch: operations["DeckController_update"];
+    trace?: never;
+  };
+  "/diaries": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Buscar diários */
+    get: operations["DiaryController_find"];
+    put?: never;
+    /** Criar um novo diário */
+    post: operations["DiaryController_create"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/diaries/shared": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Buscar diários compartilhados com o usuário */
+    get: operations["DiaryController_findShared"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/diaries/{diaryId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Buscar um diário por ID */
+    get: operations["DiaryController_findOne"];
+    put?: never;
+    post?: never;
+    /** Deletar um diário */
+    delete: operations["DiaryController_delete"];
+    options?: never;
+    head?: never;
+    /** Atualizar um diário */
+    patch: operations["DiaryController_update"];
     trace?: never;
   };
   "/decks/{deckId}/flashcards": {
@@ -164,6 +252,23 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  "/groups/join": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** Entrar em um grupo através do código de convite */
+    post: operations["GroupController_join"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   "/groups/{groupId}": {
     parameters: {
       query?: never;
@@ -210,8 +315,7 @@ export interface paths {
     /** Buscar membros de um grupo */
     get: operations["GroupMemberController_find"];
     put?: never;
-    /** Adicionar membro de grupo através do código de convite */
-    post: operations["GroupMemberController_add"];
+    post?: never;
     delete?: never;
     options?: never;
     head?: never;
@@ -345,6 +449,77 @@ export interface paths {
      * @description Mantém as opções existentes se nenhuma for fornecida
      */
     patch: operations["QuizItemController_update"];
+    trace?: never;
+  };
+  "/resources/{resourceId}/shares/from-link/{linkId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /** Gerar ou atualizar compartilhamento de recurso a partir de um link */
+    post: operations["ResourceShareController_createFromLink"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/resources/{resourceId}/shares": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Listar compartilhamentos de um recurso */
+    get: operations["ResourceShareController_find"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/resources/{resourceId}/shares/{shareId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    /** Remover um compartilhamento de recurso */
+    delete: operations["ResourceShareController_delete"];
+    options?: never;
+    head?: never;
+    /** Atualizar permissão de um compartilhamento */
+    patch: operations["ResourceShareController_update"];
+    trace?: never;
+  };
+  "/resources/{resourceId}/links": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Buscar link de compartilhamento de um recurso */
+    get: operations["ResourceShareLinkController_findOne"];
+    put?: never;
+    /** Gerar ou atualizar link de compartilhamento de um recurso */
+    post: operations["ResourceShareLinkController_generate"];
+    /** Deletar link de compartilhamento */
+    delete: operations["ResourceShareLinkController_delete"];
+    options?: never;
+    head?: never;
+    patch?: never;
     trace?: never;
   };
   "/tasks": {
@@ -522,6 +697,24 @@ export interface components {
       /** @description Novo refresh token */
       refreshToken: string;
     };
+    SendPasswordResetEmailBodyDTO: {
+      /**
+       * @description E-mail do usuário
+       * @example joao.silva@example.com
+       */
+      email: string;
+    };
+    ResetPasswordDTO: {
+      /** @description Token de redefinição de senha */
+      token: string;
+      /**
+       * @description Nova senha do usuário
+       *         (deve conter pelo menos 1 maiúscula, 1 minúscula, 1 número e 1 caractere especial)
+       */
+      password: string;
+      /** @description Confirmação da nova senha */
+      passwordConfirmation: string;
+    };
     CreateDeckBodyDTO: {
       /**
        * @description Nome do deck
@@ -592,6 +785,11 @@ export interface components {
       /** @description Flashcards do deck */
       flashcards?: components["schemas"]["FlashcardResponseDTO"][];
       /**
+       * @description ID do recurso associado ao quiz
+       * @example 550e8400-e29b-41d4-a716-446655440000
+       */
+      resourceId: string;
+      /**
        * Format: date-time
        * @description Data de criação do registro
        * @example 2024-01-15T10:30:00.000Z
@@ -624,6 +822,88 @@ export interface components {
        * @example Flashcards para estudar vocabulário em inglês
        */
       description?: string;
+    };
+    CreateDiaryBodyDTO: {
+      /**
+       * @description Título do diário
+       * @example Meu dia de estudos
+       */
+      title: string;
+      /**
+       * @description Conteúdo do diário
+       * @example Hoje estudei matemática e física...
+       */
+      content: string;
+      /**
+       * @description URL do áudio do diário
+       * @example https://example.com/audio.mp3
+       */
+      audioUrl?: string;
+    };
+    DiaryResponseDTO: {
+      /**
+       * @description ID único do diário
+       * @example 550e8400-e29b-41d4-a716-446655440000
+       */
+      id: string;
+      /**
+       * @description Título do diário
+       * @example Meu dia de estudos
+       */
+      title: string;
+      /**
+       * @description Conteúdo do diário
+       * @example Hoje estudei matemática e física...
+       */
+      content: string;
+      /**
+       * @description URL do áudio do diário
+       * @example https://example.com/audio.mp3
+       */
+      audioUrl?: string;
+      /**
+       * @description ID do recurso associado ao quiz
+       * @example 550e8400-e29b-41d4-a716-446655440000
+       */
+      resourceId: string;
+      /**
+       * Format: date-time
+       * @description Data de criação do registro
+       * @example 2024-01-15T10:30:00.000Z
+       */
+      createdAt: string;
+      /**
+       * Format: date-time
+       * @description Data da última atualização do registro
+       * @example 2024-01-15T10:30:00.000Z
+       */
+      updatedAt: string;
+    };
+    FindDiaryResponseDTO: {
+      /** @description Lista de diários */
+      diaries: components["schemas"]["DiaryResponseDTO"][];
+      /**
+       * @description Total de diários encontrados
+       * @example 10
+       */
+      total: number;
+    };
+    UpdateDiaryBodyDTO: {
+      /**
+       * @description Título do diário
+       * @example Meu dia de estudos
+       */
+      title?: string;
+      /**
+       * @description Conteúdo do diário
+       * @example Hoje estudei matemática e física...
+       */
+      content?: string;
+      /**
+       * @description URL do áudio do diário
+       * @example https://example.com/audio.mp3
+       */
+      audioUrl?: string;
     };
     CreateFlashcardBodyDTO: {
       /**
@@ -714,28 +994,7 @@ export interface components {
        */
       updatedAt: string;
     };
-    FindGroupResponseDTO: {
-      /** @description Lista de grupos */
-      groups: components["schemas"]["GroupResponseDTO"][];
-      /**
-       * @description Total de grupos encontrados
-       * @example 10
-       */
-      total: number;
-    };
-    UpdateGroupBodyDTO: {
-      /**
-       * @description Nome do grupo
-       * @example Grupo de Estudos de Matemática
-       */
-      name?: string;
-      /**
-       * @description Descrição do grupo
-       * @example Grupo dedicado aos estudos de matemática avançada
-       */
-      description?: string;
-    };
-    AddGroupMemberBodyDTO: {
+    JoinGroupBodyDTO: {
       /**
        * @description Código de convite do grupo
        * @example ABC12345
@@ -830,6 +1089,27 @@ export interface components {
        */
       updatedAt: string;
     };
+    FindGroupResponseDTO: {
+      /** @description Lista de grupos */
+      groups: components["schemas"]["GroupResponseDTO"][];
+      /**
+       * @description Total de grupos encontrados
+       * @example 10
+       */
+      total: number;
+    };
+    UpdateGroupBodyDTO: {
+      /**
+       * @description Nome do grupo
+       * @example Grupo de Estudos de Matemática
+       */
+      name?: string;
+      /**
+       * @description Descrição do grupo
+       * @example Grupo dedicado aos estudos de matemática avançada
+       */
+      description?: string;
+    };
     FindGroupMembersResponseDTO: {
       /** @description Lista de membros do grupo */
       members: components["schemas"]["GroupMemberResponseDTO"][];
@@ -858,6 +1138,16 @@ export interface components {
        * @example Um quiz sobre matemática básica
        */
       description?: string;
+      /**
+       * @description Ícone do quiz
+       * @example book svg
+       */
+      icon?: string;
+      /**
+       * @description Cor do quiz (hex)
+       * @example #FF0000
+       */
+      color?: string;
     };
     QuizOptionResponseDTO: {
       /**
@@ -948,8 +1238,23 @@ export interface components {
        * @example Um quiz sobre matemática básica
        */
       description?: string;
+      /**
+       * @description Ícone do quiz
+       * @example book svg
+       */
+      icon?: string;
+      /**
+       * @description Cor do quiz (hex)
+       * @example #FF0000
+       */
+      color?: string;
       /** @description Itens do quiz */
       items?: components["schemas"]["QuizItemResponseDTO"][];
+      /**
+       * @description ID do recurso associado ao quiz
+       * @example 550e8400-e29b-41d4-a716-446655440000
+       */
+      resourceId: string;
       /**
        * Format: date-time
        * @description Data de criação do registro
@@ -983,6 +1288,16 @@ export interface components {
        * @example Um quiz sobre matemática básica
        */
       description?: string;
+      /**
+       * @description Ícone do quiz
+       * @example book svg
+       */
+      icon?: string;
+      /**
+       * @description Cor do quiz (hex)
+       * @example #FF0000
+       */
+      color?: string;
     };
     CreateQuizOptionDTO: {
       /**
@@ -1080,6 +1395,133 @@ export interface components {
       /** @description Opções de resposta do item */
       options?: components["schemas"]["UpdateQuizOptionDTO"][];
     };
+    ResourceShareResponseDTO: {
+      /**
+       * @description ID único do compartilhamento
+       * @example 1
+       */
+      id: number;
+      /**
+       * @description Permissão do compartilhamento
+       * @example read
+       * @enum {string}
+       */
+      permission: "read" | "edit";
+      /**
+       * @description ID do recurso compartilhado
+       * @example 550e8400-e29b-41d4-a716-446655440000
+       */
+      resourceId: string;
+      /**
+       * @description ID do usuário com acesso
+       * @example 1
+       */
+      userId: number;
+      /**
+       * Format: date-time
+       * @description Data de criação do registro
+       * @example 2024-01-15T10:30:00.000Z
+       */
+      createdAt?: string;
+      /**
+       * Format: date-time
+       * @description Data da última atualização do registro
+       * @example 2024-01-15T10:30:00.000Z
+       */
+      updatedAt?: string;
+    };
+    ResourceShareDTO: {
+      /**
+       * @description ID único do compartilhamento
+       * @example 1
+       */
+      id: number;
+      /**
+       * @description Permissão do compartilhamento
+       * @example read
+       * @enum {string}
+       */
+      permission: "read" | "edit";
+      /**
+       * @description ID do recurso compartilhado
+       * @example 550e8400-e29b-41d4-a716-446655440000
+       */
+      resourceId: string;
+      /**
+       * @description ID do usuário com acesso
+       * @example 1
+       */
+      userId: number;
+      /**
+       * Format: date-time
+       * @description Data de criação do registro
+       * @example 2024-01-15T10:30:00.000Z
+       */
+      createdAt?: string;
+      /**
+       * Format: date-time
+       * @description Data da última atualização do registro
+       * @example 2024-01-15T10:30:00.000Z
+       */
+      updatedAt?: string;
+      /** @description Informações do usuário com acesso ao recurso */
+      user: components["schemas"]["UserResponseDTO"];
+    };
+    FindResourceSharesResponseDTO: {
+      /** @description Lista de compartilhamentos do recurso */
+      shares: components["schemas"]["ResourceShareDTO"][];
+      /**
+       * @description Total de compartilhamentos
+       * @example 10
+       */
+      total: number;
+    };
+    UpdateResourceShareBodyDTO: {
+      /**
+       * @description Nova permissão do compartilhamento
+       * @example edit
+       * @enum {string}
+       */
+      permission: "read" | "edit";
+    };
+    GenerateResourceShareLinkBodyDTO: {
+      /**
+       * @description Permissão concedida ao acessar o link
+       * @example read
+       * @enum {string}
+       */
+      permission: "read" | "edit";
+    };
+    ResourceShareLinkResponseDTO: {
+      /**
+       * @description ID único do link de compartilhamento
+       * @example 550e8400-e29b-41d4-a716-446655440000
+       */
+      id: string;
+      /**
+       * @description ID do recurso associado ao link
+       * @example 550e8400-e29b-41d4-a716-446655440000
+       */
+      resourceId: string;
+      /**
+       * @description Permissão concedida ao acessar o link
+       * @example read
+       * @enum {string}
+       */
+      permission: "read" | "edit";
+      /**
+       * Format: date-time
+       * @description Data de criação do registro
+       * @example 2024-01-15T10:30:00.000Z
+       */
+      createdAt: string;
+      /**
+       * Format: date-time
+       * @description Data da última atualização do registro
+       * @example 2024-01-15T10:30:00.000Z
+       */
+      updatedAt: string;
+    };
     CreateTaskBodyDTO: {
       /**
        * @description Nome da tarefa
@@ -1144,6 +1586,11 @@ export interface components {
        * @example 2024-01-20T18:00:00.000Z
        */
       endDate?: string;
+      /**
+       * @description ID do recurso associado ao quiz
+       * @example 550e8400-e29b-41d4-a716-446655440000
+       */
+      resourceId: string;
       /**
        * Format: date-time
        * @description Data de criação do registro
@@ -1279,6 +1726,11 @@ export interface components {
       /** @description Dados do whiteboard em formato JSON */
       content: Record<string, never>;
       /**
+       * @description ID do recurso associado ao quiz
+       * @example 550e8400-e29b-41d4-a716-446655440000
+       */
+      resourceId: string;
+      /**
        * Format: date-time
        * @description Data de criação do registro
        * @example 2024-01-15T10:30:00.000Z
@@ -1401,6 +1853,71 @@ export interface operations {
         };
       };
       /** @description Refresh token inválido */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  AuthController_sendPasswordResetEmail: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["SendPasswordResetEmailBodyDTO"];
+      };
+    };
+    responses: {
+      /** @description E-mail enviado com sucesso */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Usuário não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  AuthController_resetPassword: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["ResetPasswordDTO"];
+      };
+    };
+    responses: {
+      /** @description Senha redefinida com sucesso */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Senha e confirmação de senha não conferem */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Token de redefinição inválido */
       401: {
         headers: {
           [name: string]: unknown;
@@ -1581,6 +2098,186 @@ export interface operations {
         content?: never;
       };
       /** @description Deck não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  DiaryController_find: {
+    parameters: {
+      query?: {
+        /** @description ID do diário */
+        id?: string;
+        /** @description Título do diário */
+        title?: string;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Diários retornados com sucesso */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["FindDiaryResponseDTO"];
+        };
+      };
+    };
+  };
+  DiaryController_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["CreateDiaryBodyDTO"];
+      };
+    };
+    responses: {
+      /** @description Diário criado com sucesso */
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["DiaryResponseDTO"];
+        };
+      };
+    };
+  };
+  DiaryController_findShared: {
+    parameters: {
+      query?: {
+        /** @description ID do diário */
+        id?: string;
+        /** @description Título do diário */
+        title?: string;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Diários retornados com sucesso */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["FindDiaryResponseDTO"];
+        };
+      };
+    };
+  };
+  DiaryController_findOne: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do diário */
+        diaryId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Diário encontrado */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["DiaryResponseDTO"];
+        };
+      };
+      /** @description Diário não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  DiaryController_delete: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do diário */
+        diaryId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Diário deletado com sucesso */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Permissões insuficientes para acessar o recurso */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Diário não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  DiaryController_update: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do diário */
+        diaryId: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["UpdateDiaryBodyDTO"];
+      };
+    };
+    responses: {
+      /** @description Diário atualizado com sucesso */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["DiaryResponseDTO"];
+        };
+      };
+      /** @description Permissões insuficientes para acessar o recurso */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Diário não encontrado */
       404: {
         headers: {
           [name: string]: unknown;
@@ -1814,6 +2511,44 @@ export interface operations {
       };
     };
   };
+  GroupController_join: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["JoinGroupBodyDTO"];
+      };
+    };
+    responses: {
+      /** @description Entrou no grupo com sucesso */
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["GroupMemberResponseDTO"];
+        };
+      };
+      /** @description Código de convite inválido */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Usuário já é membro do grupo */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
   GroupController_findOne: {
     parameters: {
       query?: never;
@@ -1982,44 +2717,6 @@ export interface operations {
         content: {
           "application/json": components["schemas"]["FindGroupMembersResponseDTO"];
         };
-      };
-    };
-  };
-  GroupMemberController_add: {
-    parameters: {
-      query?: never;
-      header?: never;
-      path?: never;
-      cookie?: never;
-    };
-    requestBody: {
-      content: {
-        "application/json": components["schemas"]["AddGroupMemberBodyDTO"];
-      };
-    };
-    responses: {
-      /** @description Membro adicionado no grupo com sucesso */
-      201: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["GroupMemberResponseDTO"];
-        };
-      };
-      /** @description Código de convite inválido */
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
-      };
-      /** @description Usuário já é membro do grupo */
-      409: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content?: never;
       };
     };
   };
@@ -2481,6 +3178,241 @@ export interface operations {
         content?: never;
       };
       /** @description Item não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  ResourceShareController_createFromLink: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do link de compartilhamento */
+        linkId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Compartilhamento criado/atualizado com sucesso */
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ResourceShareResponseDTO"];
+        };
+      };
+      /** @description Link de compartilhamento não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  ResourceShareController_find: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do recurso */
+        resourceId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Compartilhamentos retornados com sucesso */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["FindResourceSharesResponseDTO"];
+        };
+      };
+    };
+  };
+  ResourceShareController_delete: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do compartilhamento */
+        shareId: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Compartilhamento removido com sucesso */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Apenas o proprietário do recurso pode remover compartilhamentos */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Compartilhamento não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  ResourceShareController_update: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do compartilhamento */
+        shareId: number;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["UpdateResourceShareBodyDTO"];
+      };
+    };
+    responses: {
+      /** @description Permissão atualizada com sucesso */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ResourceShareResponseDTO"];
+        };
+      };
+      /** @description Apenas o proprietário do recurso pode alterar permissões */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Compartilhamento não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  ResourceShareLinkController_findOne: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do recurso */
+        resourceId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Link encontrado */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ResourceShareLinkResponseDTO"];
+        };
+      };
+      /** @description Link de compartilhamento não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  ResourceShareLinkController_generate: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do recurso */
+        resourceId: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["GenerateResourceShareLinkBodyDTO"];
+      };
+    };
+    responses: {
+      /** @description Link gerado/atualizado com sucesso */
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ResourceShareLinkResponseDTO"];
+        };
+      };
+      /** @description Apenas o proprietário do recurso pode gerar links */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Recurso não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  ResourceShareLinkController_delete: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do recurso */
+        resourceId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Link deletado com sucesso */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Apenas o proprietário do recurso pode deletar links */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Link de compartilhamento não encontrado */
       404: {
         headers: {
           [name: string]: unknown;
