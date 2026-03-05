@@ -99,7 +99,7 @@ export default function FlashcardList({ deckId }: FlashcardListProps) {
       setBackText("");
     } catch (error) {
       console.error("Erro ao salvar flashcard:", error);
-      toast.error("Falha ao salvar a carta. Verifique o console.");
+      toast.error("Falha ao salvar a carta.");
     }
   };
 

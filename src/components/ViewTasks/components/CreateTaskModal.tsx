@@ -41,8 +41,9 @@ export function CreateTaskModal({ selectedDate, onSuccess, onClose }: Props) {
       onSuccess();
       onClose();
     } catch (error) {
-      toast.error("Erro ao criar tarefa. Verifique a sua conexão.");
+      alert("Erro ao criar tarefa. Verifique a sua conexão.");
       console.error("Erro ao criar tarefa:", error);
+      toast.error("Erro ao criar tarefa.");
     }
   };
 

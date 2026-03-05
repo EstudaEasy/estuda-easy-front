@@ -51,7 +51,7 @@ export default function Flashcards() {
       setDeckDescription("");
     } catch (error) {
       console.error("Erro ao salvar deck:", error);
-      toast.error("Falha ao salvar o deck. Verifique o console.");
+      toast.error("Falha ao salvar o deck.");
     }
   };
 

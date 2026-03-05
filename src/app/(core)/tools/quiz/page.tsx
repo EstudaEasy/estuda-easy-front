@@ -38,7 +38,7 @@ export default function Quiz() {
       router.push(`/tools/quiz/${response.data.id}`);
     } catch (error) {
       console.error("Erro ao criar quiz:", error);
-      toast.error("Erro ao criar quiz. Tente novamente.");
+      toast.error("Erro ao criar quiz. Tente novamente");
     } finally {
       setIsCreating(false);
     }

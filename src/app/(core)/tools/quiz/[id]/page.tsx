@@ -120,7 +120,7 @@ export default function QuizDetailPage() {
       // Fechar modal de confirmação
       setDeleteConfirmation({ isOpen: false });
 
-      console.log("Pergunta excluída com sucesso!");
+      toast.success("Pergunta excluída com sucesso!");
     } catch (err) {
       console.error("Erro ao excluir pergunta:", err);
       toast.error("Erro ao excluir pergunta. Tente novamente.");

@@ -1,6 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
+import { Toaster } from "sonner";
 import { Providers } from "./providers";
 import { Toaster } from "sonner";
 

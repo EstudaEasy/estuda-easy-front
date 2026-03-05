@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import styles from "./styles.module.css";
+import styles from "../auth.module.css";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -27,7 +27,7 @@ export default function LoginPage() {
       router.replace("/home");
     } catch (error) {
       console.log("Erro no login:", error);
-      toast.error("Erro ao fazer login. Verifique suas credenciais e tente novamente.");
+      toast.error("Erro no login");
     }
   };
 
@@ -65,11 +65,11 @@ export default function LoginPage() {
             required
           />
 
-          <a href="#" className={styles.forgotPassword}>
+          <Link href="/forgot-password" className={styles.forgotPassword}>
             Esqueceu sua senha?
-          </a>
+          </Link>
 
-          <Button type="submit" variant={"default"} disabled={isLoading}>
+          <Button type="submit" variant={"default"} className={styles.button} disabled={isLoading}>
             Entrar
           </Button>
         </form>
