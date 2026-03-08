@@ -1,0 +1,56 @@
+.style {
+  background-color: #ffffff;
+  display: flex;
+  height: 100px;
+  width: 280px;
+  align-items: center;
+  justify-content: center;
+  gap: 60px;
+  border-radius: 15px;
+  border: 1px solid #eef0f4;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.containerIcon {
+  background-color: #3b82f6;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.containerTitle {
+  font-size: 17px;
+  color: #000000;
+  font-family: var(--font-poppins), sans-serif;
+}
+
+.style:hover {
+  border-color: #3b82f6;
+}
+
+.editButton {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  padding: 6px;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+  z-index: 10;
+}
+
+.editButton:hover {
+  background-color: #f1f5f9;
+  color: #3b82f6;
+}
