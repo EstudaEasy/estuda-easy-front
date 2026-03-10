@@ -17,6 +17,7 @@ import QuizForm from "@/components/QuizForm";
 import { QuizFormData } from "@/components/QuizForm/quizForm.schema";
 import QuizService from "@/services/quiz/QuizService";
 import { CreateQuizRequest } from "@/types";
+import { toast } from "sonner";
 
 export default function Quiz() {
   const router = useRouter();
@@ -37,7 +38,7 @@ export default function Quiz() {
       router.push(`/tools/quiz/${response.data.id}`);
     } catch (error) {
       console.error("Erro ao criar quiz:", error);
-      alert("Erro ao criar quiz. Tente novamente.");
+      toast.error("Erro ao criar quiz. Tente novamente");
     } finally {
       setIsCreating(false);
     }

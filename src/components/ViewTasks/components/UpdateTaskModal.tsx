@@ -6,6 +6,7 @@ import { setHours, setMinutes, format, parseISO } from "date-fns";
 import { taskSchema, TaskFormData } from "../schemas/taskSchema";
 import TaskService from "@/services/task/TaskService";
 import { TaskResponse } from "../../../types/task";
+import { toast } from "sonner";
 
 interface Props {
   task: TaskResponse;
@@ -53,7 +54,7 @@ export function UpdateTaskModal({ task, onSuccess, onClose }: Props) {
       onClose();
     } catch (error) {
       console.error("Erro ao atualizar tarefa:", error);
-      alert("Não foi possível atualizar a tarefa.");
+      toast.error("Não foi possível atualizar a tarefa.");
     }
   };
 
@@ -65,7 +66,7 @@ export function UpdateTaskModal({ task, onSuccess, onClose }: Props) {
         onClose();
       } catch (error) {
         console.error("Erro ao deletar:", error);
-        alert("Erro ao excluir tarefa.");
+        toast.error("Erro ao excluir tarefa.");
       }
     }
   };

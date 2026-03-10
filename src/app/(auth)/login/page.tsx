@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import styles from "./styles.module.css";
+import styles from "../auth.module.css";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -11,6 +11,7 @@ import GoogleIcon from "@/assets/_Google.png";
 import EyeIcon from "@/assets/eyeicon.png";
 import { useAuth } from "@/context/auth";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 export default function LoginPage() {
   const { login, isLoading } = useAuth();
@@ -26,7 +27,7 @@ export default function LoginPage() {
       router.replace("/home");
     } catch (error) {
       console.log("Erro no login:", error);
-      alert("Erro no login");
+      toast.error("Erro no login");
     }
   };
 
@@ -64,11 +65,11 @@ export default function LoginPage() {
             required
           />
 
-          <a href="#" className={styles.forgotPassword}>
+          <Link href="/forgot-password" className={styles.forgotPassword}>
             Esqueceu sua senha?
-          </a>
+          </Link>
 
-          <Button type="submit" variant={"default"} disabled={isLoading}>
+          <Button type="submit" variant={"default"} className={styles.button} disabled={isLoading}>
             Entrar
           </Button>
         </form>

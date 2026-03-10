@@ -61,6 +61,8 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
       }
     } catch (error) {
       throw error;
+    } finally {
+      setIsLoading(false);
     }
   }
   async function logout() {

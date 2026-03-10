@@ -20,6 +20,7 @@ import {
 import QuestionForm from "@/components/QuestionForm";
 import { QuestionFormData } from "@/components/QuestionForm/questionForm.schema";
 import { LuArrowLeft, LuPencil, LuPlay, LuPlus, LuTrash2 } from "react-icons/lu";
+import { toast } from "sonner";
 
 export default function QuizDetailPage() {
   const router = useRouter();
@@ -95,7 +96,7 @@ export default function QuizDetailPage() {
       setEditingQuestion(null);
     } catch (err) {
       console.error("Erro ao salvar pergunta:", err);
-      alert("Erro ao salvar pergunta. Tente novamente.");
+      toast.error("Erro ao salvar pergunta. Tente novamente.");
     } finally {
       setIsSubmitting(false);
     }
@@ -119,10 +120,10 @@ export default function QuizDetailPage() {
       // Fechar modal de confirmação
       setDeleteConfirmation({ isOpen: false });
 
-      console.log("Pergunta excluída com sucesso!");
+      toast.success("Pergunta excluída com sucesso!");
     } catch (err) {
       console.error("Erro ao excluir pergunta:", err);
-      alert("Erro ao excluir pergunta. Tente novamente.");
+      toast.error("Erro ao excluir pergunta. Tente novamente.");
     }
   };
 

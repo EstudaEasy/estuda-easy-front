@@ -6,6 +6,8 @@ export type LoginResponse = components["schemas"]["LoginResponseDTO"];
 export type LogoutRequest = components["schemas"]["LogoutBodyDTO"];
 export type RefreshTokenRequest = components["schemas"]["RefreshTokensBodyDTO"];
 export type RefreshTokenResponse = components["schemas"]["RefreshTokensResponseDTO"];
+export type ForgotPasswordRequest = components["schemas"]["SendPasswordResetEmailBodyDTO"];
+export type ResetPasswordRequest = components["schemas"]["ResetPasswordDTO"];
 export type AccessTokenPayload = {
   iat: number;
   exp?: number;

@@ -10,6 +10,7 @@ import { Progress } from "@/components/ui/progress";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { LuArrowLeft } from "react-icons/lu";
+import { toast } from "sonner";
 
 export default function QuizPlayPage() {
   const router = useRouter();
@@ -33,7 +34,7 @@ export default function QuizPlayPage() {
         }
       } catch (err) {
         console.error("Erro ao buscar quiz:", err);
-        alert("Não foi possível carregar o quiz");
+        toast.error("Não foi possível carregar o quiz");
         router.push(`/tools/quiz/${quizId}`);
       } finally {
         setLoading(false);

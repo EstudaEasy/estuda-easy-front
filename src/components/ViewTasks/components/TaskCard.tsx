@@ -5,6 +5,7 @@ import { TaskResponse } from "../../../types/task";
 import { format, parseISO } from "date-fns";
 import { UpdateTaskModal } from "./UpdateTaskModal";
 import TaskService from "@/services/task/TaskService";
+import { toast } from "sonner";
 
 export function TaskCard({ task, onRefresh }: { task: TaskResponse; onRefresh: () => void }) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -16,14 +17,13 @@ export function TaskCard({ task, onRefresh }: { task: TaskResponse; onRefresh: (
   const isCompleted = task.status === "completed";
 
   const handleToggleStatus = async (e: React.MouseEvent) => {
-    e.stopPropagation(); // Impede de abrir o modal de edição
+    e.stopPropagation();
 
     if (isUpdating) return;
 
     try {
       setIsUpdating(true);
 
-      // Se já estiver concluída, podemos voltar para pending (ou vice-versa)
       const newStatus = isCompleted ? "pending" : "completed";
 
       await TaskService.update(task.id, {
@@ -34,10 +34,10 @@ export function TaskCard({ task, onRefresh }: { task: TaskResponse; onRefresh: (
         status: newStatus,
       });
 
-      onRefresh(); // Atualiza a lista
+      onRefresh();
     } catch (error) {
       console.error("Erro ao atualizar status:", error);
-      alert("Não foi possível atualizar o status da tarefa.");
+      toast.error("Não foi possível atualizar o status da tarefa.");
     } finally {
       setIsUpdating(false);
     }

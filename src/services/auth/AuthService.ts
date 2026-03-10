@@ -1,10 +1,12 @@
 import { authApi } from "../api";
 import {
+  ForgotPasswordRequest,
   LoginRequest,
   LoginResponse,
   LogoutRequest,
   RefreshTokenRequest,
   RefreshTokenResponse,
+  ResetPasswordRequest,
 } from "@/types";
 
 const AuthService = {
@@ -13,11 +15,19 @@ const AuthService = {
   },
 
   logout(data: LogoutRequest) {
-    return authApi.post("/auth/logout", data);
+    return authApi.post<void>("/auth/logout", data);
   },
 
   refreshToken(data: RefreshTokenRequest) {
     return authApi.post<RefreshTokenResponse>("/auth/refresh", data);
+  },
+
+  forgotPassword(data: ForgotPasswordRequest) {
+    return authApi.post<void>("/auth/password/forgot", data);
+  },
+
+  resetPassword(data: ResetPasswordRequest) {
+    return authApi.post<void>("/auth/password/reset", data);
   },
 };
 

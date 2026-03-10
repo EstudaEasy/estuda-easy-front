@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { setHours, setMinutes } from "date-fns";
 import { taskSchema, TaskFormData } from "../schemas/taskSchema";
 import TaskService from "@/services/task/TaskService";
+import { toast } from "sonner";
 
 interface Props {
   selectedDate: Date;
@@ -42,6 +43,7 @@ export function CreateTaskModal({ selectedDate, onSuccess, onClose }: Props) {
     } catch (error) {
       alert("Erro ao criar tarefa. Verifique a sua conexão.");
       console.error("Erro ao criar tarefa:", error);
+      toast.error("Erro ao criar tarefa.");
     }
   };
 

@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { toast } from "sonner";
 
 const profileSchema = z
   .object({
@@ -112,16 +113,16 @@ export default function Profile() {
     );
 
     if (Object.keys(onlyUpdatedData).length === 0) {
-      alert("Nenhuma alteração para salvar");
+      toast.info("Nenhuma alteração para salvar");
       return;
     }
 
     try {
       await UserService.updateUser(String(user!.id), onlyUpdatedData);
-      alert("Perfil atualizado com sucesso!");
+      toast.success("Perfil atualizado com sucesso!");
     } catch (error) {
       console.error("Erro ao atualizar perfil:", error);
-      alert("Erro ao atualizar perfil");
+      toast.error("Erro ao atualizar perfil");
     }
   };
 

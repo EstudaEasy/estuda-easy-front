@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import styles from "./styles.module.css";
+import styles from "../auth.module.css";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -12,6 +12,7 @@ import GoogleIcon from "@/assets/_Google.png";
 import EyeIcon from "@/assets/eyeicon.png";
 import { useAuth } from "@/context/auth/authContext";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 
 export default function RegisterPage() {
   const { register, isLoading } = useAuth();
@@ -29,7 +30,7 @@ export default function RegisterPage() {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      alert("As senhas não coincidem!");
+      toast.error("As senhas não coincidem!");
       return;
     }
 
@@ -42,11 +43,11 @@ export default function RegisterPage() {
         phoneNumber: formattedPhone,
         birthdate: birthDate,
       });
-      await alert("Conta criada com sucesso!");
+      toast.success("Conta criada com sucesso!");
       router.push("/login");
     } catch (error) {
       const message = error instanceof Error ? error.message : "Erro ao criar conta.";
-      alert(message);
+      toast.error(message);
     }
   };
 
@@ -110,7 +111,7 @@ export default function RegisterPage() {
             required
           />
 
-          <Button type="submit" variant="default" disabled={isLoading}>
+          <Button type="submit" variant="default" className={styles.button} disabled={isLoading}>
             Criar conta
           </Button>
         </form>

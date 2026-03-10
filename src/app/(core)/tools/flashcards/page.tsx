@@ -6,6 +6,7 @@ import ViewFlashcards from "@/components/ViewFlashcards/viewFlashcards";
 import { Deck } from "@/types";
 import DeckService from "@/services/deck/DeckService";
 import styles from "@/components/ViewFlashcards/styles.module.css";
+import { toast } from "sonner";
 
 export default function Flashcards() {
   const [refreshTrigger, setRefreshTrigger] = useState(0);

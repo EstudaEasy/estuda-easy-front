@@ -6,6 +6,7 @@ import { Flashcard } from "@/types";
 import styles from "./styles.module.css";
 import { LuCheck, LuEye, LuX, LuPlus, LuPencil, LuPlay, LuArrowLeft } from "react-icons/lu";
 import { Typography } from "../ui/typography";
+import { toast } from "sonner";
 
 interface FlashcardListProps {
   deckId: string;
