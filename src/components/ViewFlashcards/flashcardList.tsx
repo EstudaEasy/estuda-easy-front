@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import FlashcardService from "@/services/deck/FlashcardService";
 import { Flashcard } from "@/types";
 import styles from "./styles.module.css";
-import { LuCheck, LuEye, LuX, LuPlus, LuPencil } from "react-icons/lu";
+import { LuCheck, LuEye, LuX, LuPlus, LuPencil, LuPlay, LuArrowLeft } from "react-icons/lu";
 import { Typography } from "../ui/typography";
 import { toast } from "sonner";
 
@@ -16,13 +16,17 @@ export default function FlashcardList({ deckId }: FlashcardListProps) {
   const [flashcards, setFlashcards] = useState<Flashcard[]>([]);
   const [loading, setLoading] = useState(true);
 
+  const [viewMode, setViewMode] = useState<"list" | "study">("list");
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
-
+  const [isFinished, setIsFinished] = useState(false);
   const [correctCount, setCorrectCount] = useState(0);
   const [wrongCount, setWrongCount] = useState(0);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [editingCardId, setEditingCardId] = useState<number | null>(null);
   const [frontText, setFrontText] = useState("");
   const [backText, setBackText] = useState("");
@@ -53,10 +57,23 @@ export default function FlashcardList({ deckId }: FlashcardListProps) {
     setIsFlipped(false);
 
     if (currentIndex + 1 >= flashcards.length) {
-      setCurrentIndex(0);
+      setIsFinished(true);
     } else {
       setCurrentIndex(currentIndex + 1);
     }
+  };
+
+  const startStudySession = () => {
+    setCurrentIndex(0);
+    setCorrectCount(0);
+    setWrongCount(0);
+    setIsFinished(false);
+    setIsFlipped(false);
+    setViewMode("study");
+  };
+
+  const handleRestart = () => {
+    startStudySession();
   };
 
   const openCreateModal = () => {
@@ -66,19 +83,20 @@ export default function FlashcardList({ deckId }: FlashcardListProps) {
     setIsModalOpen(true);
   };
 
-  const openEditModal = () => {
-    const currentCard = flashcards[currentIndex];
-    if (!currentCard) return;
+  const openEditModal = (cardToEdit?: Flashcard) => {
+    const targetCard = cardToEdit || flashcards[currentIndex];
+    if (!targetCard) return;
 
-    setEditingCardId(Number(currentCard.id));
-    setFrontText(currentCard.front);
-    setBackText(currentCard.back);
+    setEditingCardId(Number(targetCard.id));
+    setFrontText(targetCard.front);
+    setBackText(targetCard.back);
     setIsModalOpen(true);
   };
 
   const handleSaveFlashcard = async () => {
-    if (!frontText || !backText) return;
+    if (!frontText || !backText || isSaving || isDeleting) return;
 
+    setIsSaving(true);
     const payload = {
       front: frontText,
       back: backText,
@@ -92,47 +110,133 @@ export default function FlashcardList({ deckId }: FlashcardListProps) {
         await FlashcardService.create(deckId, payload);
       }
 
-      await fetchCards();
       setIsModalOpen(false);
       setEditingCardId(null);
       setFrontText("");
       setBackText("");
+
+      setTimeout(() => {
+        fetchCards();
+      }, 400);
     } catch (error) {
       console.error("Erro ao salvar flashcard:", error);
-      toast.error("Falha ao salvar a carta.");
+      alert("Falha ao salvar a carta. Verifique o console.");
+    } finally {
+      setIsSaving(false);
     }
   };
 
   const handleDeleteFlashcard = async () => {
-    if (!editingCardId) return;
+    if (!editingCardId || isSaving || isDeleting) return;
 
     const confirmDelete = window.confirm("Tem certeza que deseja excluir esta carta?");
     if (!confirmDelete) return;
 
+    setIsDeleting(true);
     try {
       await FlashcardService.delete(deckId, String(editingCardId));
-      setCurrentIndex(0);
-      await fetchCards();
+
       setIsModalOpen(false);
       setEditingCardId(null);
       setFrontText("");
       setBackText("");
+
+      setTimeout(() => {
+        setCurrentIndex(0);
+        fetchCards();
+      }, 400);
     } catch (error) {
       console.error("Erro ao excluir flashcard:", error);
-      toast.error("Falha ao excluir a carta.");
+      alert("Falha ao excluir a carta.");
+    } finally {
+      setIsDeleting(false);
     }
   };
 
   if (loading && flashcards.length === 0) return <p>Carregando as cartas...</p>;
 
+  if (viewMode === "study" && isFinished) {
+    const totalAnswered = correctCount + wrongCount;
+    const percentage = totalAnswered === 0 ? 0 : Math.round((correctCount / totalAnswered) * 100);
+
+    return (
+      <div className={styles.resultsBoard}>
+        <h2 className={styles.resultsTitle}>Deck Concluído!</h2>
+        <div className={styles.resultsScore}>{percentage}%</div>
+
+        <div className={styles.statsRow}>
+          <div className={styles.statBox}>
+            <span className={styles.statNumber}>{correctCount}</span>
+            <span className={styles.statLabel}>Acertos</span>
+          </div>
+          <div className={styles.statBox}>
+            <span className={styles.statNumber}>{wrongCount}</span>
+            <span className={styles.statLabel}>Erros</span>
+          </div>
+        </div>
+
+        <button onClick={handleRestart} className={styles.btnRestart}>
+          Estudar Novamente
+        </button>
+        <button
+          onClick={() => setViewMode("list")}
+          className={styles.btnCancel}
+          style={{ marginTop: "12px", width: "100%" }}
+        >
+          Voltar para a Lista
+        </button>
+      </div>
+    );
+  }
+
   const currentCard = flashcards[currentIndex];
 
   return (
-    <div className={styles.studyBoard}>
-      {flashcards.length === 0 ? (
-        <p>Este deck ainda não tem flashcards. Crie um no botão abaixo!</p>
-      ) : (
+    <div className={styles.listContainer}>
+      {viewMode === "list" ? (
         <>
+          <div className={styles.listHeader}>
+            <button
+              className={styles.btnStartStudy}
+              onClick={startStudySession}
+              disabled={flashcards.length === 0}
+            >
+              <LuPlay size={20} /> Estudar Deck
+            </button>
+            <span className={styles.cardCount}>Total: {flashcards.length} cartas</span>
+          </div>
+
+          <div className={styles.flashcardsGrid}>
+            {flashcards.map((card) => (
+              <div
+                key={card.id}
+                className={styles.miniCard}
+                onClick={() => openEditModal(card)}
+                title="Clique para editar"
+              >
+                <div className={styles.miniCardFront}>{card.front}</div>
+                <div className={styles.miniCardBack}>{card.back}</div>
+              </div>
+            ))}
+
+            {/* O SEU NOVO BOTÃO DE CARTA CINZA */}
+            <div
+              className={styles.miniCardAdd}
+              onClick={openCreateModal}
+              title="Criar Novo Flashcard"
+            >
+              <LuPlus size={48} />
+            </div>
+
+            {flashcards.length === 0 && (
+              <p className={styles.emptyMessage}>
+                Este deck ainda não tem flashcards. Crie um clicando na carta "+" acima!
+              </p>
+            )}
+          </div>
+        </>
+      ) : (
+        <div className={styles.studyBoard}>
           <div className={styles.hud}>
             <div className={styles.hudCard}>
               <div className={styles.hudLabel}>
@@ -159,7 +263,7 @@ export default function FlashcardList({ deckId }: FlashcardListProps) {
           <div className={styles.singleCardWrapper}>
             <button
               className={styles.editCardBtn}
-              onClick={openEditModal}
+              onClick={() => openEditModal()}
               title="Editar Carta Atual"
             >
               <LuPencil size={20} />
@@ -190,12 +294,8 @@ export default function FlashcardList({ deckId }: FlashcardListProps) {
               <LuCheck size={24} />
             </button>
           </div>
-        </>
+        </div>
       )}
-
-      <button className={styles.fabButton} onClick={openCreateModal}>
-        <LuPlus size={30} />
-      </button>
 
       {isModalOpen && (
         <div className={styles.modalOverlay}>
@@ -212,6 +312,7 @@ export default function FlashcardList({ deckId }: FlashcardListProps) {
                 value={frontText}
                 onChange={(e) => setFrontText(e.target.value)}
                 className={styles.inputField}
+                disabled={isSaving || isDeleting}
               />
             </div>
 
@@ -223,23 +324,36 @@ export default function FlashcardList({ deckId }: FlashcardListProps) {
                 value={backText}
                 onChange={(e) => setBackText(e.target.value)}
                 className={styles.inputField}
+                disabled={isSaving || isDeleting}
               />
             </div>
 
             <div className={styles.modalActions}>
               <div>
                 {editingCardId && (
-                  <button onClick={handleDeleteFlashcard} className={styles.btnDelete}>
-                    Excluir
+                  <button
+                    onClick={handleDeleteFlashcard}
+                    className={styles.btnDelete}
+                    disabled={isSaving || isDeleting}
+                  >
+                    {isDeleting ? "Excluindo..." : "Excluir"}
                   </button>
                 )}
               </div>
               <div className={styles.modalActionsRight}>
-                <button onClick={() => setIsModalOpen(false)} className={styles.btnCancel}>
+                <button
+                  onClick={() => setIsModalOpen(false)}
+                  className={styles.btnCancel}
+                  disabled={isSaving || isDeleting}
+                >
                   Cancelar
                 </button>
-                <button onClick={handleSaveFlashcard} className={styles.btnSubmit}>
-                  Salvar
+                <button
+                  onClick={handleSaveFlashcard}
+                  className={styles.btnSubmit}
+                  disabled={isSaving || isDeleting}
+                >
+                  {isSaving ? "Salvando..." : "Salvar"}
                 </button>
               </div>
             </div>

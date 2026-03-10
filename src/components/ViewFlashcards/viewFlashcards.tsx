@@ -9,7 +9,7 @@ import styles from "./styles.module.css";
 import FlashcardList from "./flashcardList";
 
 interface ViewFlashcardsProps {
-  refreshTrigger?: number;
+  refreshTrigger: number;
   onEditDeck: (deck: Deck) => void;
 }
 
@@ -52,27 +52,25 @@ export default function ViewFlashcards({ refreshTrigger, onEditDeck }: ViewFlash
   }
 
   return (
-    <div className="flex flex-col gap-6">
-      <div className={styles.menuArea}>
-        <div className={styles.decksContainer}>
-          {decks.map((deck) => (
-            <div
-              key={deck.id}
-              onClick={(e) => {
-                e.preventDefault();
-                setSelectedDeck(deck);
-              }}
-              className={styles.deckWrapper}
-            >
-              <Container
-                href="#"
-                title={deck.name}
-                icon={<LuLayers size={30} />}
-                onEditClick={() => onEditDeck(deck)}
-              />
-            </div>
-          ))}
-        </div>
+    <div className={styles.menuArea}>
+      <div className={styles.decksContainer}>
+        {decks.map((deck) => (
+          <div
+            key={deck.id}
+            onClick={(e) => {
+              e.preventDefault();
+              setSelectedDeck(deck);
+            }}
+            className={styles.deckWrapper}
+          >
+            <Container
+              href="#"
+              title={deck.name}
+              icon={<LuLayers size={30} />}
+              onEditClick={() => onEditDeck(deck)}
+            />
+          </div>
+        ))}
       </div>
     </div>
   );
