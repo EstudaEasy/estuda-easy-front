@@ -7,8 +7,8 @@ import { cn } from "@/lib/utils";
 
 const quickAccessItems = [
   {
-    title: "Tarefas",
-    description: "Gerencie suas tarefas",
+    title: "Tasks",
+    description: "Gerencie suas tasks",
     Icon: LuBook,
     href: "/tools/tasks",
     cardClass: "bg-primary/10",

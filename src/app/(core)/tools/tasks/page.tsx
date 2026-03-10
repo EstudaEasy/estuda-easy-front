@@ -13,10 +13,10 @@ export default function Tasks() {
   return (
     <Page>
       <Page.Header
-        title="Tarefas"
-        subtitle="Organize suas tarefas e otimize seu tempo com nosso gerenciador de tarefas eficiente!"
+        title="Tasks"
+        subtitle="Organize-se e otimize seu tempo com nosso gerenciador de tarefas!"
         showButton
-        buttonText="Criar tarefa"
+        buttonText="Criar task"
         onButtonClick={() => setIsModalOpen(true)}
       />
       <Page.Content>

@@ -4,7 +4,7 @@ import { Separator } from "@/components/ui/separator";
 
 const stats = [
   { value: 12, label: "Dias seguidos", highlight: true },
-  { value: 47, label: "Tarefas", highlight: false },
+  { value: 47, label: "Tasks", highlight: false },
   { value: "8h", label: "Esta semana", highlight: false },
 ];
 
