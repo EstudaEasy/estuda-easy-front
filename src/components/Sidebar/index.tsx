@@ -44,7 +44,8 @@ const NAV_GROUPS: NavGroup[] = [
           { name: "Quiz", url: "/tools/quiz" },
           { name: "Flashcards", url: "/tools/flashcards" },
           { name: "Pomodoro", url: "/tools/pomodoro" },
-          { name: "Tarefas", url: "/tools/tasks" },
+          { name: "Tasks", url: "/tools/tasks" },
+          { name: "WhiteBoard", url: "/tools/whiteboard" }
         ],
         isCollapsible: true,
       },
