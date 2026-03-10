@@ -10,6 +10,8 @@ import styles from "@/components/ViewFlashcards/styles.module.css";
 export default function Flashcards() {
   const [refreshTrigger, setRefreshTrigger] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [editingDeckId, setEditingDeckId] = useState<string | number | null>(null);
   const [deckName, setDeckName] = useState("");
   const [deckDescription, setDeckDescription] = useState("");
@@ -29,8 +31,9 @@ export default function Flashcards() {
   };
 
   const handleSaveDeck = async () => {
-    if (!deckName || !deckDescription) return;
+    if (!deckName || !deckDescription || isSaving || isDeleting) return;
 
+    setIsSaving(true);
     const payload = {
       name: deckName,
       description: deckDescription,
@@ -43,35 +46,47 @@ export default function Flashcards() {
         await DeckService.create(payload);
       }
 
-      setRefreshTrigger((prev) => prev + 1);
       setIsModalOpen(false);
       setEditingDeckId(null);
       setDeckName("");
       setDeckDescription("");
+
+      setTimeout(() => {
+        setRefreshTrigger((prev) => prev + 1);
+      }, 400);
     } catch (error) {
       console.error("Erro ao salvar deck:", error);
       alert("Falha ao salvar o deck. Verifique o console.");
+    } finally {
+      setIsSaving(false);
     }
   };
 
   const handleDeleteDeck = async () => {
-    if (editingDeckId === null) return;
+    if (editingDeckId === null || isSaving || isDeleting) return;
 
     const confirmDelete = window.confirm(
       "Tem certeza que deseja excluir este deck e todos os seus flashcards?",
     );
     if (!confirmDelete) return;
 
+    setIsDeleting(true);
     try {
       await DeckService.delete(String(editingDeckId));
-      setRefreshTrigger((prev) => prev + 1);
+
       setIsModalOpen(false);
       setEditingDeckId(null);
       setDeckName("");
       setDeckDescription("");
+
+      setTimeout(() => {
+        setRefreshTrigger((prev) => prev + 1);
+      }, 400);
     } catch (error) {
       console.error("Erro ao excluir deck:", error);
       alert("Falha ao excluir o deck.");
+    } finally {
+      setIsDeleting(false);
     }
   };
 
@@ -91,7 +106,7 @@ export default function Flashcards() {
         <div className={styles.modalOverlay}>
           <div className={styles.modalContent}>
             <h3 className={styles.modalTitle}>
-              {editingDeckId ? "Editar Deck" : "Criar Novo Deck"}
+              {editingDeckId !== null ? "Editar Deck" : "Criar Novo Deck"}
             </h3>
 
             <div className={styles.inputGroup}>
@@ -102,6 +117,7 @@ export default function Flashcards() {
                 value={deckName}
                 onChange={(e) => setDeckName(e.target.value)}
                 className={styles.inputField}
+                disabled={isSaving || isDeleting}
               />
             </div>
 
@@ -113,23 +129,36 @@ export default function Flashcards() {
                 value={deckDescription}
                 onChange={(e) => setDeckDescription(e.target.value)}
                 className={styles.inputField}
+                disabled={isSaving || isDeleting}
               />
             </div>
 
             <div className={styles.modalActions}>
               <div>
-                {editingDeckId && (
-                  <button onClick={handleDeleteDeck} className={styles.btnDelete}>
-                    Excluir
+                {editingDeckId !== null && (
+                  <button
+                    onClick={handleDeleteDeck}
+                    className={styles.btnDelete}
+                    disabled={isSaving || isDeleting}
+                  >
+                    {isDeleting ? "Excluindo..." : "Excluir"}
                   </button>
                 )}
               </div>
               <div className={styles.modalActionsRight}>
-                <button onClick={() => setIsModalOpen(false)} className={styles.btnCancel}>
+                <button
+                  onClick={() => setIsModalOpen(false)}
+                  className={styles.btnCancel}
+                  disabled={isSaving || isDeleting}
+                >
                   Cancelar
                 </button>
-                <button onClick={handleSaveDeck} className={styles.btnSubmit}>
-                  Salvar
+                <button
+                  onClick={handleSaveDeck}
+                  className={styles.btnSubmit}
+                  disabled={isSaving || isDeleting}
+                >
+                  {isSaving ? "Salvando..." : "Salvar"}
                 </button>
               </div>
             </div>

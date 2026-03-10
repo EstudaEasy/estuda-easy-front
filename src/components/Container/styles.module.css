@@ -4,11 +4,16 @@
   height: 100px;
   width: 280px;
   align-items: center;
-  justify-content: center;
-  gap: 60px;
+  padding: 0 20px;
   border-radius: 15px;
   border: 1px solid #eef0f4;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  position: relative;
+  transition: border-color 0.2s ease;
+}
+
+.style:hover {
+  border-color: #3b82f6;
 }
 
 .containerIcon {
@@ -16,19 +21,23 @@
   border-radius: 50%;
   height: 40px;
   width: 40px;
+  min-width: 40px;
   align-items: center;
   justify-content: center;
   display: flex;
+  margin-right: 20px;
 }
 
 .containerTitle {
   font-size: 17px;
   color: #000000;
   font-family: var(--font-poppins), sans-serif;
-}
-
-.style:hover {
-  border-color: #3b82f6;
+  flex: 1;
+  text-align: left;
+  padding-right: 24px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .editButton {
