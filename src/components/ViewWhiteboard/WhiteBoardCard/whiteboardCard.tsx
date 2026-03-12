@@ -5,10 +5,8 @@ import { Typography } from "@/components/ui/typography";
 import { cn } from "@/lib/utils";
 import { WhiteboardCardProps } from "./whiteBoardCard.types";
 
-
 const WhiteboardCard = React.forwardRef<HTMLDivElement, WhiteboardCardProps>(
   ({ title, createdAt, onClick, className }, ref) => {
-    
     const formattedDate = new Date(createdAt).toLocaleDateString("pt-BR", {
       day: "numeric",
       month: "short",

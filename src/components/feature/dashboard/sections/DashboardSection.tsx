@@ -73,7 +73,7 @@ export default function DashboardSection() {
                       <Typography size="sm" weight="bold" color="dark">
                         {favorite.title}
                       </Typography>
-                      <Typography size="xs" color="light" className="mt-1">
+                      <Typography size="xl" color="light" className="mt-1">
                         {favorite.tool}
                       </Typography>
                     </div>

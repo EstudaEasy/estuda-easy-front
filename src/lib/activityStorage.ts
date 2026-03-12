@@ -10,14 +10,23 @@ export interface Activity {
 const STORAGE_KEY = "@EstudaEasy:activities";
 const MAX_ACTIVITIES = 10;
 
+// Generate unique ID for activities
+const generateActivityId = (): string => {
+  return `${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
+};
+
 export const activityStorage = {
-  addActivity(activity: Omit<Activity, "timestamp">): void {
+  addActivity(activity: Omit<Activity, "timestamp" | "id"> & { id?: string }): void {
     try {
       const stored = localStorage.getItem(STORAGE_KEY);
       const activities: Activity[] = stored ? JSON.parse(stored) : [];
 
       const newActivity: Activity = {
-        ...activity,
+        id: activity.id || generateActivityId(),
+        title: activity.title,
+        tool: activity.tool,
+        icon: activity.icon,
+        iconClass: activity.iconClass,
         timestamp: Date.now(),
       };
 

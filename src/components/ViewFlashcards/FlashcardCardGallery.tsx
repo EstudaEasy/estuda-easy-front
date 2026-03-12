@@ -3,8 +3,28 @@
 import { useEffect, useState } from "react";
 import FlashcardService from "@/services/deck/FlashcardService";
 import { Flashcard } from "@/types";
-import { LuPlus } from "react-icons/lu";
+import { LuPlay, LuPlus } from "react-icons/lu";
 import { Button } from "../ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import FlashcardForm from "@/components/FlashcardForm";
+import { FlashcardFormData } from "@/components/FlashcardForm/flashcardForm.schema";
+import { toast } from "sonner";
 
 interface FlashcardCardGalleryProps {
   deckId: string;
@@ -20,13 +40,12 @@ export default function FlashcardCardGallery({
   const [flashcards, setFlashcards] = useState<Flashcard[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [editingCardId, setEditingCardId] = useState<number | null>(null);
-  const [frontText, setFrontText] = useState("");
-  const [backText, setBackText] = useState("");
-  const [isConfirmingDelete, setIsConfirmingDelete] = useState(false);
+  const [editingCard, setEditingCard] = useState<Flashcard | null>(null);
 
   const fetchCards = async () => {
     try {
@@ -45,71 +64,70 @@ export default function FlashcardCardGallery({
   }, [deckId]);
 
   const openCreateModal = () => {
-    setEditingCardId(null);
-    setFrontText("");
-    setBackText("");
-    setIsModalOpen(true);
+    setEditingCard(null);
+    setIsCreateModalOpen(true);
   };
 
   const openEditModal = (card: Flashcard) => {
-    setEditingCardId(Number(card.id));
-    setFrontText(card.front);
-    setBackText(card.back);
-    setIsModalOpen(true);
+    setEditingCard(card);
+    setIsEditModalOpen(true);
   };
 
-  const handleSaveFlashcard = async () => {
-    if (!frontText || !backText || isSaving || isDeleting) return;
+  const handleCreateFlashcard = async (data: FlashcardFormData) => {
+    try {
+      setIsSaving(true);
+      await FlashcardService.create(deckId, {
+        front: data.front,
+        back: data.back,
+        position: flashcards.length + 1,
+      });
+      setIsCreateModalOpen(false);
+      await fetchCards();
+      toast.success("Flashcard criado com sucesso!");
+    } catch (error) {
+      console.error("Erro ao criar flashcard:", error);
+      toast.error("Erro ao criar flashcard. Tente novamente");
+    } finally {
+      setIsSaving(false);
+    }
+  };
 
-    setIsSaving(true);
-    const payload = {
-      front: frontText,
-      back: backText,
-      position: flashcards.length + 1,
-    };
+  const handleEditFlashcard = async (data: FlashcardFormData) => {
+    if (!editingCard) return;
 
     try {
-      if (editingCardId) {
-        await FlashcardService.update(deckId, String(editingCardId), payload);
-      } else {
-        await FlashcardService.create(deckId, payload);
-      }
-
-      setIsModalOpen(false);
-      setEditingCardId(null);
-      setFrontText("");
-      setBackText("");
-
-      setTimeout(() => {
-        fetchCards();
-      }, 400);
+      setIsSaving(true);
+      await FlashcardService.update(deckId, String(editingCard.id), {
+        front: data.front,
+        back: data.back,
+        position: flashcards.length + 1,
+      });
+      setIsEditModalOpen(false);
+      setEditingCard(null);
+      await fetchCards();
+      toast.success("Flashcard atualizado com sucesso!");
     } catch (error) {
-      console.error("Erro ao salvar flashcard:", error);
-      alert("Falha ao salvar a carta. Verifique o console.");
+      console.error("Erro ao editar flashcard:", error);
+      toast.error("Erro ao atualizar flashcard. Tente novamente");
     } finally {
       setIsSaving(false);
     }
   };
 
   const handleDeleteFlashcard = async () => {
-    if (!editingCardId || isSaving || isDeleting) return;
+    if (!editingCard) return;
 
-    setIsDeleting(true);
     try {
-      await FlashcardService.delete(deckId, String(editingCardId));
-
-      setIsModalOpen(false);
-      setIsConfirmingDelete(false);
-      setEditingCardId(null);
-      setFrontText("");
-      setBackText("");
-
-      setTimeout(() => {
-        fetchCards();
-      }, 400);
+      setIsDeleting(true);
+      await FlashcardService.delete(deckId, String(editingCard.id));
+      setIsDeleteDialogOpen(false);
+      setIsEditModalOpen(false);
+      setEditingCard(null);
+      await fetchCards();
+      toast.success("Flashcard excluído com sucesso!");
     } catch (error) {
       console.error("Erro ao excluir flashcard:", error);
-      alert("Falha ao excluir a carta.");
+      toast.error("Erro ao excluir flashcard. Tente novamente");
     } finally {
       setIsDeleting(false);
     }
@@ -126,6 +144,7 @@ export default function FlashcardCardGallery({
           disabled={flashcards.length === 0}
           className="px-6 py-3 text-base h-auto flex items-center gap-2"
         >
+          <LuPlay size={24} />
           Estudar Deck
         </Button>
         <span className="text-slate-500 font-semibold text-base">
@@ -136,7 +155,7 @@ export default function FlashcardCardGallery({
       <div className="flex flex-wrap gap-4 justify-center w-full">
         {flashcards.map((card) => (
           <div
-            key={card.id}
+            key={`${deckId}-${card.id}`}
             className="bg-blue-500 border border-slate-200 rounded-xl p-6 relative cursor-pointer transition-all duration-200 shadow-sm flex flex-col gap-3 text-center h-[450px] w-75 items-center justify-center hover:-translate-y-1 hover:border-blue-600 flex-shrink-0"
             onClick={() => openEditModal(card)}
             title="Clique para editar"
@@ -161,102 +180,88 @@ export default function FlashcardCardGallery({
         )}
       </div>
 
-      {isModalOpen && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[10000]">
-          <div className="bg-white p-7 rounded-2xl w-[90%] max-w-[400px] shadow-[0_10px_25px_rgba(0,0,0,0.2)]">
-            <h3 className="text-[22px] font-bold text-slate-800 mb-6 text-center">
-              {editingCardId ? "Editar Flashcard" : "Criar Novo Flashcard"}
-            </h3>
+      <Dialog
+        open={isCreateModalOpen}
+        onOpenChange={(open) => {
+          if (!isSaving) setIsCreateModalOpen(open);
+        }}
+      >
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Criar Novo Flashcard</DialogTitle>
+          </DialogHeader>
+          <FlashcardForm onSubmit={handleCreateFlashcard} isLoading={isSaving} />
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setIsCreateModalOpen(false)}
+              disabled={isSaving}
+            >
+              Cancelar
+            </Button>
+            <Button type="submit" form="flashcard-form" disabled={isSaving}>
+              {isSaving ? "Criando..." : "Criar"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
-            <div className="flex flex-col mb-4 w-full">
-              <label className="text-sm font-semibold text-slate-700 mb-1.5 text-left">
-                Frente (Pergunta)
-              </label>
-              <input
-                type="text"
-                placeholder="Ex: Qual é a capital da França?"
-                value={frontText}
-                onChange={(e) => setFrontText(e.target.value)}
-                className="w-full p-3.5 border border-slate-300 rounded-lg text-base text-slate-900 bg-white outline-none transition-colors duration-200 focus:border-blue-500 disabled:opacity-50 disabled:bg-slate-50"
+      <Dialog open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
+        <DialogContent className="max-w-[400px]">
+          <DialogHeader>
+            <DialogTitle>Editar Flashcard</DialogTitle>
+          </DialogHeader>
+          {editingCard && (
+            <FlashcardForm
+              initialData={{
+                front: editingCard.front,
+                back: editingCard.back,
+              }}
+              onSubmit={handleEditFlashcard}
+              isLoading={isSaving}
+            />
+          )}
+          <DialogFooter className="flex justify-between gap-2">
+            <Button
+              variant="destructive"
+              onClick={() => setIsDeleteDialogOpen(true)}
+              disabled={isSaving || isDeleting}
+            >
+              Excluir
+            </Button>
+            <div className="flex gap-2">
+              <Button
+                variant="outline"
+                onClick={() => setIsEditModalOpen(false)}
                 disabled={isSaving || isDeleting}
-              />
-            </div>
-
-            <div className="flex flex-col mb-4 w-full">
-              <label className="text-sm font-semibold text-slate-700 mb-1.5 text-left">
-                Verso (Resposta)
-              </label>
-              <input
-                type="text"
-                placeholder="Ex: Paris"
-                value={backText}
-                onChange={(e) => setBackText(e.target.value)}
-                className="w-full p-3.5 border border-slate-300 rounded-lg text-base text-slate-900 bg-white outline-none transition-colors duration-200 focus:border-blue-500 disabled:opacity-50 disabled:bg-slate-50"
-                disabled={isSaving || isDeleting}
-              />
-            </div>
-
-            <div className="flex justify-between items-center mt-2.5">
-              <div>
-                {editingCardId && (
-                  <button
-                    onClick={() => setIsConfirmingDelete(true)}
-                    className="bg-transparent text-red-500 border border-red-500 px-5 py-3 rounded-lg cursor-pointer font-semibold transition-all duration-200 hover:not(:disabled):bg-red-500 hover:not(:disabled):text-white disabled:opacity-50 disabled:cursor-not-allowed"
-                    disabled={isSaving || isDeleting}
-                  >
-                    {isDeleting ? "Excluindo..." : "Excluir"}
-                  </button>
-                )}
-              </div>
-              <div className="flex gap-3">
-                <button
-                  onClick={() => setIsModalOpen(false)}
-                  className="bg-slate-100 text-slate-500 border-none px-5 py-3 rounded-lg cursor-pointer font-semibold transition-colors duration-200 hover:not(:disabled):bg-slate-200 disabled:opacity-50 disabled:cursor-not-allowed"
-                  disabled={isSaving || isDeleting}
-                >
-                  Cancelar
-                </button>
-                <button
-                  onClick={handleSaveFlashcard}
-                  className="bg-blue-500 text-white border-none px-5 py-3 rounded-lg cursor-pointer font-semibold transition-colors duration-200 hover:not(:disabled):bg-blue-600 disabled:bg-blue-300 disabled:cursor-not-allowed"
-                  disabled={isSaving || isDeleting}
-                >
-                  {isSaving ? "Salvando..." : "Salvar"}
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {isConfirmingDelete && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[10001]">
-          <div className="bg-white p-7 rounded-2xl w-[90%] max-w-[400px] shadow-[0_10px_25px_rgba(0,0,0,0.2)]">
-            <h3 className="text-[20px] font-bold text-slate-800 mb-3 text-center">
-              Excluir Flashcard?
-            </h3>
-            <p className="text-base text-slate-600 mb-6 text-center">
-              Tem certeza que deseja excluir este flashcard? Esta ação não pode ser desfeita.
-            </p>
-            <div className="flex gap-3 justify-center">
-              <button
-                onClick={() => setIsConfirmingDelete(false)}
-                className="bg-slate-100 text-slate-500 border-none px-6 py-3 rounded-lg cursor-pointer font-semibold transition-colors duration-200 hover:bg-slate-200 disabled:opacity-50 disabled:cursor-not-allowed flex-1"
-                disabled={isDeleting}
               >
                 Cancelar
-              </button>
-              <button
-                onClick={handleDeleteFlashcard}
-                className="bg-red-500 text-white border-none px-6 py-3 rounded-lg cursor-pointer font-semibold transition-colors duration-200 hover:bg-red-600 disabled:bg-red-300 disabled:cursor-not-allowed flex-1"
-                disabled={isDeleting}
-              >
-                {isDeleting ? "Excluindo..." : "Excluir"}
-              </button>
+              </Button>
             </div>
-          </div>
-        </div>
-      )}
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+        <AlertDialogContent className="max-w-[400px]">
+          <AlertDialogHeader>
+            <AlertDialogTitle>Excluir Flashcard?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Tem certeza que deseja excluir este flashcard? Esta ação não pode ser desfeita.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={isDeleting}>Cancelar</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handleDeleteFlashcard}
+              disabled={isDeleting}
+              className="bg-red-500 hover:bg-red-600"
+            >
+              {isDeleting ? "Excluindo..." : "Excluir"}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }

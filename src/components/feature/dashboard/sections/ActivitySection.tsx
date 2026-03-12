@@ -16,7 +16,25 @@ const iconMap = {
 };
 
 export default function ActivitySection() {
-  const { activities, isLoading } = useActivities(3);
+  const { activities, isLoading } = useActivities(50);
+
+  // Deduplicar atividades: manter apenas a mais recente de cada título
+  const deduplicatedActivities = Array.from(
+    activities
+      .reduce((map, item) => {
+        const key = `${item.title}-${item.tool}`;
+        const existing = map.get(key);
+
+        // Se não existe ou a nova é mais recente, sobrescrever
+        if (!existing || item.timestamp > existing.timestamp) {
+          map.set(key, item);
+        }
+
+        return map;
+      }, new Map<string, (typeof activities)[0]>())
+      .values(),
+  ).slice(0, 3);
+
   return (
     <div className="flex flex-col gap-4">
       <div>
@@ -30,13 +48,13 @@ export default function ActivitySection() {
         <div className="text-center py-8">
           <Typography color="light">Carregando atividades...</Typography>
         </div>
-      ) : activities.length === 0 ? (
+      ) : deduplicatedActivities.length === 0 ? (
         <div className="text-center py-8">
           <Typography color="light">Nenhuma atividade registrada ainda</Typography>
         </div>
       ) : (
         <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
-          {activities.map((item) => {
+          {deduplicatedActivities.map((item) => {
             const IconComponent = iconMap[item.icon as keyof typeof iconMap] || LuBrain;
             return (
               <Card key={item.id} className="flex flex-col gap-3 p-4">

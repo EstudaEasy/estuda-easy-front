@@ -16,7 +16,6 @@ export default function WhiteboardEditor() {
   const router = useRouter();
   const whiteboardId = params.id as string;
 
-
   const [editor, setEditor] = useState<Editor | null>(null);
   const [whiteboard, setWhiteboard] = useState<WhiteboardResponse | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -25,7 +24,6 @@ export default function WhiteboardEditor() {
   useEffect(() => {
     loadWhiteboard();
   }, [whiteboardId]);
-
 
   useEffect(() => {
     if (editor && whiteboard && whiteboard.content) {
@@ -65,7 +63,7 @@ export default function WhiteboardEditor() {
 
       await WhiteboardService.update(whiteboardId, {
         title: whiteboard.title,
-        content: contentToSave as any, 
+        content: contentToSave as any,
       });
 
       toast.success("Quadro salvo com sucesso!");
@@ -76,7 +74,6 @@ export default function WhiteboardEditor() {
       setIsSaving(false);
     }
   }
-
 
   function handleMount(editor: Editor) {
     setEditor(editor);
@@ -107,11 +104,7 @@ export default function WhiteboardEditor() {
 
         <h1 className="text-xl font-bold text-gray-800">{whiteboard?.title}</h1>
 
-        <Button
-          onClick={handleSave}
-          disabled={isSaving || !editor}
-          className="gap-2"
-        >
+        <Button onClick={handleSave} disabled={isSaving || !editor} className="gap-2">
           <Save size={16} />
           {isSaving ? "Salvando..." : "Salvar"}
         </Button>

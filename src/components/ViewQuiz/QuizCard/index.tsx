@@ -1,49 +1,45 @@
 import * as React from "react";
 import { useState } from "react";
-import { LuClipboardList, LuStar } from "react-icons/lu";
+import { LuClipboardList, LuEllipsisVertical } from "react-icons/lu";
 import { QuizCardProps } from "./quizCard.types";
 import { Card, CardContent } from "@/components/ui/card";
 import { Typography } from "@/components/ui/typography";
 import { activityStorage } from "@/lib/activityStorage";
-import { favoriteStorage } from "@/lib/favoriteStorage";
-import { useFavorites } from "@/hooks/useFavorites";
-import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 
 const QuizCard = React.forwardRef<HTMLDivElement, QuizCardProps>(
-  ({ title, questionsCount, onClick, className }, ref) => {
-    const { isFavorite } = useFavorites();
-    const [isFav, setIsFav] = useState(isFavorite(title, "Quiz"));
+  ({ title, questionsCount, onClick, className, quiz, onEdit, onDelete }, ref) => {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const handleEdit = (e: React.MouseEvent) => {
+      e.stopPropagation();
+      if (onEdit && quiz) {
+        onEdit(quiz);
+        setIsMenuOpen(false);
+      }
+    };
+
+    const handleMenuClick = (e: React.MouseEvent) => {
+      e.stopPropagation();
+      setIsMenuOpen(!isMenuOpen);
+    };
+
+    const handleDeleteClick = (e: React.MouseEvent) => {
+      e.stopPropagation();
+      if (onDelete && quiz) {
+        onDelete(quiz);
+        setIsMenuOpen(false);
+      }
+    };
 
     const handleClick = () => {
       activityStorage.addActivity({
-        id: title,
         title: title,
         tool: "Quiz",
         icon: "LuBrain",
         iconClass: "bg-purple-100 text-purple-600",
       });
       onClick?.();
-    };
-
-    const handleToggleFavorite = (e: React.MouseEvent) => {
-      e.stopPropagation();
-
-      if (isFav) {
-        favoriteStorage.removeFavorite(title, "Quiz");
-        toast.success("Removido dos favoritos");
-      } else {
-        favoriteStorage.addFavorite({
-          id: title,
-          title: title,
-          tool: "Quiz",
-          icon: "LuBrain",
-          iconClass: "bg-purple-100 text-purple-600",
-          color: "bg-purple-500",
-        });
-        toast.success("Adicionado aos favoritos");
-      }
-      setIsFav(!isFav);
     };
 
     return (
@@ -64,13 +60,39 @@ const QuizCard = React.forwardRef<HTMLDivElement, QuizCardProps>(
               {questionsCount} {questionsCount === 1 ? "questão" : "questões"}
             </Typography>
           </div>
-          <button
-            onClick={handleToggleFavorite}
-            className="p-2 hover:bg-gray-100 rounded transition-colors flex-shrink-0"
-            title={isFav ? "Remover dos favoritos" : "Adicionar aos favoritos"}
-          >
-            <LuStar size={18} fill={isFav ? "currentColor" : "none"} className="text-yellow-500" />
-          </button>
+
+          {(onEdit || onDelete) && (
+            <div className="relative">
+              <button
+                onClick={handleMenuClick}
+                className="p-2 hover:bg-slate-100 rounded-md transition-colors"
+                title="Menu"
+              >
+                <LuEllipsisVertical size={18} className="text-slate-600" />
+              </button>
+
+              {isMenuOpen && (
+                <div className="absolute right-0 top-full mt-1 bg-white border border-slate-200 rounded-lg shadow-md z-50 min-w-[150px]">
+                  {onEdit && (
+                    <button
+                      onClick={handleEdit}
+                      className="w-full text-left px-4 py-2 hover:bg-slate-50 text-sm text-slate-700 font-medium border-b border-slate-100 transition-colors"
+                    >
+                      Editar
+                    </button>
+                  )}
+                  {onDelete && (
+                    <button
+                      onClick={handleDeleteClick}
+                      className="w-full text-left px-4 py-2 hover:bg-red-50 text-sm text-red-600 font-medium transition-colors"
+                    >
+                      Deletar
+                    </button>
+                  )}
+                </div>
+              )}
+            </div>
+          )}
         </CardContent>
       </Card>
     );

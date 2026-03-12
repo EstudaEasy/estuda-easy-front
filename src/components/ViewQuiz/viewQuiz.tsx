@@ -9,9 +9,11 @@ import { Typography } from "@/components/ui/typography";
 
 interface ViewQuizProps {
   refreshTrigger?: number;
+  onEditQuiz?: (quiz: Quiz) => void;
+  onDeleteQuiz?: (quiz: Quiz) => void;
 }
 
-export default function ViewQuiz({ refreshTrigger }: ViewQuizProps) {
+export default function ViewQuiz({ refreshTrigger, onEditQuiz, onDeleteQuiz }: ViewQuizProps) {
   const router = useRouter();
   const [quizzes, setQuizzes] = useState<Quiz[]>([]);
   const [loading, setLoading] = useState(true);
@@ -57,7 +59,10 @@ export default function ViewQuiz({ refreshTrigger }: ViewQuizProps) {
               key={quiz.id}
               title={quiz.title}
               questionsCount={quiz.items?.length || 0}
+              quiz={quiz}
               onClick={() => router.push(`/tools/quiz/${quiz.id}`)}
+              onEdit={onEditQuiz}
+              onDelete={onDeleteQuiz}
             />
           ))}
         </div>

@@ -1,20 +1,15 @@
 import * as React from "react";
 import { useState } from "react";
-import { LuBook, LuEllipsisVertical, LuStar } from "react-icons/lu";
+import { LuBook, LuEllipsisVertical } from "react-icons/lu";
 import { FlashcardCardProps } from "./flashcardCard.types";
 import { Card, CardContent } from "@/components/ui/card";
 import { Typography } from "@/components/ui/typography";
 import { activityStorage } from "@/lib/activityStorage";
-import { favoriteStorage } from "@/lib/favoriteStorage";
-import { useFavorites } from "@/hooks/useFavorites";
-import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 
 const FlashcardCard = React.forwardRef<HTMLDivElement, FlashcardCardProps>(
   ({ title, cardsCount, onClick, className, deck, onEdit, onDelete }, ref) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const { isFavorite } = useFavorites();
-    const [isFav, setIsFav] = useState(isFavorite(deck?.id || title, "Flashcards"));
 
     const handleEdit = (e: React.MouseEvent) => {
       e.stopPropagation();
@@ -31,7 +26,6 @@ const FlashcardCard = React.forwardRef<HTMLDivElement, FlashcardCardProps>(
 
     const handleCardClick = () => {
       activityStorage.addActivity({
-        id: deck?.id || title,
         title: title,
         tool: "Flashcards",
         icon: "LuBookOpen",
@@ -40,25 +34,12 @@ const FlashcardCard = React.forwardRef<HTMLDivElement, FlashcardCardProps>(
       onClick?.();
     };
 
-    const handleToggleFavorite = (e: React.MouseEvent) => {
+    const handleDeleteClick = (e: React.MouseEvent) => {
       e.stopPropagation();
-
-      const id = deck?.id || title;
-      if (isFav) {
-        favoriteStorage.removeFavorite(id, "Flashcards");
-        toast.success("Removido dos favoritos");
-      } else {
-        favoriteStorage.addFavorite({
-          id: id,
-          title: title,
-          tool: "Flashcards",
-          icon: "LuBookOpen",
-          iconClass: "bg-green-100 text-green-600",
-          color: "bg-green-500",
-        });
-        toast.success("Adicionado aos favoritos");
+      if (onDelete && deck) {
+        onDelete(deck);
+        setIsMenuOpen(false);
       }
-      setIsFav(!isFav);
     };
 
     return (
@@ -80,14 +61,6 @@ const FlashcardCard = React.forwardRef<HTMLDivElement, FlashcardCardProps>(
             </Typography>
           </div>
 
-          <button
-            onClick={handleToggleFavorite}
-            className="p-2 hover:bg-gray-100 rounded transition-colors flex-shrink-0"
-            title={isFav ? "Remover dos favoritos" : "Adicionar aos favoritos"}
-          >
-            <LuStar size={18} fill={isFav ? "currentColor" : "none"} className="text-yellow-500" />
-          </button>
-
           {(onEdit || onDelete) && (
             <div className="relative">
               <button
@@ -108,6 +81,12 @@ const FlashcardCard = React.forwardRef<HTMLDivElement, FlashcardCardProps>(
                       Editar
                     </button>
                   )}
+                  <button
+                    onClick={handleDeleteClick}
+                    className="w-full text-left px-4 py-2 hover:bg-red-50 text-sm text-red-600 font-medium transition-colors"
+                  >
+                    Deletar
+                  </button>
                 </div>
               )}
             </div>
