@@ -1,20 +1,20 @@
 import * as React from "react";
 import { useState } from "react";
-import { LuClipboardList, LuEllipsisVertical } from "react-icons/lu";
-import { QuizCardProps } from "./quizCard.types";
+import { LuBook, LuEllipsisVertical } from "react-icons/lu";
+import { FlashcardCardProps } from "./flashcardCard.types";
 import { Card, CardContent } from "@/components/ui/card";
 import { Typography } from "@/components/ui/typography";
 import { activityStorage } from "@/lib/activityStorage";
 import { cn } from "@/lib/utils";
 
-const QuizCard = React.forwardRef<HTMLDivElement, QuizCardProps>(
-  ({ title, questionsCount, onClick, className, quiz, onEdit, onDelete }, ref) => {
+const FlashcardCard = React.forwardRef<HTMLDivElement, FlashcardCardProps>(
+  ({ title, cardsCount, onClick, className, deck, onEdit, onDelete }, ref) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const handleEdit = (e: React.MouseEvent) => {
       e.stopPropagation();
-      if (onEdit && quiz) {
-        onEdit(quiz);
+      if (onEdit && deck) {
+        onEdit(deck);
         setIsMenuOpen(false);
       }
     };
@@ -24,40 +24,40 @@ const QuizCard = React.forwardRef<HTMLDivElement, QuizCardProps>(
       setIsMenuOpen(!isMenuOpen);
     };
 
-    const handleDeleteClick = (e: React.MouseEvent) => {
-      e.stopPropagation();
-      if (onDelete && quiz) {
-        onDelete(quiz);
-        setIsMenuOpen(false);
-      }
-    };
-
-    const handleClick = () => {
+    const handleCardClick = () => {
       activityStorage.addActivity({
         title: title,
-        tool: "Quiz",
-        icon: "LuBrain",
-        iconClass: "bg-purple-100 text-purple-600",
+        tool: "Flashcards",
+        icon: "LuBookOpen",
+        iconClass: "bg-green-100 text-green-600",
       });
       onClick?.();
+    };
+
+    const handleDeleteClick = (e: React.MouseEvent) => {
+      e.stopPropagation();
+      if (onDelete && deck) {
+        onDelete(deck);
+        setIsMenuOpen(false);
+      }
     };
 
     return (
       <Card
         ref={ref}
-        onClick={handleClick}
+        onClick={handleCardClick}
         className={cn("cursor-pointer transition-colors hover:bg-accent relative", className)}
       >
         <CardContent className="flex items-center gap-4 py-4">
           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-primary/10 text-primary">
-            <LuClipboardList size={20} />
+            <LuBook size={20} />
           </div>
           <div className="flex flex-col gap-0.5 flex-1">
             <Typography variant="body-2" weight="semibold" color="dark">
               {title}
             </Typography>
             <Typography variant="caption" color="light">
-              {questionsCount} {questionsCount === 1 ? "questão" : "questões"}
+              {cardsCount} {cardsCount === 1 ? "carta" : "cartas"}
             </Typography>
           </div>
 
@@ -81,14 +81,12 @@ const QuizCard = React.forwardRef<HTMLDivElement, QuizCardProps>(
                       Editar
                     </button>
                   )}
-                  {onDelete && (
-                    <button
-                      onClick={handleDeleteClick}
-                      className="w-full text-left px-4 py-2 hover:bg-red-50 text-sm text-red-600 font-medium transition-colors"
-                    >
-                      Deletar
-                    </button>
-                  )}
+                  <button
+                    onClick={handleDeleteClick}
+                    className="w-full text-left px-4 py-2 hover:bg-red-50 text-sm text-red-600 font-medium transition-colors"
+                  >
+                    Deletar
+                  </button>
                 </div>
               )}
             </div>
@@ -99,6 +97,6 @@ const QuizCard = React.forwardRef<HTMLDivElement, QuizCardProps>(
   },
 );
 
-QuizCard.displayName = "QuizCard";
+FlashcardCard.displayName = "FlashcardCard";
 
-export default QuizCard;
+export default FlashcardCard;

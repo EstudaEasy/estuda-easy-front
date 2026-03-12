@@ -10,7 +10,11 @@ interface WhiteboardFormProps {
   isLoading?: boolean;
 }
 
-export default function WhiteboardForm({ onSubmit, initialData, isLoading = false }: WhiteboardFormProps) {
+export default function WhiteboardForm({
+  onSubmit,
+  initialData,
+  isLoading = false,
+}: WhiteboardFormProps) {
   const {
     register,
     handleSubmit,

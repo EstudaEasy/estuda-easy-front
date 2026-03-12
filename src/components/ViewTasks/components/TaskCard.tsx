@@ -5,6 +5,7 @@ import { TaskResponse } from "../../../types/task";
 import { format, parseISO } from "date-fns";
 import { UpdateTaskModal } from "./UpdateTaskModal";
 import TaskService from "@/services/task/TaskService";
+import { activityStorage } from "@/lib/activityStorage";
 import { toast } from "sonner";
 
 export function TaskCard({ task, onRefresh }: { task: TaskResponse; onRefresh: () => void }) {
@@ -43,16 +44,25 @@ export function TaskCard({ task, onRefresh }: { task: TaskResponse; onRefresh: (
     }
   };
 
+  const handleCardClick = () => {
+    activityStorage.addActivity({
+      title: task.name,
+      tool: "Tarefas",
+      icon: "LuBook",
+      iconClass: "bg-blue-100 text-blue-600",
+    });
+    setIsEditModalOpen(true);
+  };
+
   return (
     <>
       <div
-        onClick={() => setIsEditModalOpen(true)}
-        className={`p-6 rounded-2xl flex items-center justify-between min-h-[120px] shadow-sm transition-all hover:scale-[1.02] cursor-pointer ${
+        onClick={handleCardClick}
+        className={`p-6 rounded-2xl flex items-center justify-between min-h-[120px] shadow-sm transition-all hover:scale-[1.02] cursor-pointer relative ${
           isCompleted ? "bg-emerald-500 opacity-80" : "bg-blue-500"
         } text-white`}
       >
         <div className="flex items-center gap-4">
-          {/* Círculo do Check */}
           <button
             onClick={handleToggleStatus}
             disabled={isUpdating}

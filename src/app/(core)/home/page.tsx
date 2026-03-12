@@ -1,9 +1,9 @@
 "use client";
 
 import styles from "./styles.module.css";
-import DashboardSection from "@/components/feature/dashboard/sections/DashboardSection";
-import ActivitySection from "@/components/feature/dashboard/sections/ActivitySection";
 import QuickAccessSection from "@/components/feature/dashboard/sections/QuickAccessSection";
+import ActivitySection from "@/components/feature/dashboard/sections/ActivitySection";
+// import DashboardSection from "@/components/feature/dashboard/sections/DashboardSection";
 import { useAuth } from "@/context/auth";
 
 export default function DashboardPage() {
@@ -19,9 +19,9 @@ export default function DashboardPage() {
         </div>
       </header>
       <div className="flex flex-col gap-4">
-        <DashboardSection />
-        <ActivitySection />
         <QuickAccessSection />
+        <ActivitySection />
+        {/* <DashboardSection /> */}
       </div>
     </main>
   );
