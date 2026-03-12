@@ -4,4000 +4,4000 @@
  */
 
 export interface paths {
-    "/auth/login": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Fazer login */
-        post: operations["AuthController_login"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+  "/auth/login": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/auth/logout": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Fazer logout */
-        post: operations["AuthController_logout"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /** Fazer login */
+    post: operations["AuthController_login"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/auth/logout": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/auth/refresh": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Renovar tokens de acesso */
-        post: operations["AuthController_refresh"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /** Fazer logout */
+    post: operations["AuthController_logout"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/auth/refresh": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/auth/password/forgot": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Enviar e-mail para redefinição de senha */
-        post: operations["AuthController_sendPasswordResetEmail"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /** Renovar tokens de acesso */
+    post: operations["AuthController_refresh"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/auth/password/forgot": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/auth/password/reset": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Enviar e-mail para redefinição de senha */
-        post: operations["AuthController_resetPassword"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /** Enviar e-mail para redefinição de senha */
+    post: operations["AuthController_sendPasswordResetEmail"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/auth/password/reset": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/decks": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Buscar decks */
-        get: operations["DeckController_find"];
-        put?: never;
-        /** Criar um novo deck */
-        post: operations["DeckController_create"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /** Enviar e-mail para redefinição de senha */
+    post: operations["AuthController_resetPassword"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/decks": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/decks/shared": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Buscar decks compartilhados com o usuário */
-        get: operations["DeckController_findShared"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** Buscar decks */
+    get: operations["DeckController_find"];
+    put?: never;
+    /** Criar um novo deck */
+    post: operations["DeckController_create"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/decks/shared": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/decks/{deckId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Buscar um deck por ID */
-        get: operations["DeckController_findOne"];
-        put?: never;
-        post?: never;
-        /** Deletar um deck */
-        delete: operations["DeckController_delete"];
-        options?: never;
-        head?: never;
-        /** Atualizar um deck */
-        patch: operations["DeckController_update"];
-        trace?: never;
+    /** Buscar decks compartilhados com o usuário */
+    get: operations["DeckController_findShared"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/decks/{deckId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/diaries": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Buscar diários */
-        get: operations["DiaryController_find"];
-        put?: never;
-        /** Criar um novo diário */
-        post: operations["DiaryController_create"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** Buscar um deck por ID */
+    get: operations["DeckController_findOne"];
+    put?: never;
+    post?: never;
+    /** Deletar um deck */
+    delete: operations["DeckController_delete"];
+    options?: never;
+    head?: never;
+    /** Atualizar um deck */
+    patch: operations["DeckController_update"];
+    trace?: never;
+  };
+  "/diaries": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/diaries/shared": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Buscar diários compartilhados com o usuário */
-        get: operations["DiaryController_findShared"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** Buscar diários */
+    get: operations["DiaryController_find"];
+    put?: never;
+    /** Criar um novo diário */
+    post: operations["DiaryController_create"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/diaries/shared": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/diaries/{diaryId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Buscar um diário por ID */
-        get: operations["DiaryController_findOne"];
-        put?: never;
-        post?: never;
-        /** Deletar um diário */
-        delete: operations["DiaryController_delete"];
-        options?: never;
-        head?: never;
-        /** Atualizar um diário */
-        patch: operations["DiaryController_update"];
-        trace?: never;
+    /** Buscar diários compartilhados com o usuário */
+    get: operations["DiaryController_findShared"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/diaries/{diaryId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/diaries/{diaryId}/audio": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        /** Atualizar o áudio de um diário */
-        patch: operations["DiaryController_updateAudio"];
-        trace?: never;
+    /** Buscar um diário por ID */
+    get: operations["DiaryController_findOne"];
+    put?: never;
+    post?: never;
+    /** Deletar um diário */
+    delete: operations["DiaryController_delete"];
+    options?: never;
+    head?: never;
+    /** Atualizar um diário */
+    patch: operations["DiaryController_update"];
+    trace?: never;
+  };
+  "/diaries/{diaryId}/audio": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/decks/{deckId}/flashcards": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Buscar flashcards de um deck */
-        get: operations["FlashcardController_find"];
-        put?: never;
-        /** Criar um novo flashcard */
-        post: operations["FlashcardController_create"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /** Atualizar o áudio de um diário */
+    patch: operations["DiaryController_updateAudio"];
+    trace?: never;
+  };
+  "/decks/{deckId}/flashcards": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/decks/{deckId}/flashcards/{flashcardId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Buscar um flashcard por ID */
-        get: operations["FlashcardController_findOne"];
-        put?: never;
-        post?: never;
-        /** Deletar um flashcard */
-        delete: operations["FlashcardController_delete"];
-        options?: never;
-        head?: never;
-        /** Atualizar um flashcard */
-        patch: operations["FlashcardController_update"];
-        trace?: never;
+    /** Buscar flashcards de um deck */
+    get: operations["FlashcardController_find"];
+    put?: never;
+    /** Criar um novo flashcard */
+    post: operations["FlashcardController_create"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/decks/{deckId}/flashcards/{flashcardId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/groups": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Buscar grupos do usuário */
-        get: operations["GroupController_find"];
-        put?: never;
-        /** Criar um novo grupo */
-        post: operations["GroupController_create"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** Buscar um flashcard por ID */
+    get: operations["FlashcardController_findOne"];
+    put?: never;
+    post?: never;
+    /** Deletar um flashcard */
+    delete: operations["FlashcardController_delete"];
+    options?: never;
+    head?: never;
+    /** Atualizar um flashcard */
+    patch: operations["FlashcardController_update"];
+    trace?: never;
+  };
+  "/groups": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/groups/join": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Entrar em um grupo através do código de convite */
-        post: operations["GroupController_join"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** Buscar grupos do usuário */
+    get: operations["GroupController_find"];
+    put?: never;
+    /** Criar um novo grupo */
+    post: operations["GroupController_create"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/groups/join": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/groups/{groupId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Buscar um grupo por ID */
-        get: operations["GroupController_findOne"];
-        put?: never;
-        post?: never;
-        /** Deletar um grupo */
-        delete: operations["GroupController_delete"];
-        options?: never;
-        head?: never;
-        /** Atualizar um grupo */
-        patch: operations["GroupController_update"];
-        trace?: never;
+    get?: never;
+    put?: never;
+    /** Entrar em um grupo através do código de convite */
+    post: operations["GroupController_join"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/groups/{groupId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/groups/{groupId}/invite-code": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        /** Resetar o código de convite do grupo */
-        patch: operations["GroupController_resetInviteCode"];
-        trace?: never;
+    /** Buscar um grupo por ID */
+    get: operations["GroupController_findOne"];
+    put?: never;
+    post?: never;
+    /** Deletar um grupo */
+    delete: operations["GroupController_delete"];
+    options?: never;
+    head?: never;
+    /** Atualizar um grupo */
+    patch: operations["GroupController_update"];
+    trace?: never;
+  };
+  "/groups/{groupId}/invite-code": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/groups/{groupId}/members": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Buscar membros de um grupo */
-        get: operations["GroupMemberController_find"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /** Resetar o código de convite do grupo */
+    patch: operations["GroupController_resetInviteCode"];
+    trace?: never;
+  };
+  "/groups/{groupId}/members": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/groups/{groupId}/members/{memberId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Buscar um membro do grupo */
-        get: operations["GroupMemberController_findOne"];
-        put?: never;
-        post?: never;
-        /** Remover um membro do grupo */
-        delete: operations["GroupMemberController_remove"];
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** Buscar membros de um grupo */
+    get: operations["GroupMemberController_find"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/groups/{groupId}/members/{memberId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/groups/{groupId}/members/{memberId}/role": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        /** Alterar o role de um membro do grupo */
-        patch: operations["GroupMemberController_changeRole"];
-        trace?: never;
+    /** Buscar um membro do grupo */
+    get: operations["GroupMemberController_findOne"];
+    put?: never;
+    post?: never;
+    /** Remover um membro do grupo */
+    delete: operations["GroupMemberController_remove"];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/groups/{groupId}/members/{memberId}/role": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/quizzes": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Buscar quizzes */
-        get: operations["QuizController_find"];
-        put?: never;
-        /** Criar um novo quiz */
-        post: operations["QuizController_create"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /** Alterar o role de um membro do grupo */
+    patch: operations["GroupMemberController_changeRole"];
+    trace?: never;
+  };
+  "/quizzes": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/quizzes/shared": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Buscar quizzes compartilhados com o usuário */
-        get: operations["QuizController_findShared"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** Buscar quizzes */
+    get: operations["QuizController_find"];
+    put?: never;
+    /** Criar um novo quiz */
+    post: operations["QuizController_create"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/quizzes/shared": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/quizzes/{quizId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Buscar um quiz por ID */
-        get: operations["QuizController_findOne"];
-        put?: never;
-        post?: never;
-        /** Deletar um quiz */
-        delete: operations["QuizController_delete"];
-        options?: never;
-        head?: never;
-        /** Atualizar um quiz */
-        patch: operations["QuizController_update"];
-        trace?: never;
+    /** Buscar quizzes compartilhados com o usuário */
+    get: operations["QuizController_findShared"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/quizzes/{quizId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/quizzes/{quizId}/items": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Buscar itens de quiz */
-        get: operations["QuizItemController_find"];
-        put?: never;
-        /** Criar um novo item de quiz */
-        post: operations["QuizItemController_create"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** Buscar um quiz por ID */
+    get: operations["QuizController_findOne"];
+    put?: never;
+    post?: never;
+    /** Deletar um quiz */
+    delete: operations["QuizController_delete"];
+    options?: never;
+    head?: never;
+    /** Atualizar um quiz */
+    patch: operations["QuizController_update"];
+    trace?: never;
+  };
+  "/quizzes/{quizId}/items": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/quizzes/{quizId}/items/{quizItemId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Buscar um item de quiz por ID */
-        get: operations["QuizItemController_findOne"];
-        put?: never;
-        post?: never;
-        /** Deletar um item de quiz */
-        delete: operations["QuizItemController_delete"];
-        options?: never;
-        head?: never;
-        /**
-         * Atualizar um item de quiz
-         * @description Mantém as opções existentes se nenhuma for fornecida
-         */
-        patch: operations["QuizItemController_update"];
-        trace?: never;
+    /** Buscar itens de quiz */
+    get: operations["QuizItemController_find"];
+    put?: never;
+    /** Criar um novo item de quiz */
+    post: operations["QuizItemController_create"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/quizzes/{quizId}/items/{quizItemId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/resources/{resourceId}/shares/from-link/{linkId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /** Gerar ou atualizar compartilhamento de recurso a partir de um link */
-        post: operations["ResourceShareController_createFromLink"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** Buscar um item de quiz por ID */
+    get: operations["QuizItemController_findOne"];
+    put?: never;
+    post?: never;
+    /** Deletar um item de quiz */
+    delete: operations["QuizItemController_delete"];
+    options?: never;
+    head?: never;
+    /**
+     * Atualizar um item de quiz
+     * @description Mantém as opções existentes se nenhuma for fornecida
+     */
+    patch: operations["QuizItemController_update"];
+    trace?: never;
+  };
+  "/resources/{resourceId}/shares/from-link/{linkId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/resources/{resourceId}/shares": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Listar compartilhamentos de um recurso */
-        get: operations["ResourceShareController_find"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    /** Gerar ou atualizar compartilhamento de recurso a partir de um link */
+    post: operations["ResourceShareController_createFromLink"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/resources/{resourceId}/shares": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/resources/{resourceId}/shares/{shareId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post?: never;
-        /** Remover um compartilhamento de recurso */
-        delete: operations["ResourceShareController_delete"];
-        options?: never;
-        head?: never;
-        /** Atualizar permissão de um compartilhamento */
-        patch: operations["ResourceShareController_update"];
-        trace?: never;
+    /** Listar compartilhamentos de um recurso */
+    get: operations["ResourceShareController_find"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/resources/{resourceId}/shares/{shareId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/resources/{resourceId}/links": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Buscar link de compartilhamento de um recurso */
-        get: operations["ResourceShareLinkController_findOne"];
-        put?: never;
-        /** Gerar ou atualizar link de compartilhamento de um recurso */
-        post: operations["ResourceShareLinkController_generate"];
-        /** Deletar link de compartilhamento */
-        delete: operations["ResourceShareLinkController_delete"];
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    get?: never;
+    put?: never;
+    post?: never;
+    /** Remover um compartilhamento de recurso */
+    delete: operations["ResourceShareController_delete"];
+    options?: never;
+    head?: never;
+    /** Atualizar permissão de um compartilhamento */
+    patch: operations["ResourceShareController_update"];
+    trace?: never;
+  };
+  "/resources/{resourceId}/links": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/tasks": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Buscar tarefas */
-        get: operations["TaskController_find"];
-        put?: never;
-        /** Criar uma nova tarefa */
-        post: operations["TaskController_create"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** Buscar link de compartilhamento de um recurso */
+    get: operations["ResourceShareLinkController_findOne"];
+    put?: never;
+    /** Gerar ou atualizar link de compartilhamento de um recurso */
+    post: operations["ResourceShareLinkController_generate"];
+    /** Deletar link de compartilhamento */
+    delete: operations["ResourceShareLinkController_delete"];
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/tasks": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/tasks/shared": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Buscar tarefas compartilhadas com o usuário */
-        get: operations["TaskController_findShared"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** Buscar tarefas */
+    get: operations["TaskController_find"];
+    put?: never;
+    /** Criar uma nova tarefa */
+    post: operations["TaskController_create"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/tasks/shared": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/tasks/{taskId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Buscar uma tarefa por ID */
-        get: operations["TaskController_findOne"];
-        put?: never;
-        post?: never;
-        /** Deletar uma tarefa */
-        delete: operations["TaskController_delete"];
-        options?: never;
-        head?: never;
-        /** Atualizar uma tarefa */
-        patch: operations["TaskController_update"];
-        trace?: never;
+    /** Buscar tarefas compartilhadas com o usuário */
+    get: operations["TaskController_findShared"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/tasks/{taskId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/users": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Buscar usuários */
-        get: operations["UserController_find"];
-        put?: never;
-        /** Criar um novo usuário */
-        post: operations["UserController_create"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** Buscar uma tarefa por ID */
+    get: operations["TaskController_findOne"];
+    put?: never;
+    post?: never;
+    /** Deletar uma tarefa */
+    delete: operations["TaskController_delete"];
+    options?: never;
+    head?: never;
+    /** Atualizar uma tarefa */
+    patch: operations["TaskController_update"];
+    trace?: never;
+  };
+  "/users": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/users/{userId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Buscar um usuário por ID */
-        get: operations["UserController_findOne"];
-        put?: never;
-        post?: never;
-        /** Deletar um usuário */
-        delete: operations["UserController_delete"];
-        options?: never;
-        head?: never;
-        /** Atualizar um usuário */
-        patch: operations["UserController_update"];
-        trace?: never;
+    /** Buscar usuários */
+    get: operations["UserController_find"];
+    put?: never;
+    /** Criar um novo usuário */
+    post: operations["UserController_create"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/users/{userId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/whiteboards": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Buscar whiteboards */
-        get: operations["WhiteboardController_find"];
-        put?: never;
-        /** Criar um novo whiteboard */
-        post: operations["WhiteboardController_create"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** Buscar um usuário por ID */
+    get: operations["UserController_findOne"];
+    put?: never;
+    post?: never;
+    /** Deletar um usuário */
+    delete: operations["UserController_delete"];
+    options?: never;
+    head?: never;
+    /** Atualizar um usuário */
+    patch: operations["UserController_update"];
+    trace?: never;
+  };
+  "/whiteboards": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/whiteboards/shared": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Buscar whiteboards compartilhados com o usuário */
-        get: operations["WhiteboardController_findShared"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
+    /** Buscar whiteboards */
+    get: operations["WhiteboardController_find"];
+    put?: never;
+    /** Criar um novo whiteboard */
+    post: operations["WhiteboardController_create"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/whiteboards/shared": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
-    "/whiteboards/{whiteboardId}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** Buscar um whiteboard por ID */
-        get: operations["WhiteboardController_findOne"];
-        put?: never;
-        post?: never;
-        /** Deletar um whiteboard */
-        delete: operations["WhiteboardController_delete"];
-        options?: never;
-        head?: never;
-        /** Atualizar um whiteboard */
-        patch: operations["WhiteboardController_update"];
-        trace?: never;
+    /** Buscar whiteboards compartilhados com o usuário */
+    get: operations["WhiteboardController_findShared"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/whiteboards/{whiteboardId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
     };
+    /** Buscar um whiteboard por ID */
+    get: operations["WhiteboardController_findOne"];
+    put?: never;
+    post?: never;
+    /** Deletar um whiteboard */
+    delete: operations["WhiteboardController_delete"];
+    options?: never;
+    head?: never;
+    /** Atualizar um whiteboard */
+    patch: operations["WhiteboardController_update"];
+    trace?: never;
+  };
 }
 export type webhooks = Record<string, never>;
 export interface components {
-    schemas: {
-        LoginBodyDTO: {
-            /** @description Email */
-            email: string;
-            /** @description Senha */
-            password: string;
-        };
-        LoginResponseDTO: {
-            /** @description Access token */
-            accessToken: string;
-            /** @description Refresh token */
-            refreshToken: string;
-        };
-        LogoutBodyDTO: {
-            /** @description Refresh token */
-            refreshToken: string;
-        };
-        RefreshTokensBodyDTO: {
-            /** @description Refresh token */
-            refreshToken: string;
-        };
-        RefreshTokensResponseDTO: {
-            /** @description Novo access token */
-            accessToken: string;
-            /** @description Novo refresh token */
-            refreshToken: string;
-        };
-        SendPasswordResetEmailBodyDTO: {
-            /**
-             * @description E-mail do usuário
-             * @example joao.silva@example.com
-             */
-            email: string;
-        };
-        ResetPasswordDTO: {
-            /** @description Token de redefinição de senha */
-            token: string;
-            /**
-             * @description Nova senha do usuário
-             *         (deve conter pelo menos 1 maiúscula, 1 minúscula, 1 número e 1 caractere especial)
-             */
-            password: string;
-            /** @description Confirmação da nova senha */
-            passwordConfirmation: string;
-        };
-        CreateDeckBodyDTO: {
-            /**
-             * @description Nome do deck
-             * @example Vocabulário de Inglês
-             */
-            name: string;
-            /**
-             * @description Descrição do deck
-             * @example Flashcards para estudar vocabulário em inglês
-             */
-            description?: string;
-        };
-        FlashcardResponseDTO: {
-            /**
-             * @description ID único do flashcard
-             * @example 1
-             */
-            id: number;
-            /**
-             * @description ID do deck
-             * @example 550e8400-e29b-41d4-a716-446655440000
-             */
-            deckId: string;
-            /**
-             * @description Frente do flashcard (pergunta)
-             * @example Qual é a capital da França?
-             */
-            front: string;
-            /**
-             * @description Verso do flashcard (resposta)
-             * @example Paris
-             */
-            back: string;
-            /**
-             * @description Posição do flashcard no deck
-             * @example 1
-             */
-            position: number;
-            /**
-             * Format: date-time
-             * @description Data de criação do registro
-             * @example 2024-01-15T10:30:00.000Z
-             */
-            createdAt: string;
-            /**
-             * Format: date-time
-             * @description Data da última atualização do registro
-             * @example 2024-01-15T10:30:00.000Z
-             */
-            updatedAt: string;
-        };
-        DeckResponseDTO: {
-            /**
-             * @description ID único do deck
-             * @example 550e8400-e29b-41d4-a716-446655440000
-             */
-            id: string;
-            /**
-             * @description Nome do deck
-             * @example Vocabulário de Inglês
-             */
-            name: string;
-            /**
-             * @description Descrição do deck
-             * @example Flashcards para estudar vocabulário em inglês
-             */
-            description?: string;
-            /** @description Flashcards do deck */
-            flashcards?: components["schemas"]["FlashcardResponseDTO"][];
-            /**
-             * @description ID do recurso associado ao quiz
-             * @example 550e8400-e29b-41d4-a716-446655440000
-             */
-            resourceId: string;
-            /**
-             * Format: date-time
-             * @description Data de criação do registro
-             * @example 2024-01-15T10:30:00.000Z
-             */
-            createdAt: string;
-            /**
-             * Format: date-time
-             * @description Data da última atualização do registro
-             * @example 2024-01-15T10:30:00.000Z
-             */
-            updatedAt: string;
-        };
-        FindDeckResponseDTO: {
-            /** @description Lista de decks */
-            decks: components["schemas"]["DeckResponseDTO"][];
-            /**
-             * @description Total de decks encontrados
-             * @example 10
-             */
-            total: number;
-        };
-        UpdateDeckBodyDTO: {
-            /**
-             * @description Nome do deck
-             * @example Vocabulário de Inglês
-             */
-            name?: string;
-            /**
-             * @description Descrição do deck
-             * @example Flashcards para estudar vocabulário em inglês
-             */
-            description?: string;
-        };
-        CreateDiaryBodyDTO: {
-            /**
-             * @description Título do diário
-             * @example Meu dia de estudos
-             */
-            title: string;
-            /**
-             * @description Conteúdo do diário
-             * @example Hoje estudei matemática e física...
-             */
-            content: string;
-            /**
-             * @description URL do áudio do diário
-             * @example https://example.com/audio.mp3
-             */
-            audioUrl?: string;
-        };
-        DiaryResponseDTO: {
-            /**
-             * @description ID único do diário
-             * @example 550e8400-e29b-41d4-a716-446655440000
-             */
-            id: string;
-            /**
-             * @description Título do diário
-             * @example Meu dia de estudos
-             */
-            title: string;
-            /**
-             * @description Conteúdo do diário
-             * @example Hoje estudei matemática e física...
-             */
-            content: string;
-            /**
-             * @description URL do áudio do diário
-             * @example https://example.com/audio.mp3
-             */
-            audioUrl?: string;
-            /**
-             * @description ID do recurso associado ao quiz
-             * @example 550e8400-e29b-41d4-a716-446655440000
-             */
-            resourceId: string;
-            /**
-             * Format: date-time
-             * @description Data de criação do registro
-             * @example 2024-01-15T10:30:00.000Z
-             */
-            createdAt: string;
-            /**
-             * Format: date-time
-             * @description Data da última atualização do registro
-             * @example 2024-01-15T10:30:00.000Z
-             */
-            updatedAt: string;
-        };
-        FindDiaryResponseDTO: {
-            /** @description Lista de diários */
-            diaries: components["schemas"]["DiaryResponseDTO"][];
-            /**
-             * @description Total de diários encontrados
-             * @example 10
-             */
-            total: number;
-        };
-        UpdateDiaryBodyDTO: {
-            /**
-             * @description Título do diário
-             * @example Meu dia de estudos
-             */
-            title?: string;
-            /**
-             * @description Conteúdo do diário
-             * @example Hoje estudei matemática e física...
-             */
-            content?: string;
-            /**
-             * @description URL do áudio do diário
-             * @example https://example.com/audio.mp3
-             */
-            audioUrl?: string;
-        };
-        UpdateDiaryAudioBodyDTO: {
-            /**
-             * Format: binary
-             * @description Arquivo de áudio (.mp3, .wav, .ogg) com tamanho máximo de 10MB.
-             */
-            file: string;
-        };
-        CreateFlashcardBodyDTO: {
-            /**
-             * @description Frente do flashcard (pergunta)
-             * @example Qual é a capital da França?
-             */
-            front: string;
-            /**
-             * @description Verso do flashcard (resposta)
-             * @example Paris
-             */
-            back: string;
-            /**
-             * @description Posição do flashcard no deck
-             * @example 1
-             */
-            position: number;
-        };
-        FindFlashcardResponseDTO: {
-            /** @description Lista de flashcards */
-            flashcards: components["schemas"]["FlashcardResponseDTO"][];
-            /**
-             * @description Total de flashcards encontrados
-             * @example 10
-             */
-            total: number;
-        };
-        UpdateFlashcardBodyDTO: {
-            /**
-             * @description Frente do flashcard (pergunta)
-             * @example Qual é a capital da França?
-             */
-            front?: string;
-            /**
-             * @description Verso do flashcard (resposta)
-             * @example Paris
-             */
-            back?: string;
-            /**
-             * @description Posição do flashcard no deck
-             * @example 1
-             */
-            position?: number;
-        };
-        CreateGroupBodyDTO: {
-            /**
-             * @description Nome do grupo
-             * @example Grupo de Estudos de Matemática
-             */
-            name: string;
-            /**
-             * @description Descrição do grupo
-             * @example Grupo dedicado aos estudos de matemática avançada
-             */
-            description?: string;
-        };
-        GroupResponseDTO: {
-            /**
-             * @description ID único do grupo
-             * @example 550e8400-e29b-41d4-a716-446655440000
-             */
-            id: string;
-            /**
-             * @description Nome do grupo
-             * @example Grupo de Estudos de Matemática
-             */
-            name: string;
-            /**
-             * @description Descrição do grupo
-             * @example Grupo dedicado aos estudos de matemática avançada
-             */
-            description?: string;
-            /**
-             * @description Código de convite do grupo
-             * @example ABC12345
-             */
-            inviteCode: string;
-            /**
-             * Format: date-time
-             * @description Data de criação do registro
-             * @example 2024-01-15T10:30:00.000Z
-             */
-            createdAt: string;
-            /**
-             * Format: date-time
-             * @description Data da última atualização do registro
-             * @example 2024-01-15T10:30:00.000Z
-             */
-            updatedAt: string;
-        };
-        JoinGroupBodyDTO: {
-            /**
-             * @description Código de convite do grupo
-             * @example ABC12345
-             */
-            inviteCode: string;
-        };
-        UserResponseDTO: {
-            /**
-             * @description ID único do usuário
-             * @example 1
-             */
-            id: number;
-            /**
-             * @description Nome completo do usuário
-             * @example João Silva
-             */
-            name: string;
-            /**
-             * @description Email do usuário
-             * @example joao.silva@example.com
-             */
-            email: string;
-            /**
-             * Format: date-time
-             * @description Data de nascimento do usuário
-             * @example 1990-01-15T00:00:00.000Z
-             */
-            birthdate?: string;
-            /**
-             * @description Número de telefone do usuário
-             * @example +55 11 98765-4321
-             */
-            phoneNumber?: string;
-            /**
-             * @description URL da foto de perfil do usuário
-             * @example https://example.com/photos/user.jpg
-             */
-            photoUrl?: string;
-            /**
-             * @description Papel do usuário
-             * @example user
-             * @enum {string}
-             */
-            role: "admin" | "user";
-            /**
-             * Format: date-time
-             * @description Data de criação do registro
-             * @example 2024-01-15T10:30:00.000Z
-             */
-            createdAt: string;
-            /**
-             * Format: date-time
-             * @description Data da última atualização do registro
-             * @example 2024-01-15T10:30:00.000Z
-             */
-            updatedAt: string;
-        };
-        GroupMemberResponseDTO: {
-            /**
-             * @description ID único do membro
-             * @example 1
-             */
-            id: number;
-            /**
-             * @description Role do membro no grupo
-             * @example member
-             * @enum {string}
-             */
-            role: "owner" | "admin" | "member";
-            /**
-             * @description ID do grupo
-             * @example 550e8400-e29b-41d4-a716-446655440000
-             */
-            groupId: string;
-            /**
-             * @description ID do usuário
-             * @example 1
-             */
-            userId: number;
-            /** @description Dados do usuário */
-            user?: components["schemas"]["UserResponseDTO"];
-            /**
-             * Format: date-time
-             * @description Data de criação do registro
-             * @example 2024-01-15T10:30:00.000Z
-             */
-            createdAt: string;
-            /**
-             * Format: date-time
-             * @description Data da última atualização do registro
-             * @example 2024-01-15T10:30:00.000Z
-             */
-            updatedAt: string;
-        };
-        FindGroupResponseDTO: {
-            /** @description Lista de grupos */
-            groups: components["schemas"]["GroupResponseDTO"][];
-            /**
-             * @description Total de grupos encontrados
-             * @example 10
-             */
-            total: number;
-        };
-        UpdateGroupBodyDTO: {
-            /**
-             * @description Nome do grupo
-             * @example Grupo de Estudos de Matemática
-             */
-            name?: string;
-            /**
-             * @description Descrição do grupo
-             * @example Grupo dedicado aos estudos de matemática avançada
-             */
-            description?: string;
-        };
-        FindGroupMembersResponseDTO: {
-            /** @description Lista de membros do grupo */
-            members: components["schemas"]["GroupMemberResponseDTO"][];
-            /**
-             * @description Total de membros
-             * @example 10
-             */
-            total: number;
-        };
-        ChangeMemberRoleBodyDTO: {
-            /**
-             * @description Novo role do membro
-             * @example admin
-             * @enum {string}
-             */
-            role: "owner" | "admin" | "member";
-        };
-        CreateQuizBodyDTO: {
-            /**
-             * @description Título do quiz
-             * @example Quiz de Matemática
-             */
-            title: string;
-            /**
-             * @description Descrição do quiz
-             * @example Um quiz sobre matemática básica
-             */
-            description?: string;
-            /**
-             * @description Ícone do quiz
-             * @example book svg
-             */
-            icon?: string;
-            /**
-             * @description Cor do quiz (hex)
-             * @example #FF0000
-             */
-            color?: string;
-        };
-        QuizOptionResponseDTO: {
-            /**
-             * @description ID único da opção
-             * @example 1
-             */
-            id: number;
-            /**
-             * @description ID do item do quiz
-             * @example 1
-             */
-            quizItemId: number;
-            /**
-             * @description Texto da opção
-             * @example Opção A
-             */
-            text: string;
-            /**
-             * @description Indica se a opção é a correta
-             * @example true
-             */
-            isCorrect: boolean;
-            /**
-             * @description Ordem da opção
-             * @example 1
-             */
-            position: number;
-        };
-        QuizItemResponseDTO: {
-            /**
-             * @description ID único do item
-             * @example 1
-             */
-            id: number;
-            /**
-             * @description ID do quiz
-             * @example 550e8400-e29b-41d4-a716-446655440000
-             */
-            quizId: string;
-            /**
-             * @description Pergunta do item
-             * @example Qual é a capital do Brasil?
-             */
-            question: string;
-            /** @description Opções de resposta */
-            options?: components["schemas"]["QuizOptionResponseDTO"][];
-            /**
-             * @description Ordem do item no quiz
-             * @example 1
-             */
-            position: number;
-            /**
-             * @description Tempo limite em segundos
-             * @example 30
-             */
-            timeLimit?: number;
-            /**
-             * @description Explicação da resposta
-             * @example Brasília é a capital do Brasil desde 1960.
-             */
-            explanation?: string;
-            /**
-             * Format: date-time
-             * @description Data de criação do registro
-             * @example 2024-01-15T10:30:00.000Z
-             */
-            createdAt: string;
-            /**
-             * Format: date-time
-             * @description Data da última atualização do registro
-             * @example 2024-01-15T10:30:00.000Z
-             */
-            updatedAt: string;
-        };
-        QuizResponseDTO: {
-            /**
-             * @description ID único do quiz
-             * @example 550e8400-e29b-41d4-a716-446655440000
-             */
-            id: string;
-            /**
-             * @description Título do quiz
-             * @example Quiz de Matemática
-             */
-            title: string;
-            /**
-             * @description Descrição do quiz
-             * @example Um quiz sobre matemática básica
-             */
-            description?: string;
-            /**
-             * @description Ícone do quiz
-             * @example book svg
-             */
-            icon?: string;
-            /**
-             * @description Cor do quiz (hex)
-             * @example #FF0000
-             */
-            color?: string;
-            /** @description Itens do quiz */
-            items?: components["schemas"]["QuizItemResponseDTO"][];
-            /**
-             * @description ID do recurso associado ao quiz
-             * @example 550e8400-e29b-41d4-a716-446655440000
-             */
-            resourceId: string;
-            /**
-             * Format: date-time
-             * @description Data de criação do registro
-             * @example 2024-01-15T10:30:00.000Z
-             */
-            createdAt: string;
-            /**
-             * Format: date-time
-             * @description Data da última atualização do registro
-             * @example 2024-01-15T10:30:00.000Z
-             */
-            updatedAt: string;
-        };
-        FindQuizResponseDTO: {
-            /** @description Lista de quizzes */
-            quizzes: components["schemas"]["QuizResponseDTO"][];
-            /**
-             * @description Total de quizzes encontrados
-             * @example 10
-             */
-            total: number;
-        };
-        UpdateQuizBodyDTO: {
-            /**
-             * @description Título do quiz
-             * @example Quiz de Matemática
-             */
-            title?: string;
-            /**
-             * @description Descrição do quiz
-             * @example Um quiz sobre matemática básica
-             */
-            description?: string;
-            /**
-             * @description Ícone do quiz
-             * @example book svg
-             */
-            icon?: string;
-            /**
-             * @description Cor do quiz (hex)
-             * @example #FF0000
-             */
-            color?: string;
-        };
-        CreateQuizOptionDTO: {
-            /**
-             * @description Texto da opção
-             * @example Opção A
-             */
-            text: string;
-            /**
-             * @description Indica se a opção é a correta
-             * @example true
-             */
-            isCorrect: boolean;
-            /**
-             * @description Ordem da opção
-             * @example 1
-             */
-            position: number;
-        };
-        CreateQuizItemBodyDTO: {
-            /**
-             * @description Pergunta do item
-             * @example Qual é a capital do Brasil?
-             */
-            question: string;
-            /** @description Opções de resposta do item */
-            options: components["schemas"]["CreateQuizOptionDTO"][];
-            /**
-             * @description Ordem do item no quiz
-             * @example 1
-             */
-            position: number;
-            /**
-             * @description Tempo limite em segundos
-             * @example 30
-             */
-            timeLimit?: number;
-            /**
-             * @description Explicação da resposta
-             * @example Brasília é a capital do Brasil desde 1960.
-             */
-            explanation?: string;
-        };
-        FindQuizItemResponseDTO: {
-            /** @description Lista de itens do quiz */
-            quizItems: components["schemas"]["QuizItemResponseDTO"][];
-            /**
-             * @description Total de itens encontrados
-             * @example 10
-             */
-            total: number;
-        };
-        UpdateQuizOptionDTO: {
-            /**
-             * @description Texto da opção
-             * @example Opção A
-             */
-            text: string;
-            /**
-             * @description Indica se a opção é a correta
-             * @example true
-             */
-            isCorrect: boolean;
-            /**
-             * @description Ordem da opção
-             * @example 1
-             */
-            position: number;
-            /**
-             * @description ID da opção (pode ser usado para atualizar uma opção existente)
-             * @example 1
-             */
-            id?: number;
-        };
-        UpdateQuizItemBodyDTO: {
-            /**
-             * @description Pergunta do item
-             * @example Qual é a capital do Brasil?
-             */
-            question?: string;
-            /**
-             * @description Ordem do item no quiz
-             * @example 1
-             */
-            position?: number;
-            /**
-             * @description Tempo limite em segundos
-             * @example 30
-             */
-            timeLimit?: number;
-            /**
-             * @description Explicação da resposta
-             * @example Brasília é a capital do Brasil desde 1960.
-             */
-            explanation?: string;
-            /** @description Opções de resposta do item */
-            options?: components["schemas"]["UpdateQuizOptionDTO"][];
-        };
-        ResourceShareResponseDTO: {
-            /**
-             * @description ID único do compartilhamento
-             * @example 1
-             */
-            id: number;
-            /**
-             * @description Permissão do compartilhamento
-             * @example read
-             * @enum {string}
-             */
-            permission: "read" | "edit";
-            /**
-             * @description ID do recurso compartilhado
-             * @example 550e8400-e29b-41d4-a716-446655440000
-             */
-            resourceId: string;
-            /**
-             * @description ID do usuário com acesso
-             * @example 1
-             */
-            userId: number;
-            /**
-             * Format: date-time
-             * @description Data de criação do registro
-             * @example 2024-01-15T10:30:00.000Z
-             */
-            createdAt?: string;
-            /**
-             * Format: date-time
-             * @description Data da última atualização do registro
-             * @example 2024-01-15T10:30:00.000Z
-             */
-            updatedAt?: string;
-        };
-        ResourceShareDTO: {
-            /**
-             * @description ID único do compartilhamento
-             * @example 1
-             */
-            id: number;
-            /**
-             * @description Permissão do compartilhamento
-             * @example read
-             * @enum {string}
-             */
-            permission: "read" | "edit";
-            /**
-             * @description ID do recurso compartilhado
-             * @example 550e8400-e29b-41d4-a716-446655440000
-             */
-            resourceId: string;
-            /**
-             * @description ID do usuário com acesso
-             * @example 1
-             */
-            userId: number;
-            /**
-             * Format: date-time
-             * @description Data de criação do registro
-             * @example 2024-01-15T10:30:00.000Z
-             */
-            createdAt?: string;
-            /**
-             * Format: date-time
-             * @description Data da última atualização do registro
-             * @example 2024-01-15T10:30:00.000Z
-             */
-            updatedAt?: string;
-            /** @description Informações do usuário com acesso ao recurso */
-            user: components["schemas"]["UserResponseDTO"];
-        };
-        FindResourceSharesResponseDTO: {
-            /** @description Lista de compartilhamentos do recurso */
-            shares: components["schemas"]["ResourceShareDTO"][];
-            /**
-             * @description Total de compartilhamentos
-             * @example 10
-             */
-            total: number;
-        };
-        UpdateResourceShareBodyDTO: {
-            /**
-             * @description Nova permissão do compartilhamento
-             * @example edit
-             * @enum {string}
-             */
-            permission: "read" | "edit";
-        };
-        GenerateResourceShareLinkBodyDTO: {
-            /**
-             * @description Permissão concedida ao acessar o link
-             * @example read
-             * @enum {string}
-             */
-            permission: "read" | "edit";
-        };
-        ResourceShareLinkResponseDTO: {
-            /**
-             * @description ID único do link de compartilhamento
-             * @example 550e8400-e29b-41d4-a716-446655440000
-             */
-            id: string;
-            /**
-             * @description ID do recurso associado ao link
-             * @example 550e8400-e29b-41d4-a716-446655440000
-             */
-            resourceId: string;
-            /**
-             * @description Permissão concedida ao acessar o link
-             * @example read
-             * @enum {string}
-             */
-            permission: "read" | "edit";
-            /**
-             * Format: date-time
-             * @description Data de criação do registro
-             * @example 2024-01-15T10:30:00.000Z
-             */
-            createdAt: string;
-            /**
-             * Format: date-time
-             * @description Data da última atualização do registro
-             * @example 2024-01-15T10:30:00.000Z
-             */
-            updatedAt: string;
-        };
-        CreateTaskBodyDTO: {
-            /**
-             * @description Nome da tarefa
-             * @example Estudar matemática
-             */
-            name: string;
-            /**
-             * @description Descrição da tarefa
-             * @example Revisar álgebra linear e cálculo diferencial
-             */
-            description?: string;
-            /**
-             * @description Status da tarefa
-             * @example pending
-             * @enum {string}
-             */
-            status: "pending" | "in_progress" | "completed" | "cancelled";
-            /**
-             * Format: date-time
-             * @description Data de início da tarefa
-             * @example 2024-01-15T10:00:00.000Z
-             */
-            startDate?: string;
-            /**
-             * Format: date-time
-             * @description Data de término da tarefa
-             * @example 2024-01-20T18:00:00.000Z
-             */
-            endDate?: string;
-        };
-        TaskResponseDTO: {
-            /**
-             * @description ID único da tarefa
-             * @example 550e8400-e29b-41d4-a716-446655440000
-             */
-            id: string;
-            /**
-             * @description Nome da tarefa
-             * @example Estudar matemática
-             */
-            name: string;
-            /**
-             * @description Descrição da tarefa
-             * @example Revisar álgebra linear e cálculo diferencial
-             */
-            description?: string;
-            /**
-             * @description Status da tarefa
-             * @example pending
-             * @enum {string}
-             */
-            status: "pending" | "in_progress" | "completed" | "cancelled";
-            /**
-             * Format: date-time
-             * @description Data de início da tarefa
-             * @example 2024-01-15T10:00:00.000Z
-             */
-            startDate?: string;
-            /**
-             * Format: date-time
-             * @description Data de término da tarefa
-             * @example 2024-01-20T18:00:00.000Z
-             */
-            endDate?: string;
-            /**
-             * @description ID do recurso associado ao quiz
-             * @example 550e8400-e29b-41d4-a716-446655440000
-             */
-            resourceId: string;
-            /**
-             * Format: date-time
-             * @description Data de criação do registro
-             * @example 2024-01-15T10:30:00.000Z
-             */
-            createdAt: string;
-            /**
-             * Format: date-time
-             * @description Data da última atualização do registro
-             * @example 2024-01-15T10:30:00.000Z
-             */
-            updatedAt: string;
-        };
-        FindTaskResponseDTO: {
-            /** @description Lista de tarefas */
-            tasks: components["schemas"]["TaskResponseDTO"][];
-            /**
-             * @description Total de tarefas encontradas
-             * @example 10
-             */
-            total: number;
-        };
-        UpdateTaskBodyDTO: {
-            /**
-             * @description Nome da tarefa
-             * @example Estudar matemática
-             */
-            name?: string;
-            /**
-             * @description Descrição da tarefa
-             * @example Revisar álgebra linear e cálculo diferencial
-             */
-            description?: string;
-            /**
-             * @description Status da tarefa
-             * @example pending
-             * @enum {string}
-             */
-            status?: "pending" | "in_progress" | "completed" | "cancelled";
-            /**
-             * Format: date-time
-             * @description Data de início da tarefa
-             * @example 2024-01-15T10:00:00.000Z
-             */
-            startDate?: string;
-            /**
-             * Format: date-time
-             * @description Data de término da tarefa
-             * @example 2024-01-20T18:00:00.000Z
-             */
-            endDate?: string;
-        };
-        CreateUserBodyDTO: {
-            /**
-             * @description Nome do usuário
-             * @example João Silva
-             */
-            name: string;
-            /**
-             * @description E-mail do usuário
-             * @example joao.silva@example.com
-             */
-            email: string;
-            /**
-             * @description Senha do usuário (deve conter pelo menos 1 maiúscula, 1 minúscula, 1 número e 1 caractere especial)
-             * @example Senha@123
-             */
-            password: string;
-            /**
-             * @description Número de telefone do usuário
-             * @example +55 11 98765-4321
-             */
-            phoneNumber?: string;
-            /**
-             * Format: date-time
-             * @description Data de nascimento do usuário
-             * @example 1990-01-15
-             */
-            birthdate?: string;
-        };
-        FindUserResponseDTO: {
-            /** @description Lista de usuários */
-            users: components["schemas"]["UserResponseDTO"][];
-            /**
-             * @description Total de usuários encontrados
-             * @example 10
-             */
-            total: number;
-        };
-        UpdateUserBodyDTO: {
-            /**
-             * @description Nome do usuário
-             * @example João Silva
-             */
-            name?: string;
-            /**
-             * @description Senha do usuário (deve conter pelo menos 1 maiúscula, 1 minúscula, 1 número e 1 caractere especial)
-             * @example Senha@123
-             */
-            password?: string;
-            /**
-             * @description Número de telefone do usuário
-             * @example +55 11 98765-4321
-             */
-            phoneNumber?: string;
-            /**
-             * Format: date-time
-             * @description Data de nascimento do usuário
-             * @example 1990-01-15
-             */
-            birthdate?: string;
-        };
-        CreateWhiteboardBodyDTO: {
-            /**
-             * @description Título do whiteboard
-             * @example Brainstorming de Projeto
-             */
-            title: string;
-            /** @description Dados do whiteboard em formato JSON */
-            content: Record<string, never>;
-        };
-        WhiteboardResponseDTO: {
-            /**
-             * @description ID único do whiteboard
-             * @example 550e8400-e29b-41d4-a716-446655440000
-             */
-            id: string;
-            /**
-             * @description Título do whiteboard
-             * @example Brainstorming de Projeto
-             */
-            title: string;
-            /** @description Dados do whiteboard em formato JSON */
-            content: Record<string, never>;
-            /**
-             * @description ID do recurso associado ao quiz
-             * @example 550e8400-e29b-41d4-a716-446655440000
-             */
-            resourceId: string;
-            /**
-             * Format: date-time
-             * @description Data de criação do registro
-             * @example 2024-01-15T10:30:00.000Z
-             */
-            createdAt: string;
-            /**
-             * Format: date-time
-             * @description Data da última atualização do registro
-             * @example 2024-01-15T10:30:00.000Z
-             */
-            updatedAt: string;
-        };
-        FindWhiteboardResponseDTO: {
-            /** @description Lista de whiteboards */
-            whiteboards: components["schemas"]["WhiteboardResponseDTO"][];
-            /**
-             * @description Total de whiteboards encontrados
-             * @example 10
-             */
-            total: number;
-        };
-        UpdateWhiteboardBodyDTO: {
-            /**
-             * @description Título do whiteboard
-             * @example Brainstorming de Projeto
-             */
-            title?: string;
-            /** @description Dados do whiteboard em formato JSON */
-            content?: Record<string, never>;
-        };
+  schemas: {
+    LoginBodyDTO: {
+      /** @description Email */
+      email: string;
+      /** @description Senha */
+      password: string;
     };
-    responses: never;
-    parameters: never;
-    requestBodies: never;
-    headers: never;
-    pathItems: never;
+    LoginResponseDTO: {
+      /** @description Access token */
+      accessToken: string;
+      /** @description Refresh token */
+      refreshToken: string;
+    };
+    LogoutBodyDTO: {
+      /** @description Refresh token */
+      refreshToken: string;
+    };
+    RefreshTokensBodyDTO: {
+      /** @description Refresh token */
+      refreshToken: string;
+    };
+    RefreshTokensResponseDTO: {
+      /** @description Novo access token */
+      accessToken: string;
+      /** @description Novo refresh token */
+      refreshToken: string;
+    };
+    SendPasswordResetEmailBodyDTO: {
+      /**
+       * @description E-mail do usuário
+       * @example joao.silva@example.com
+       */
+      email: string;
+    };
+    ResetPasswordDTO: {
+      /** @description Token de redefinição de senha */
+      token: string;
+      /**
+       * @description Nova senha do usuário
+       *         (deve conter pelo menos 1 maiúscula, 1 minúscula, 1 número e 1 caractere especial)
+       */
+      password: string;
+      /** @description Confirmação da nova senha */
+      passwordConfirmation: string;
+    };
+    CreateDeckBodyDTO: {
+      /**
+       * @description Nome do deck
+       * @example Vocabulário de Inglês
+       */
+      name: string;
+      /**
+       * @description Descrição do deck
+       * @example Flashcards para estudar vocabulário em inglês
+       */
+      description?: string;
+    };
+    FlashcardResponseDTO: {
+      /**
+       * @description ID único do flashcard
+       * @example 1
+       */
+      id: number;
+      /**
+       * @description ID do deck
+       * @example 550e8400-e29b-41d4-a716-446655440000
+       */
+      deckId: string;
+      /**
+       * @description Frente do flashcard (pergunta)
+       * @example Qual é a capital da França?
+       */
+      front: string;
+      /**
+       * @description Verso do flashcard (resposta)
+       * @example Paris
+       */
+      back: string;
+      /**
+       * @description Posição do flashcard no deck
+       * @example 1
+       */
+      position: number;
+      /**
+       * Format: date-time
+       * @description Data de criação do registro
+       * @example 2024-01-15T10:30:00.000Z
+       */
+      createdAt: string;
+      /**
+       * Format: date-time
+       * @description Data da última atualização do registro
+       * @example 2024-01-15T10:30:00.000Z
+       */
+      updatedAt: string;
+    };
+    DeckResponseDTO: {
+      /**
+       * @description ID único do deck
+       * @example 550e8400-e29b-41d4-a716-446655440000
+       */
+      id: string;
+      /**
+       * @description Nome do deck
+       * @example Vocabulário de Inglês
+       */
+      name: string;
+      /**
+       * @description Descrição do deck
+       * @example Flashcards para estudar vocabulário em inglês
+       */
+      description?: string;
+      /** @description Flashcards do deck */
+      flashcards?: components["schemas"]["FlashcardResponseDTO"][];
+      /**
+       * @description ID do recurso associado ao quiz
+       * @example 550e8400-e29b-41d4-a716-446655440000
+       */
+      resourceId: string;
+      /**
+       * Format: date-time
+       * @description Data de criação do registro
+       * @example 2024-01-15T10:30:00.000Z
+       */
+      createdAt: string;
+      /**
+       * Format: date-time
+       * @description Data da última atualização do registro
+       * @example 2024-01-15T10:30:00.000Z
+       */
+      updatedAt: string;
+    };
+    FindDeckResponseDTO: {
+      /** @description Lista de decks */
+      decks: components["schemas"]["DeckResponseDTO"][];
+      /**
+       * @description Total de decks encontrados
+       * @example 10
+       */
+      total: number;
+    };
+    UpdateDeckBodyDTO: {
+      /**
+       * @description Nome do deck
+       * @example Vocabulário de Inglês
+       */
+      name?: string;
+      /**
+       * @description Descrição do deck
+       * @example Flashcards para estudar vocabulário em inglês
+       */
+      description?: string;
+    };
+    CreateDiaryBodyDTO: {
+      /**
+       * @description Título do diário
+       * @example Meu dia de estudos
+       */
+      title: string;
+      /**
+       * @description Conteúdo do diário
+       * @example Hoje estudei matemática e física...
+       */
+      content: string;
+      /**
+       * @description URL do áudio do diário
+       * @example https://example.com/audio.mp3
+       */
+      audioUrl?: string;
+    };
+    DiaryResponseDTO: {
+      /**
+       * @description ID único do diário
+       * @example 550e8400-e29b-41d4-a716-446655440000
+       */
+      id: string;
+      /**
+       * @description Título do diário
+       * @example Meu dia de estudos
+       */
+      title: string;
+      /**
+       * @description Conteúdo do diário
+       * @example Hoje estudei matemática e física...
+       */
+      content: string;
+      /**
+       * @description URL do áudio do diário
+       * @example https://example.com/audio.mp3
+       */
+      audioUrl?: string;
+      /**
+       * @description ID do recurso associado ao quiz
+       * @example 550e8400-e29b-41d4-a716-446655440000
+       */
+      resourceId: string;
+      /**
+       * Format: date-time
+       * @description Data de criação do registro
+       * @example 2024-01-15T10:30:00.000Z
+       */
+      createdAt: string;
+      /**
+       * Format: date-time
+       * @description Data da última atualização do registro
+       * @example 2024-01-15T10:30:00.000Z
+       */
+      updatedAt: string;
+    };
+    FindDiaryResponseDTO: {
+      /** @description Lista de diários */
+      diaries: components["schemas"]["DiaryResponseDTO"][];
+      /**
+       * @description Total de diários encontrados
+       * @example 10
+       */
+      total: number;
+    };
+    UpdateDiaryBodyDTO: {
+      /**
+       * @description Título do diário
+       * @example Meu dia de estudos
+       */
+      title?: string;
+      /**
+       * @description Conteúdo do diário
+       * @example Hoje estudei matemática e física...
+       */
+      content?: string;
+      /**
+       * @description URL do áudio do diário
+       * @example https://example.com/audio.mp3
+       */
+      audioUrl?: string;
+    };
+    UpdateDiaryAudioBodyDTO: {
+      /**
+       * Format: binary
+       * @description Arquivo de áudio (.mp3, .wav, .ogg) com tamanho máximo de 10MB.
+       */
+      file: string;
+    };
+    CreateFlashcardBodyDTO: {
+      /**
+       * @description Frente do flashcard (pergunta)
+       * @example Qual é a capital da França?
+       */
+      front: string;
+      /**
+       * @description Verso do flashcard (resposta)
+       * @example Paris
+       */
+      back: string;
+      /**
+       * @description Posição do flashcard no deck
+       * @example 1
+       */
+      position: number;
+    };
+    FindFlashcardResponseDTO: {
+      /** @description Lista de flashcards */
+      flashcards: components["schemas"]["FlashcardResponseDTO"][];
+      /**
+       * @description Total de flashcards encontrados
+       * @example 10
+       */
+      total: number;
+    };
+    UpdateFlashcardBodyDTO: {
+      /**
+       * @description Frente do flashcard (pergunta)
+       * @example Qual é a capital da França?
+       */
+      front?: string;
+      /**
+       * @description Verso do flashcard (resposta)
+       * @example Paris
+       */
+      back?: string;
+      /**
+       * @description Posição do flashcard no deck
+       * @example 1
+       */
+      position?: number;
+    };
+    CreateGroupBodyDTO: {
+      /**
+       * @description Nome do grupo
+       * @example Grupo de Estudos de Matemática
+       */
+      name: string;
+      /**
+       * @description Descrição do grupo
+       * @example Grupo dedicado aos estudos de matemática avançada
+       */
+      description?: string;
+    };
+    GroupResponseDTO: {
+      /**
+       * @description ID único do grupo
+       * @example 550e8400-e29b-41d4-a716-446655440000
+       */
+      id: string;
+      /**
+       * @description Nome do grupo
+       * @example Grupo de Estudos de Matemática
+       */
+      name: string;
+      /**
+       * @description Descrição do grupo
+       * @example Grupo dedicado aos estudos de matemática avançada
+       */
+      description?: string;
+      /**
+       * @description Código de convite do grupo
+       * @example ABC12345
+       */
+      inviteCode: string;
+      /**
+       * Format: date-time
+       * @description Data de criação do registro
+       * @example 2024-01-15T10:30:00.000Z
+       */
+      createdAt: string;
+      /**
+       * Format: date-time
+       * @description Data da última atualização do registro
+       * @example 2024-01-15T10:30:00.000Z
+       */
+      updatedAt: string;
+    };
+    JoinGroupBodyDTO: {
+      /**
+       * @description Código de convite do grupo
+       * @example ABC12345
+       */
+      inviteCode: string;
+    };
+    UserResponseDTO: {
+      /**
+       * @description ID único do usuário
+       * @example 1
+       */
+      id: number;
+      /**
+       * @description Nome completo do usuário
+       * @example João Silva
+       */
+      name: string;
+      /**
+       * @description Email do usuário
+       * @example joao.silva@example.com
+       */
+      email: string;
+      /**
+       * Format: date-time
+       * @description Data de nascimento do usuário
+       * @example 1990-01-15T00:00:00.000Z
+       */
+      birthdate?: string;
+      /**
+       * @description Número de telefone do usuário
+       * @example +55 11 98765-4321
+       */
+      phoneNumber?: string;
+      /**
+       * @description URL da foto de perfil do usuário
+       * @example https://example.com/photos/user.jpg
+       */
+      photoUrl?: string;
+      /**
+       * @description Papel do usuário
+       * @example user
+       * @enum {string}
+       */
+      role: "admin" | "user";
+      /**
+       * Format: date-time
+       * @description Data de criação do registro
+       * @example 2024-01-15T10:30:00.000Z
+       */
+      createdAt: string;
+      /**
+       * Format: date-time
+       * @description Data da última atualização do registro
+       * @example 2024-01-15T10:30:00.000Z
+       */
+      updatedAt: string;
+    };
+    GroupMemberResponseDTO: {
+      /**
+       * @description ID único do membro
+       * @example 1
+       */
+      id: number;
+      /**
+       * @description Role do membro no grupo
+       * @example member
+       * @enum {string}
+       */
+      role: "owner" | "admin" | "member";
+      /**
+       * @description ID do grupo
+       * @example 550e8400-e29b-41d4-a716-446655440000
+       */
+      groupId: string;
+      /**
+       * @description ID do usuário
+       * @example 1
+       */
+      userId: number;
+      /** @description Dados do usuário */
+      user?: components["schemas"]["UserResponseDTO"];
+      /**
+       * Format: date-time
+       * @description Data de criação do registro
+       * @example 2024-01-15T10:30:00.000Z
+       */
+      createdAt: string;
+      /**
+       * Format: date-time
+       * @description Data da última atualização do registro
+       * @example 2024-01-15T10:30:00.000Z
+       */
+      updatedAt: string;
+    };
+    FindGroupResponseDTO: {
+      /** @description Lista de grupos */
+      groups: components["schemas"]["GroupResponseDTO"][];
+      /**
+       * @description Total de grupos encontrados
+       * @example 10
+       */
+      total: number;
+    };
+    UpdateGroupBodyDTO: {
+      /**
+       * @description Nome do grupo
+       * @example Grupo de Estudos de Matemática
+       */
+      name?: string;
+      /**
+       * @description Descrição do grupo
+       * @example Grupo dedicado aos estudos de matemática avançada
+       */
+      description?: string;
+    };
+    FindGroupMembersResponseDTO: {
+      /** @description Lista de membros do grupo */
+      members: components["schemas"]["GroupMemberResponseDTO"][];
+      /**
+       * @description Total de membros
+       * @example 10
+       */
+      total: number;
+    };
+    ChangeMemberRoleBodyDTO: {
+      /**
+       * @description Novo role do membro
+       * @example admin
+       * @enum {string}
+       */
+      role: "owner" | "admin" | "member";
+    };
+    CreateQuizBodyDTO: {
+      /**
+       * @description Título do quiz
+       * @example Quiz de Matemática
+       */
+      title: string;
+      /**
+       * @description Descrição do quiz
+       * @example Um quiz sobre matemática básica
+       */
+      description?: string;
+      /**
+       * @description Ícone do quiz
+       * @example book svg
+       */
+      icon?: string;
+      /**
+       * @description Cor do quiz (hex)
+       * @example #FF0000
+       */
+      color?: string;
+    };
+    QuizOptionResponseDTO: {
+      /**
+       * @description ID único da opção
+       * @example 1
+       */
+      id: number;
+      /**
+       * @description ID do item do quiz
+       * @example 1
+       */
+      quizItemId: number;
+      /**
+       * @description Texto da opção
+       * @example Opção A
+       */
+      text: string;
+      /**
+       * @description Indica se a opção é a correta
+       * @example true
+       */
+      isCorrect: boolean;
+      /**
+       * @description Ordem da opção
+       * @example 1
+       */
+      position: number;
+    };
+    QuizItemResponseDTO: {
+      /**
+       * @description ID único do item
+       * @example 1
+       */
+      id: number;
+      /**
+       * @description ID do quiz
+       * @example 550e8400-e29b-41d4-a716-446655440000
+       */
+      quizId: string;
+      /**
+       * @description Pergunta do item
+       * @example Qual é a capital do Brasil?
+       */
+      question: string;
+      /** @description Opções de resposta */
+      options?: components["schemas"]["QuizOptionResponseDTO"][];
+      /**
+       * @description Ordem do item no quiz
+       * @example 1
+       */
+      position: number;
+      /**
+       * @description Tempo limite em segundos
+       * @example 30
+       */
+      timeLimit?: number;
+      /**
+       * @description Explicação da resposta
+       * @example Brasília é a capital do Brasil desde 1960.
+       */
+      explanation?: string;
+      /**
+       * Format: date-time
+       * @description Data de criação do registro
+       * @example 2024-01-15T10:30:00.000Z
+       */
+      createdAt: string;
+      /**
+       * Format: date-time
+       * @description Data da última atualização do registro
+       * @example 2024-01-15T10:30:00.000Z
+       */
+      updatedAt: string;
+    };
+    QuizResponseDTO: {
+      /**
+       * @description ID único do quiz
+       * @example 550e8400-e29b-41d4-a716-446655440000
+       */
+      id: string;
+      /**
+       * @description Título do quiz
+       * @example Quiz de Matemática
+       */
+      title: string;
+      /**
+       * @description Descrição do quiz
+       * @example Um quiz sobre matemática básica
+       */
+      description?: string;
+      /**
+       * @description Ícone do quiz
+       * @example book svg
+       */
+      icon?: string;
+      /**
+       * @description Cor do quiz (hex)
+       * @example #FF0000
+       */
+      color?: string;
+      /** @description Itens do quiz */
+      items?: components["schemas"]["QuizItemResponseDTO"][];
+      /**
+       * @description ID do recurso associado ao quiz
+       * @example 550e8400-e29b-41d4-a716-446655440000
+       */
+      resourceId: string;
+      /**
+       * Format: date-time
+       * @description Data de criação do registro
+       * @example 2024-01-15T10:30:00.000Z
+       */
+      createdAt: string;
+      /**
+       * Format: date-time
+       * @description Data da última atualização do registro
+       * @example 2024-01-15T10:30:00.000Z
+       */
+      updatedAt: string;
+    };
+    FindQuizResponseDTO: {
+      /** @description Lista de quizzes */
+      quizzes: components["schemas"]["QuizResponseDTO"][];
+      /**
+       * @description Total de quizzes encontrados
+       * @example 10
+       */
+      total: number;
+    };
+    UpdateQuizBodyDTO: {
+      /**
+       * @description Título do quiz
+       * @example Quiz de Matemática
+       */
+      title?: string;
+      /**
+       * @description Descrição do quiz
+       * @example Um quiz sobre matemática básica
+       */
+      description?: string;
+      /**
+       * @description Ícone do quiz
+       * @example book svg
+       */
+      icon?: string;
+      /**
+       * @description Cor do quiz (hex)
+       * @example #FF0000
+       */
+      color?: string;
+    };
+    CreateQuizOptionDTO: {
+      /**
+       * @description Texto da opção
+       * @example Opção A
+       */
+      text: string;
+      /**
+       * @description Indica se a opção é a correta
+       * @example true
+       */
+      isCorrect: boolean;
+      /**
+       * @description Ordem da opção
+       * @example 1
+       */
+      position: number;
+    };
+    CreateQuizItemBodyDTO: {
+      /**
+       * @description Pergunta do item
+       * @example Qual é a capital do Brasil?
+       */
+      question: string;
+      /** @description Opções de resposta do item */
+      options: components["schemas"]["CreateQuizOptionDTO"][];
+      /**
+       * @description Ordem do item no quiz
+       * @example 1
+       */
+      position: number;
+      /**
+       * @description Tempo limite em segundos
+       * @example 30
+       */
+      timeLimit?: number;
+      /**
+       * @description Explicação da resposta
+       * @example Brasília é a capital do Brasil desde 1960.
+       */
+      explanation?: string;
+    };
+    FindQuizItemResponseDTO: {
+      /** @description Lista de itens do quiz */
+      quizItems: components["schemas"]["QuizItemResponseDTO"][];
+      /**
+       * @description Total de itens encontrados
+       * @example 10
+       */
+      total: number;
+    };
+    UpdateQuizOptionDTO: {
+      /**
+       * @description Texto da opção
+       * @example Opção A
+       */
+      text: string;
+      /**
+       * @description Indica se a opção é a correta
+       * @example true
+       */
+      isCorrect: boolean;
+      /**
+       * @description Ordem da opção
+       * @example 1
+       */
+      position: number;
+      /**
+       * @description ID da opção (pode ser usado para atualizar uma opção existente)
+       * @example 1
+       */
+      id?: number;
+    };
+    UpdateQuizItemBodyDTO: {
+      /**
+       * @description Pergunta do item
+       * @example Qual é a capital do Brasil?
+       */
+      question?: string;
+      /**
+       * @description Ordem do item no quiz
+       * @example 1
+       */
+      position?: number;
+      /**
+       * @description Tempo limite em segundos
+       * @example 30
+       */
+      timeLimit?: number;
+      /**
+       * @description Explicação da resposta
+       * @example Brasília é a capital do Brasil desde 1960.
+       */
+      explanation?: string;
+      /** @description Opções de resposta do item */
+      options?: components["schemas"]["UpdateQuizOptionDTO"][];
+    };
+    ResourceShareResponseDTO: {
+      /**
+       * @description ID único do compartilhamento
+       * @example 1
+       */
+      id: number;
+      /**
+       * @description Permissão do compartilhamento
+       * @example read
+       * @enum {string}
+       */
+      permission: "read" | "edit";
+      /**
+       * @description ID do recurso compartilhado
+       * @example 550e8400-e29b-41d4-a716-446655440000
+       */
+      resourceId: string;
+      /**
+       * @description ID do usuário com acesso
+       * @example 1
+       */
+      userId: number;
+      /**
+       * Format: date-time
+       * @description Data de criação do registro
+       * @example 2024-01-15T10:30:00.000Z
+       */
+      createdAt?: string;
+      /**
+       * Format: date-time
+       * @description Data da última atualização do registro
+       * @example 2024-01-15T10:30:00.000Z
+       */
+      updatedAt?: string;
+    };
+    ResourceShareDTO: {
+      /**
+       * @description ID único do compartilhamento
+       * @example 1
+       */
+      id: number;
+      /**
+       * @description Permissão do compartilhamento
+       * @example read
+       * @enum {string}
+       */
+      permission: "read" | "edit";
+      /**
+       * @description ID do recurso compartilhado
+       * @example 550e8400-e29b-41d4-a716-446655440000
+       */
+      resourceId: string;
+      /**
+       * @description ID do usuário com acesso
+       * @example 1
+       */
+      userId: number;
+      /**
+       * Format: date-time
+       * @description Data de criação do registro
+       * @example 2024-01-15T10:30:00.000Z
+       */
+      createdAt?: string;
+      /**
+       * Format: date-time
+       * @description Data da última atualização do registro
+       * @example 2024-01-15T10:30:00.000Z
+       */
+      updatedAt?: string;
+      /** @description Informações do usuário com acesso ao recurso */
+      user: components["schemas"]["UserResponseDTO"];
+    };
+    FindResourceSharesResponseDTO: {
+      /** @description Lista de compartilhamentos do recurso */
+      shares: components["schemas"]["ResourceShareDTO"][];
+      /**
+       * @description Total de compartilhamentos
+       * @example 10
+       */
+      total: number;
+    };
+    UpdateResourceShareBodyDTO: {
+      /**
+       * @description Nova permissão do compartilhamento
+       * @example edit
+       * @enum {string}
+       */
+      permission: "read" | "edit";
+    };
+    GenerateResourceShareLinkBodyDTO: {
+      /**
+       * @description Permissão concedida ao acessar o link
+       * @example read
+       * @enum {string}
+       */
+      permission: "read" | "edit";
+    };
+    ResourceShareLinkResponseDTO: {
+      /**
+       * @description ID único do link de compartilhamento
+       * @example 550e8400-e29b-41d4-a716-446655440000
+       */
+      id: string;
+      /**
+       * @description ID do recurso associado ao link
+       * @example 550e8400-e29b-41d4-a716-446655440000
+       */
+      resourceId: string;
+      /**
+       * @description Permissão concedida ao acessar o link
+       * @example read
+       * @enum {string}
+       */
+      permission: "read" | "edit";
+      /**
+       * Format: date-time
+       * @description Data de criação do registro
+       * @example 2024-01-15T10:30:00.000Z
+       */
+      createdAt: string;
+      /**
+       * Format: date-time
+       * @description Data da última atualização do registro
+       * @example 2024-01-15T10:30:00.000Z
+       */
+      updatedAt: string;
+    };
+    CreateTaskBodyDTO: {
+      /**
+       * @description Nome da tarefa
+       * @example Estudar matemática
+       */
+      name: string;
+      /**
+       * @description Descrição da tarefa
+       * @example Revisar álgebra linear e cálculo diferencial
+       */
+      description?: string;
+      /**
+       * @description Status da tarefa
+       * @example pending
+       * @enum {string}
+       */
+      status: "pending" | "in_progress" | "completed" | "cancelled";
+      /**
+       * Format: date-time
+       * @description Data de início da tarefa
+       * @example 2024-01-15T10:00:00.000Z
+       */
+      startDate?: string;
+      /**
+       * Format: date-time
+       * @description Data de término da tarefa
+       * @example 2024-01-20T18:00:00.000Z
+       */
+      endDate?: string;
+    };
+    TaskResponseDTO: {
+      /**
+       * @description ID único da tarefa
+       * @example 550e8400-e29b-41d4-a716-446655440000
+       */
+      id: string;
+      /**
+       * @description Nome da tarefa
+       * @example Estudar matemática
+       */
+      name: string;
+      /**
+       * @description Descrição da tarefa
+       * @example Revisar álgebra linear e cálculo diferencial
+       */
+      description?: string;
+      /**
+       * @description Status da tarefa
+       * @example pending
+       * @enum {string}
+       */
+      status: "pending" | "in_progress" | "completed" | "cancelled";
+      /**
+       * Format: date-time
+       * @description Data de início da tarefa
+       * @example 2024-01-15T10:00:00.000Z
+       */
+      startDate?: string;
+      /**
+       * Format: date-time
+       * @description Data de término da tarefa
+       * @example 2024-01-20T18:00:00.000Z
+       */
+      endDate?: string;
+      /**
+       * @description ID do recurso associado ao quiz
+       * @example 550e8400-e29b-41d4-a716-446655440000
+       */
+      resourceId: string;
+      /**
+       * Format: date-time
+       * @description Data de criação do registro
+       * @example 2024-01-15T10:30:00.000Z
+       */
+      createdAt: string;
+      /**
+       * Format: date-time
+       * @description Data da última atualização do registro
+       * @example 2024-01-15T10:30:00.000Z
+       */
+      updatedAt: string;
+    };
+    FindTaskResponseDTO: {
+      /** @description Lista de tarefas */
+      tasks: components["schemas"]["TaskResponseDTO"][];
+      /**
+       * @description Total de tarefas encontradas
+       * @example 10
+       */
+      total: number;
+    };
+    UpdateTaskBodyDTO: {
+      /**
+       * @description Nome da tarefa
+       * @example Estudar matemática
+       */
+      name?: string;
+      /**
+       * @description Descrição da tarefa
+       * @example Revisar álgebra linear e cálculo diferencial
+       */
+      description?: string;
+      /**
+       * @description Status da tarefa
+       * @example pending
+       * @enum {string}
+       */
+      status?: "pending" | "in_progress" | "completed" | "cancelled";
+      /**
+       * Format: date-time
+       * @description Data de início da tarefa
+       * @example 2024-01-15T10:00:00.000Z
+       */
+      startDate?: string;
+      /**
+       * Format: date-time
+       * @description Data de término da tarefa
+       * @example 2024-01-20T18:00:00.000Z
+       */
+      endDate?: string;
+    };
+    CreateUserBodyDTO: {
+      /**
+       * @description Nome do usuário
+       * @example João Silva
+       */
+      name: string;
+      /**
+       * @description E-mail do usuário
+       * @example joao.silva@example.com
+       */
+      email: string;
+      /**
+       * @description Senha do usuário (deve conter pelo menos 1 maiúscula, 1 minúscula, 1 número e 1 caractere especial)
+       * @example Senha@123
+       */
+      password: string;
+      /**
+       * @description Número de telefone do usuário
+       * @example +55 11 98765-4321
+       */
+      phoneNumber?: string;
+      /**
+       * Format: date-time
+       * @description Data de nascimento do usuário
+       * @example 1990-01-15
+       */
+      birthdate?: string;
+    };
+    FindUserResponseDTO: {
+      /** @description Lista de usuários */
+      users: components["schemas"]["UserResponseDTO"][];
+      /**
+       * @description Total de usuários encontrados
+       * @example 10
+       */
+      total: number;
+    };
+    UpdateUserBodyDTO: {
+      /**
+       * @description Nome do usuário
+       * @example João Silva
+       */
+      name?: string;
+      /**
+       * @description Senha do usuário (deve conter pelo menos 1 maiúscula, 1 minúscula, 1 número e 1 caractere especial)
+       * @example Senha@123
+       */
+      password?: string;
+      /**
+       * @description Número de telefone do usuário
+       * @example +55 11 98765-4321
+       */
+      phoneNumber?: string;
+      /**
+       * Format: date-time
+       * @description Data de nascimento do usuário
+       * @example 1990-01-15
+       */
+      birthdate?: string;
+    };
+    CreateWhiteboardBodyDTO: {
+      /**
+       * @description Título do whiteboard
+       * @example Brainstorming de Projeto
+       */
+      title: string;
+      /** @description Dados do whiteboard em formato JSON */
+      content: Record<string, never>;
+    };
+    WhiteboardResponseDTO: {
+      /**
+       * @description ID único do whiteboard
+       * @example 550e8400-e29b-41d4-a716-446655440000
+       */
+      id: string;
+      /**
+       * @description Título do whiteboard
+       * @example Brainstorming de Projeto
+       */
+      title: string;
+      /** @description Dados do whiteboard em formato JSON */
+      content: Record<string, never>;
+      /**
+       * @description ID do recurso associado ao quiz
+       * @example 550e8400-e29b-41d4-a716-446655440000
+       */
+      resourceId: string;
+      /**
+       * Format: date-time
+       * @description Data de criação do registro
+       * @example 2024-01-15T10:30:00.000Z
+       */
+      createdAt: string;
+      /**
+       * Format: date-time
+       * @description Data da última atualização do registro
+       * @example 2024-01-15T10:30:00.000Z
+       */
+      updatedAt: string;
+    };
+    FindWhiteboardResponseDTO: {
+      /** @description Lista de whiteboards */
+      whiteboards: components["schemas"]["WhiteboardResponseDTO"][];
+      /**
+       * @description Total de whiteboards encontrados
+       * @example 10
+       */
+      total: number;
+    };
+    UpdateWhiteboardBodyDTO: {
+      /**
+       * @description Título do whiteboard
+       * @example Brainstorming de Projeto
+       */
+      title?: string;
+      /** @description Dados do whiteboard em formato JSON */
+      content?: Record<string, never>;
+    };
+  };
+  responses: never;
+  parameters: never;
+  requestBodies: never;
+  headers: never;
+  pathItems: never;
 }
 export type $defs = Record<string, never>;
 export interface operations {
-    AuthController_login: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["LoginBodyDTO"];
-            };
-        };
-        responses: {
-            /** @description Login realizado com sucesso */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["LoginResponseDTO"];
-                };
-            };
-            /** @description Credenciais inválidas */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    AuthController_logout: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["LogoutBodyDTO"];
-            };
-        };
-        responses: {
-            /** @description Logout realizado com sucesso */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Token inválido */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    AuthController_refresh: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["RefreshTokensBodyDTO"];
-            };
-        };
-        responses: {
-            /** @description Tokens renovados com sucesso */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["RefreshTokensResponseDTO"];
-                };
-            };
-            /** @description Refresh token inválido */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    AuthController_sendPasswordResetEmail: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["SendPasswordResetEmailBodyDTO"];
-            };
-        };
-        responses: {
-            /** @description E-mail enviado com sucesso */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Usuário não encontrado */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    AuthController_resetPassword: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["ResetPasswordDTO"];
-            };
-        };
-        responses: {
-            /** @description Senha redefinida com sucesso */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Senha e confirmação de senha não conferem */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Token de redefinição inválido */
-            401: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    DeckController_find: {
-        parameters: {
-            query?: {
-                /** @description ID do deck */
-                id?: string;
-                /** @description Nome do deck */
-                name?: string;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Decks retornados com sucesso */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["FindDeckResponseDTO"];
-                };
-            };
-        };
-    };
-    DeckController_create: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["CreateDeckBodyDTO"];
-            };
-        };
-        responses: {
-            /** @description Deck criado com sucesso */
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["DeckResponseDTO"];
-                };
-            };
-        };
-    };
-    DeckController_findShared: {
-        parameters: {
-            query?: {
-                /** @description ID do deck */
-                id?: string;
-                /** @description Nome do deck */
-                name?: string;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Decks retornados com sucesso */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["FindDeckResponseDTO"];
-                };
-            };
-        };
-    };
-    DeckController_findOne: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description ID do deck */
-                deckId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Deck encontrado */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["DeckResponseDTO"];
-                };
-            };
-            /** @description Deck não encontrado */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    DeckController_delete: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description ID do deck */
-                deckId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Deck deletado com sucesso */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Permissões insuficientes para acessar o recurso */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Deck não encontrado */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    DeckController_update: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description ID do deck */
-                deckId: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UpdateDeckBodyDTO"];
-            };
-        };
-        responses: {
-            /** @description Deck atualizado com sucesso */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["DeckResponseDTO"];
-                };
-            };
-            /** @description Permissões insuficientes para acessar o recurso */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Deck não encontrado */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    DiaryController_find: {
-        parameters: {
-            query?: {
-                /** @description ID do diário */
-                id?: string;
-                /** @description Título do diário */
-                title?: string;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Diários retornados com sucesso */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["FindDiaryResponseDTO"];
-                };
-            };
-        };
-    };
-    DiaryController_create: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["CreateDiaryBodyDTO"];
-            };
-        };
-        responses: {
-            /** @description Diário criado com sucesso */
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["DiaryResponseDTO"];
-                };
-            };
-        };
-    };
-    DiaryController_findShared: {
-        parameters: {
-            query?: {
-                /** @description ID do diário */
-                id?: string;
-                /** @description Título do diário */
-                title?: string;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Diários retornados com sucesso */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["FindDiaryResponseDTO"];
-                };
-            };
-        };
-    };
-    DiaryController_findOne: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description ID do diário */
-                diaryId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Diário encontrado */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["DiaryResponseDTO"];
-                };
-            };
-            /** @description Diário não encontrado */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    DiaryController_delete: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description ID do diário */
-                diaryId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Diário deletado com sucesso */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Permissões insuficientes para acessar o recurso */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Diário não encontrado */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    DiaryController_update: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description ID do diário */
-                diaryId: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UpdateDiaryBodyDTO"];
-            };
-        };
-        responses: {
-            /** @description Diário atualizado com sucesso */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["DiaryResponseDTO"];
-                };
-            };
-            /** @description Permissões insuficientes para acessar o recurso */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Diário não encontrado */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    DiaryController_updateAudio: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description ID do diário */
-                diaryId: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "multipart/form-data": components["schemas"]["UpdateDiaryAudioBodyDTO"];
-            };
-        };
-        responses: {
-            /** @description Diário atualizado com sucesso */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["DiaryResponseDTO"];
-                };
-            };
-            /** @description Permissões insuficientes para acessar o recurso */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Diário não encontrado */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    FlashcardController_find: {
-        parameters: {
-            query?: {
-                /** @description ID do flashcard */
-                id?: number;
-                /** @description Frente do flashcard (pergunta) */
-                front?: string;
-            };
-            header?: never;
-            path: {
-                /** @description ID do deck */
-                deckId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Flashcards retornados com sucesso */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["FindFlashcardResponseDTO"];
-                };
-            };
-        };
-    };
-    FlashcardController_create: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description ID do deck */
-                deckId: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["CreateFlashcardBodyDTO"];
-            };
-        };
-        responses: {
-            /** @description Flashcard criado com sucesso */
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["FlashcardResponseDTO"];
-                };
-            };
-            /** @description Permissões insuficientes para acessar o recurso */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    FlashcardController_findOne: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description ID do deck */
-                deckId: string;
-                /** @description ID do flashcard */
-                flashcardId: number;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Flashcard encontrado */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["FlashcardResponseDTO"];
-                };
-            };
-            /** @description Flashcard não encontrado */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    FlashcardController_delete: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description ID do deck */
-                deckId: string;
-                /** @description ID do flashcard */
-                flashcardId: number;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Flashcard deletado com sucesso */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Permissões insuficientes para acessar o recurso */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Flashcard não encontrado */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    FlashcardController_update: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description ID do deck */
-                deckId: string;
-                /** @description ID do flashcard */
-                flashcardId: number;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UpdateFlashcardBodyDTO"];
-            };
-        };
-        responses: {
-            /** @description Flashcard atualizado com sucesso */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["FlashcardResponseDTO"];
-                };
-            };
-            /** @description Permissões insuficientes para acessar o recurso */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Flashcard não encontrado */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    GroupController_find: {
-        parameters: {
-            query?: {
-                /** @description ID do grupo */
-                id?: string;
-                /** @description Nome do grupo */
-                name?: string;
-                /** @description Código de convite do grupo */
-                inviteCode?: string;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Grupos retornados com sucesso */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["FindGroupResponseDTO"];
-                };
-            };
-        };
-    };
-    GroupController_create: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["CreateGroupBodyDTO"];
-            };
-        };
-        responses: {
-            /** @description Grupo criado com sucesso */
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["GroupResponseDTO"];
-                };
-            };
-        };
-    };
-    GroupController_join: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["JoinGroupBodyDTO"];
-            };
-        };
-        responses: {
-            /** @description Entrou no grupo com sucesso */
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["GroupMemberResponseDTO"];
-                };
-            };
-            /** @description Código de convite inválido */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Usuário já é membro do grupo */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    GroupController_findOne: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description ID do grupo */
-                groupId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Grupo encontrado */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["GroupResponseDTO"];
-                };
-            };
-            /** @description Grupo não encontrado */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    GroupController_delete: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description ID do grupo */
-                groupId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Grupo deletado com sucesso */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Apenas o dono do grupo pode deletar o grupo */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Grupo não encontrado */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    GroupController_update: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description ID do grupo */
-                groupId: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UpdateGroupBodyDTO"];
-            };
-        };
-        responses: {
-            /** @description Grupo atualizado com sucesso */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["GroupResponseDTO"];
-                };
-            };
-            /** @description Membro comum não tem permissão para atualizar o grupo */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Grupo não encontrado */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    GroupController_resetInviteCode: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description ID do grupo */
-                groupId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Código de convite resetado com sucesso */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["GroupResponseDTO"];
-                };
-            };
-            /** @description Apenas o dono do grupo pode resetar o código de convite */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Grupo não encontrado */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    GroupMemberController_find: {
-        parameters: {
-            query?: {
-                /** @description Filtrar por role do membro */
-                role?: "owner" | "admin" | "member";
-                /** @description Filtrar por ID do usuário */
-                userId?: number;
-            };
-            header?: never;
-            path: {
-                /** @description ID do grupo */
-                groupId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Membros retornados com sucesso */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["FindGroupMembersResponseDTO"];
-                };
-            };
-        };
-    };
-    GroupMemberController_findOne: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description ID do grupo */
-                groupId: string;
-                /** @description ID do membro */
-                memberId: number;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Membro encontrado */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["GroupMemberResponseDTO"];
-                };
-            };
-            /** @description Membro não encontrado */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    GroupMemberController_remove: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description ID do grupo */
-                groupId: string;
-                /** @description ID do membro */
-                memberId: number;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Membro removido com sucesso */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Permissão negada para remover membro */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Membro não encontrado */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    GroupMemberController_changeRole: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description ID do grupo */
-                groupId: string;
-                /** @description ID do membro */
-                memberId: number;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["ChangeMemberRoleBodyDTO"];
-            };
-        };
-        responses: {
-            /** @description Role alterado com sucesso */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["GroupMemberResponseDTO"];
-                };
-            };
-            /** @description Permissão negada para alterar role */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Membro não encontrado */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    QuizController_find: {
-        parameters: {
-            query?: {
-                /** @description ID do quiz */
-                id?: string;
-                /** @description Título do quiz */
-                title?: string;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Quizzes retornados com sucesso */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["FindQuizResponseDTO"];
-                };
-            };
-        };
-    };
-    QuizController_create: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["CreateQuizBodyDTO"];
-            };
-        };
-        responses: {
-            /** @description Quiz criado com sucesso */
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["QuizResponseDTO"];
-                };
-            };
-        };
-    };
-    QuizController_findShared: {
-        parameters: {
-            query?: {
-                /** @description ID do quiz */
-                id?: string;
-                /** @description Título do quiz */
-                title?: string;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Quizzes retornados com sucesso */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["FindQuizResponseDTO"];
-                };
-            };
-        };
-    };
-    QuizController_findOne: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description ID do quiz */
-                quizId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Quiz encontrado */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["QuizResponseDTO"];
-                };
-            };
-            /** @description Quiz não encontrado */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    QuizController_delete: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description ID do quiz */
-                quizId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Quiz deletado com sucesso */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Permissões insuficientes para acessar o recurso */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Quiz não encontrado */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    QuizController_update: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description ID do quiz */
-                quizId: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UpdateQuizBodyDTO"];
-            };
-        };
-        responses: {
-            /** @description Quiz atualizado com sucesso */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["QuizResponseDTO"];
-                };
-            };
-            /** @description Permissões insuficientes para acessar o recurso */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Quiz não encontrado */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    QuizItemController_find: {
-        parameters: {
-            query?: {
-                /** @description ID do item */
-                id?: number;
-                /** @description Pergunta do item */
-                question?: string;
-            };
-            header?: never;
-            path: {
-                /** @description ID do quiz */
-                quizId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Itens retornados com sucesso */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["FindQuizItemResponseDTO"];
-                };
-            };
-        };
-    };
-    QuizItemController_create: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description ID do quiz */
-                quizId: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["CreateQuizItemBodyDTO"];
-            };
-        };
-        responses: {
-            /** @description Item criado com sucesso */
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["QuizItemResponseDTO"];
-                };
-            };
-            /** @description Permissões insuficientes para acessar o recurso */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    QuizItemController_findOne: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description ID do quiz */
-                quizId: string;
-                /** @description ID do item do quiz */
-                quizItemId: number;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Item encontrado */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["QuizItemResponseDTO"];
-                };
-            };
-            /** @description Item não encontrado */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    QuizItemController_delete: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description ID do quiz */
-                quizId: string;
-                /** @description ID do item do quiz */
-                quizItemId: number;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Item deletado com sucesso */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Permissões insuficientes para acessar o recurso */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Item não encontrado */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    QuizItemController_update: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description ID do quiz */
-                quizId: string;
-                /** @description ID do item do quiz */
-                quizItemId: number;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UpdateQuizItemBodyDTO"];
-            };
-        };
-        responses: {
-            /** @description Item atualizado com sucesso */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["QuizItemResponseDTO"];
-                };
-            };
-            /** @description Permissões insuficientes para acessar o recurso */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Item não encontrado */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    ResourceShareController_createFromLink: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description ID do link de compartilhamento */
-                linkId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Compartilhamento criado/atualizado com sucesso */
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ResourceShareResponseDTO"];
-                };
-            };
-            /** @description Link de compartilhamento não encontrado */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    ResourceShareController_find: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description ID do recurso */
-                resourceId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Compartilhamentos retornados com sucesso */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["FindResourceSharesResponseDTO"];
-                };
-            };
-        };
-    };
-    ResourceShareController_delete: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description ID do compartilhamento */
-                shareId: number;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Compartilhamento removido com sucesso */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Apenas o proprietário do recurso pode remover compartilhamentos */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Compartilhamento não encontrado */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    ResourceShareController_update: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description ID do compartilhamento */
-                shareId: number;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UpdateResourceShareBodyDTO"];
-            };
-        };
-        responses: {
-            /** @description Permissão atualizada com sucesso */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ResourceShareResponseDTO"];
-                };
-            };
-            /** @description Apenas o proprietário do recurso pode alterar permissões */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Compartilhamento não encontrado */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    ResourceShareLinkController_findOne: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description ID do recurso */
-                resourceId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Link encontrado */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ResourceShareLinkResponseDTO"];
-                };
-            };
-            /** @description Link de compartilhamento não encontrado */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    ResourceShareLinkController_generate: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description ID do recurso */
-                resourceId: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["GenerateResourceShareLinkBodyDTO"];
-            };
-        };
-        responses: {
-            /** @description Link gerado/atualizado com sucesso */
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["ResourceShareLinkResponseDTO"];
-                };
-            };
-            /** @description Apenas o proprietário do recurso pode gerar links */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Recurso não encontrado */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    ResourceShareLinkController_delete: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description ID do recurso */
-                resourceId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Link deletado com sucesso */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Apenas o proprietário do recurso pode deletar links */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Link de compartilhamento não encontrado */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    TaskController_find: {
-        parameters: {
-            query?: {
-                /** @description ID da tarefa */
-                id?: string;
-                /** @description Nome da tarefa */
-                name?: string;
-                /** @description Status da tarefa */
-                status?: "pending" | "in_progress" | "completed" | "cancelled";
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Tarefas retornadas com sucesso */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["FindTaskResponseDTO"];
-                };
-            };
-        };
-    };
-    TaskController_create: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["CreateTaskBodyDTO"];
-            };
-        };
-        responses: {
-            /** @description Tarefa criada com sucesso */
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["TaskResponseDTO"];
-                };
-            };
-        };
-    };
-    TaskController_findShared: {
-        parameters: {
-            query?: {
-                /** @description ID da tarefa */
-                id?: string;
-                /** @description Nome da tarefa */
-                name?: string;
-                /** @description Status da tarefa */
-                status?: "pending" | "in_progress" | "completed" | "cancelled";
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Tarefas retornadas com sucesso */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["FindTaskResponseDTO"];
-                };
-            };
-        };
-    };
-    TaskController_findOne: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description ID da tarefa */
-                taskId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Tarefa encontrada */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["TaskResponseDTO"];
-                };
-            };
-            /** @description Tarefa não encontrada */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    TaskController_delete: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description ID da tarefa */
-                taskId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Tarefa deletada com sucesso */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Permissões insuficientes para acessar o recurso */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Tarefa não encontrada */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    TaskController_update: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description ID da tarefa */
-                taskId: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UpdateTaskBodyDTO"];
-            };
-        };
-        responses: {
-            /** @description Tarefa atualizada com sucesso */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["TaskResponseDTO"];
-                };
-            };
-            /** @description Permissões insuficientes para acessar o recurso */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Tarefa não encontrada */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    UserController_find: {
-        parameters: {
-            query?: {
-                /** @description ID do usuário */
-                id?: number;
-                /** @description Nome do usuário */
-                name?: string;
-                /** @description E-mail do usuário */
-                email?: string;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Usuários retornados com sucesso */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["FindUserResponseDTO"];
-                };
-            };
-        };
-    };
-    UserController_create: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["CreateUserBodyDTO"];
-            };
-        };
-        responses: {
-            /** @description Usuário criado com sucesso */
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["UserResponseDTO"];
-                };
-            };
-            /** @description Email já está em uso */
-            409: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    UserController_findOne: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description ID do usuário */
-                userId: number;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Usuário encontrado */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["UserResponseDTO"];
-                };
-            };
-            /** @description Usuário não encontrado */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    UserController_delete: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description ID do usuário */
-                userId: number;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Usuário deletado com sucesso */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Usuário não encontrado */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    UserController_update: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description ID do usuário */
-                userId: number;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UpdateUserBodyDTO"];
-            };
-        };
-        responses: {
-            /** @description Usuário atualizado com sucesso */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["UserResponseDTO"];
-                };
-            };
-            /** @description Usuário não encontrado */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    WhiteboardController_find: {
-        parameters: {
-            query?: {
-                /** @description ID do whiteboard */
-                id?: string;
-                /** @description Título do whiteboard */
-                title?: string;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Whiteboards retornados com sucesso */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["FindWhiteboardResponseDTO"];
-                };
-            };
-        };
-    };
-    WhiteboardController_create: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["CreateWhiteboardBodyDTO"];
-            };
-        };
-        responses: {
-            /** @description Whiteboard criado com sucesso */
-            201: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["WhiteboardResponseDTO"];
-                };
-            };
-        };
-    };
-    WhiteboardController_findShared: {
-        parameters: {
-            query?: {
-                /** @description ID do whiteboard */
-                id?: string;
-                /** @description Título do whiteboard */
-                title?: string;
-            };
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Whiteboards retornados com sucesso */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["FindWhiteboardResponseDTO"];
-                };
-            };
-        };
-    };
-    WhiteboardController_findOne: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description ID do whiteboard */
-                whiteboardId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Whiteboard encontrado */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["WhiteboardResponseDTO"];
-                };
-            };
-            /** @description Whiteboard não encontrado */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    WhiteboardController_delete: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description ID do whiteboard */
-                whiteboardId: string;
-            };
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            /** @description Whiteboard deletado com sucesso */
-            204: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Permissões insuficientes para acessar o recurso */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Whiteboard não encontrado */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
-    WhiteboardController_update: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path: {
-                /** @description ID do whiteboard */
-                whiteboardId: string;
-            };
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["UpdateWhiteboardBodyDTO"];
-            };
-        };
-        responses: {
-            /** @description Whiteboard atualizado com sucesso */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["WhiteboardResponseDTO"];
-                };
-            };
-            /** @description Permissões insuficientes para acessar o recurso */
-            403: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Whiteboard não encontrado */
-            404: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-        };
-    };
+  AuthController_login: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["LoginBodyDTO"];
+      };
+    };
+    responses: {
+      /** @description Login realizado com sucesso */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["LoginResponseDTO"];
+        };
+      };
+      /** @description Credenciais inválidas */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  AuthController_logout: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["LogoutBodyDTO"];
+      };
+    };
+    responses: {
+      /** @description Logout realizado com sucesso */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Token inválido */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  AuthController_refresh: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["RefreshTokensBodyDTO"];
+      };
+    };
+    responses: {
+      /** @description Tokens renovados com sucesso */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["RefreshTokensResponseDTO"];
+        };
+      };
+      /** @description Refresh token inválido */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  AuthController_sendPasswordResetEmail: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["SendPasswordResetEmailBodyDTO"];
+      };
+    };
+    responses: {
+      /** @description E-mail enviado com sucesso */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Usuário não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  AuthController_resetPassword: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["ResetPasswordDTO"];
+      };
+    };
+    responses: {
+      /** @description Senha redefinida com sucesso */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Senha e confirmação de senha não conferem */
+      400: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Token de redefinição inválido */
+      401: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  DeckController_find: {
+    parameters: {
+      query?: {
+        /** @description ID do deck */
+        id?: string;
+        /** @description Nome do deck */
+        name?: string;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Decks retornados com sucesso */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["FindDeckResponseDTO"];
+        };
+      };
+    };
+  };
+  DeckController_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["CreateDeckBodyDTO"];
+      };
+    };
+    responses: {
+      /** @description Deck criado com sucesso */
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["DeckResponseDTO"];
+        };
+      };
+    };
+  };
+  DeckController_findShared: {
+    parameters: {
+      query?: {
+        /** @description ID do deck */
+        id?: string;
+        /** @description Nome do deck */
+        name?: string;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Decks retornados com sucesso */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["FindDeckResponseDTO"];
+        };
+      };
+    };
+  };
+  DeckController_findOne: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do deck */
+        deckId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Deck encontrado */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["DeckResponseDTO"];
+        };
+      };
+      /** @description Deck não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  DeckController_delete: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do deck */
+        deckId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Deck deletado com sucesso */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Permissões insuficientes para acessar o recurso */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Deck não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  DeckController_update: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do deck */
+        deckId: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["UpdateDeckBodyDTO"];
+      };
+    };
+    responses: {
+      /** @description Deck atualizado com sucesso */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["DeckResponseDTO"];
+        };
+      };
+      /** @description Permissões insuficientes para acessar o recurso */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Deck não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  DiaryController_find: {
+    parameters: {
+      query?: {
+        /** @description ID do diário */
+        id?: string;
+        /** @description Título do diário */
+        title?: string;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Diários retornados com sucesso */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["FindDiaryResponseDTO"];
+        };
+      };
+    };
+  };
+  DiaryController_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["CreateDiaryBodyDTO"];
+      };
+    };
+    responses: {
+      /** @description Diário criado com sucesso */
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["DiaryResponseDTO"];
+        };
+      };
+    };
+  };
+  DiaryController_findShared: {
+    parameters: {
+      query?: {
+        /** @description ID do diário */
+        id?: string;
+        /** @description Título do diário */
+        title?: string;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Diários retornados com sucesso */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["FindDiaryResponseDTO"];
+        };
+      };
+    };
+  };
+  DiaryController_findOne: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do diário */
+        diaryId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Diário encontrado */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["DiaryResponseDTO"];
+        };
+      };
+      /** @description Diário não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  DiaryController_delete: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do diário */
+        diaryId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Diário deletado com sucesso */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Permissões insuficientes para acessar o recurso */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Diário não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  DiaryController_update: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do diário */
+        diaryId: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["UpdateDiaryBodyDTO"];
+      };
+    };
+    responses: {
+      /** @description Diário atualizado com sucesso */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["DiaryResponseDTO"];
+        };
+      };
+      /** @description Permissões insuficientes para acessar o recurso */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Diário não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  DiaryController_updateAudio: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do diário */
+        diaryId: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "multipart/form-data": components["schemas"]["UpdateDiaryAudioBodyDTO"];
+      };
+    };
+    responses: {
+      /** @description Diário atualizado com sucesso */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["DiaryResponseDTO"];
+        };
+      };
+      /** @description Permissões insuficientes para acessar o recurso */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Diário não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  FlashcardController_find: {
+    parameters: {
+      query?: {
+        /** @description ID do flashcard */
+        id?: number;
+        /** @description Frente do flashcard (pergunta) */
+        front?: string;
+      };
+      header?: never;
+      path: {
+        /** @description ID do deck */
+        deckId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Flashcards retornados com sucesso */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["FindFlashcardResponseDTO"];
+        };
+      };
+    };
+  };
+  FlashcardController_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do deck */
+        deckId: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["CreateFlashcardBodyDTO"];
+      };
+    };
+    responses: {
+      /** @description Flashcard criado com sucesso */
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["FlashcardResponseDTO"];
+        };
+      };
+      /** @description Permissões insuficientes para acessar o recurso */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  FlashcardController_findOne: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do deck */
+        deckId: string;
+        /** @description ID do flashcard */
+        flashcardId: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Flashcard encontrado */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["FlashcardResponseDTO"];
+        };
+      };
+      /** @description Flashcard não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  FlashcardController_delete: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do deck */
+        deckId: string;
+        /** @description ID do flashcard */
+        flashcardId: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Flashcard deletado com sucesso */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Permissões insuficientes para acessar o recurso */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Flashcard não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  FlashcardController_update: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do deck */
+        deckId: string;
+        /** @description ID do flashcard */
+        flashcardId: number;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["UpdateFlashcardBodyDTO"];
+      };
+    };
+    responses: {
+      /** @description Flashcard atualizado com sucesso */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["FlashcardResponseDTO"];
+        };
+      };
+      /** @description Permissões insuficientes para acessar o recurso */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Flashcard não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  GroupController_find: {
+    parameters: {
+      query?: {
+        /** @description ID do grupo */
+        id?: string;
+        /** @description Nome do grupo */
+        name?: string;
+        /** @description Código de convite do grupo */
+        inviteCode?: string;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Grupos retornados com sucesso */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["FindGroupResponseDTO"];
+        };
+      };
+    };
+  };
+  GroupController_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["CreateGroupBodyDTO"];
+      };
+    };
+    responses: {
+      /** @description Grupo criado com sucesso */
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["GroupResponseDTO"];
+        };
+      };
+    };
+  };
+  GroupController_join: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["JoinGroupBodyDTO"];
+      };
+    };
+    responses: {
+      /** @description Entrou no grupo com sucesso */
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["GroupMemberResponseDTO"];
+        };
+      };
+      /** @description Código de convite inválido */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Usuário já é membro do grupo */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  GroupController_findOne: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do grupo */
+        groupId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Grupo encontrado */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["GroupResponseDTO"];
+        };
+      };
+      /** @description Grupo não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  GroupController_delete: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do grupo */
+        groupId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Grupo deletado com sucesso */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Apenas o dono do grupo pode deletar o grupo */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Grupo não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  GroupController_update: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do grupo */
+        groupId: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["UpdateGroupBodyDTO"];
+      };
+    };
+    responses: {
+      /** @description Grupo atualizado com sucesso */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["GroupResponseDTO"];
+        };
+      };
+      /** @description Membro comum não tem permissão para atualizar o grupo */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Grupo não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  GroupController_resetInviteCode: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do grupo */
+        groupId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Código de convite resetado com sucesso */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["GroupResponseDTO"];
+        };
+      };
+      /** @description Apenas o dono do grupo pode resetar o código de convite */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Grupo não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  GroupMemberController_find: {
+    parameters: {
+      query?: {
+        /** @description Filtrar por role do membro */
+        role?: "owner" | "admin" | "member";
+        /** @description Filtrar por ID do usuário */
+        userId?: number;
+      };
+      header?: never;
+      path: {
+        /** @description ID do grupo */
+        groupId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Membros retornados com sucesso */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["FindGroupMembersResponseDTO"];
+        };
+      };
+    };
+  };
+  GroupMemberController_findOne: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do grupo */
+        groupId: string;
+        /** @description ID do membro */
+        memberId: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Membro encontrado */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["GroupMemberResponseDTO"];
+        };
+      };
+      /** @description Membro não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  GroupMemberController_remove: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do grupo */
+        groupId: string;
+        /** @description ID do membro */
+        memberId: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Membro removido com sucesso */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Permissão negada para remover membro */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Membro não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  GroupMemberController_changeRole: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do grupo */
+        groupId: string;
+        /** @description ID do membro */
+        memberId: number;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["ChangeMemberRoleBodyDTO"];
+      };
+    };
+    responses: {
+      /** @description Role alterado com sucesso */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["GroupMemberResponseDTO"];
+        };
+      };
+      /** @description Permissão negada para alterar role */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Membro não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  QuizController_find: {
+    parameters: {
+      query?: {
+        /** @description ID do quiz */
+        id?: string;
+        /** @description Título do quiz */
+        title?: string;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Quizzes retornados com sucesso */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["FindQuizResponseDTO"];
+        };
+      };
+    };
+  };
+  QuizController_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["CreateQuizBodyDTO"];
+      };
+    };
+    responses: {
+      /** @description Quiz criado com sucesso */
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["QuizResponseDTO"];
+        };
+      };
+    };
+  };
+  QuizController_findShared: {
+    parameters: {
+      query?: {
+        /** @description ID do quiz */
+        id?: string;
+        /** @description Título do quiz */
+        title?: string;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Quizzes retornados com sucesso */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["FindQuizResponseDTO"];
+        };
+      };
+    };
+  };
+  QuizController_findOne: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do quiz */
+        quizId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Quiz encontrado */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["QuizResponseDTO"];
+        };
+      };
+      /** @description Quiz não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  QuizController_delete: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do quiz */
+        quizId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Quiz deletado com sucesso */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Permissões insuficientes para acessar o recurso */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Quiz não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  QuizController_update: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do quiz */
+        quizId: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["UpdateQuizBodyDTO"];
+      };
+    };
+    responses: {
+      /** @description Quiz atualizado com sucesso */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["QuizResponseDTO"];
+        };
+      };
+      /** @description Permissões insuficientes para acessar o recurso */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Quiz não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  QuizItemController_find: {
+    parameters: {
+      query?: {
+        /** @description ID do item */
+        id?: number;
+        /** @description Pergunta do item */
+        question?: string;
+      };
+      header?: never;
+      path: {
+        /** @description ID do quiz */
+        quizId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Itens retornados com sucesso */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["FindQuizItemResponseDTO"];
+        };
+      };
+    };
+  };
+  QuizItemController_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do quiz */
+        quizId: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["CreateQuizItemBodyDTO"];
+      };
+    };
+    responses: {
+      /** @description Item criado com sucesso */
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["QuizItemResponseDTO"];
+        };
+      };
+      /** @description Permissões insuficientes para acessar o recurso */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  QuizItemController_findOne: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do quiz */
+        quizId: string;
+        /** @description ID do item do quiz */
+        quizItemId: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Item encontrado */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["QuizItemResponseDTO"];
+        };
+      };
+      /** @description Item não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  QuizItemController_delete: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do quiz */
+        quizId: string;
+        /** @description ID do item do quiz */
+        quizItemId: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Item deletado com sucesso */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Permissões insuficientes para acessar o recurso */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Item não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  QuizItemController_update: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do quiz */
+        quizId: string;
+        /** @description ID do item do quiz */
+        quizItemId: number;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["UpdateQuizItemBodyDTO"];
+      };
+    };
+    responses: {
+      /** @description Item atualizado com sucesso */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["QuizItemResponseDTO"];
+        };
+      };
+      /** @description Permissões insuficientes para acessar o recurso */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Item não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  ResourceShareController_createFromLink: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do link de compartilhamento */
+        linkId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Compartilhamento criado/atualizado com sucesso */
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ResourceShareResponseDTO"];
+        };
+      };
+      /** @description Link de compartilhamento não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  ResourceShareController_find: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do recurso */
+        resourceId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Compartilhamentos retornados com sucesso */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["FindResourceSharesResponseDTO"];
+        };
+      };
+    };
+  };
+  ResourceShareController_delete: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do compartilhamento */
+        shareId: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Compartilhamento removido com sucesso */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Apenas o proprietário do recurso pode remover compartilhamentos */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Compartilhamento não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  ResourceShareController_update: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do compartilhamento */
+        shareId: number;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["UpdateResourceShareBodyDTO"];
+      };
+    };
+    responses: {
+      /** @description Permissão atualizada com sucesso */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ResourceShareResponseDTO"];
+        };
+      };
+      /** @description Apenas o proprietário do recurso pode alterar permissões */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Compartilhamento não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  ResourceShareLinkController_findOne: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do recurso */
+        resourceId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Link encontrado */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ResourceShareLinkResponseDTO"];
+        };
+      };
+      /** @description Link de compartilhamento não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  ResourceShareLinkController_generate: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do recurso */
+        resourceId: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["GenerateResourceShareLinkBodyDTO"];
+      };
+    };
+    responses: {
+      /** @description Link gerado/atualizado com sucesso */
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ResourceShareLinkResponseDTO"];
+        };
+      };
+      /** @description Apenas o proprietário do recurso pode gerar links */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Recurso não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  ResourceShareLinkController_delete: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do recurso */
+        resourceId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Link deletado com sucesso */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Apenas o proprietário do recurso pode deletar links */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Link de compartilhamento não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  TaskController_find: {
+    parameters: {
+      query?: {
+        /** @description ID da tarefa */
+        id?: string;
+        /** @description Nome da tarefa */
+        name?: string;
+        /** @description Status da tarefa */
+        status?: "pending" | "in_progress" | "completed" | "cancelled";
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Tarefas retornadas com sucesso */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["FindTaskResponseDTO"];
+        };
+      };
+    };
+  };
+  TaskController_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["CreateTaskBodyDTO"];
+      };
+    };
+    responses: {
+      /** @description Tarefa criada com sucesso */
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["TaskResponseDTO"];
+        };
+      };
+    };
+  };
+  TaskController_findShared: {
+    parameters: {
+      query?: {
+        /** @description ID da tarefa */
+        id?: string;
+        /** @description Nome da tarefa */
+        name?: string;
+        /** @description Status da tarefa */
+        status?: "pending" | "in_progress" | "completed" | "cancelled";
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Tarefas retornadas com sucesso */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["FindTaskResponseDTO"];
+        };
+      };
+    };
+  };
+  TaskController_findOne: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID da tarefa */
+        taskId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Tarefa encontrada */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["TaskResponseDTO"];
+        };
+      };
+      /** @description Tarefa não encontrada */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  TaskController_delete: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID da tarefa */
+        taskId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Tarefa deletada com sucesso */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Permissões insuficientes para acessar o recurso */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Tarefa não encontrada */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  TaskController_update: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID da tarefa */
+        taskId: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["UpdateTaskBodyDTO"];
+      };
+    };
+    responses: {
+      /** @description Tarefa atualizada com sucesso */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["TaskResponseDTO"];
+        };
+      };
+      /** @description Permissões insuficientes para acessar o recurso */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Tarefa não encontrada */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  UserController_find: {
+    parameters: {
+      query?: {
+        /** @description ID do usuário */
+        id?: number;
+        /** @description Nome do usuário */
+        name?: string;
+        /** @description E-mail do usuário */
+        email?: string;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Usuários retornados com sucesso */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["FindUserResponseDTO"];
+        };
+      };
+    };
+  };
+  UserController_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["CreateUserBodyDTO"];
+      };
+    };
+    responses: {
+      /** @description Usuário criado com sucesso */
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["UserResponseDTO"];
+        };
+      };
+      /** @description Email já está em uso */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  UserController_findOne: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do usuário */
+        userId: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Usuário encontrado */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["UserResponseDTO"];
+        };
+      };
+      /** @description Usuário não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  UserController_delete: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do usuário */
+        userId: number;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Usuário deletado com sucesso */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Usuário não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  UserController_update: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do usuário */
+        userId: number;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["UpdateUserBodyDTO"];
+      };
+    };
+    responses: {
+      /** @description Usuário atualizado com sucesso */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["UserResponseDTO"];
+        };
+      };
+      /** @description Usuário não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  WhiteboardController_find: {
+    parameters: {
+      query?: {
+        /** @description ID do whiteboard */
+        id?: string;
+        /** @description Título do whiteboard */
+        title?: string;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Whiteboards retornados com sucesso */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["FindWhiteboardResponseDTO"];
+        };
+      };
+    };
+  };
+  WhiteboardController_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["CreateWhiteboardBodyDTO"];
+      };
+    };
+    responses: {
+      /** @description Whiteboard criado com sucesso */
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["WhiteboardResponseDTO"];
+        };
+      };
+    };
+  };
+  WhiteboardController_findShared: {
+    parameters: {
+      query?: {
+        /** @description ID do whiteboard */
+        id?: string;
+        /** @description Título do whiteboard */
+        title?: string;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Whiteboards retornados com sucesso */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["FindWhiteboardResponseDTO"];
+        };
+      };
+    };
+  };
+  WhiteboardController_findOne: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do whiteboard */
+        whiteboardId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Whiteboard encontrado */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["WhiteboardResponseDTO"];
+        };
+      };
+      /** @description Whiteboard não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  WhiteboardController_delete: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do whiteboard */
+        whiteboardId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Whiteboard deletado com sucesso */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Permissões insuficientes para acessar o recurso */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Whiteboard não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  WhiteboardController_update: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do whiteboard */
+        whiteboardId: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["UpdateWhiteboardBodyDTO"];
+      };
+    };
+    responses: {
+      /** @description Whiteboard atualizado com sucesso */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["WhiteboardResponseDTO"];
+        };
+      };
+      /** @description Permissões insuficientes para acessar o recurso */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Whiteboard não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
 }

@@ -5,11 +5,17 @@ import { TaskResponse } from "../../../types/task";
 import { format, parseISO } from "date-fns";
 import { UpdateTaskModal } from "./UpdateTaskModal";
 import TaskService from "@/services/task/TaskService";
+import { activityStorage } from "@/lib/activityStorage";
+import { favoriteStorage } from "@/lib/favoriteStorage";
+import { useFavorites } from "@/hooks/useFavorites";
+import { LuStar } from "react-icons/lu";
 import { toast } from "sonner";
 
 export function TaskCard({ task, onRefresh }: { task: TaskResponse; onRefresh: () => void }) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
+  const { isFavorite } = useFavorites();
+  const [isFav, setIsFav] = useState(isFavorite(task.id, "Tarefas"));
 
   const startTime = task.startDate ? format(parseISO(task.startDate), "HH:mm") : "00:00";
   const endTime = task.endDate ? format(parseISO(task.endDate), "HH:mm") : "00:00";
@@ -43,16 +49,54 @@ export function TaskCard({ task, onRefresh }: { task: TaskResponse; onRefresh: (
     }
   };
 
+  const handleCardClick = () => {
+    activityStorage.addActivity({
+      id: task.id,
+      title: task.name,
+      tool: "Tarefas",
+      icon: "LuBook",
+      iconClass: "bg-blue-100 text-blue-600",
+    });
+    setIsEditModalOpen(true);
+  };
+
+  const handleToggleFavorite = (e: React.MouseEvent) => {
+    e.stopPropagation();
+
+    if (isFav) {
+      favoriteStorage.removeFavorite(task.id, "Tarefas");
+      toast.success("Removido dos favoritos");
+    } else {
+      favoriteStorage.addFavorite({
+        id: task.id,
+        title: task.name,
+        tool: "Tarefas",
+        icon: "LuBook",
+        iconClass: "bg-blue-100 text-blue-600",
+        color: "bg-blue-500",
+      });
+      toast.success("Adicionado aos favoritos");
+    }
+    setIsFav(!isFav);
+  };
+
   return (
     <>
       <div
-        onClick={() => setIsEditModalOpen(true)}
-        className={`p-6 rounded-2xl flex items-center justify-between min-h-[120px] shadow-sm transition-all hover:scale-[1.02] cursor-pointer ${
+        onClick={handleCardClick}
+        className={`p-6 rounded-2xl flex items-center justify-between min-h-[120px] shadow-sm transition-all hover:scale-[1.02] cursor-pointer relative ${
           isCompleted ? "bg-emerald-500 opacity-80" : "bg-blue-500"
         } text-white`}
       >
+        <button
+          onClick={handleToggleFavorite}
+          className="absolute top-3 right-3 p-2 hover:bg-white/20 rounded transition-colors"
+          title={isFav ? "Remover dos favoritos" : "Adicionar aos favoritos"}
+        >
+          <LuStar size={18} fill={isFav ? "currentColor" : "none"} />
+        </button>
+
         <div className="flex items-center gap-4">
-          {/* Círculo do Check */}
           <button
             onClick={handleToggleStatus}
             disabled={isUpdating}

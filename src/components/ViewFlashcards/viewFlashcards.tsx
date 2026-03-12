@@ -1,24 +1,32 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import Container from "@/components/Container/container";
-import { LuLayers, LuArrowLeft } from "react-icons/lu";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { Deck } from "@/types";
 import DeckService from "@/services/deck/DeckService";
-import styles from "./styles.module.css";
-import FlashcardList from "./flashcardList";
+import FlashcardCard from "./FlashcardCard";
+import { Typography } from "@/components/ui/typography";
 
 interface ViewFlashcardsProps {
-  refreshTrigger: number;
-  onEditDeck: (deck: Deck) => void;
+  refreshTrigger?: number;
+  onEditDeck?: (deck: Deck) => void;
+  onDeleteDeck?: (deck: Deck) => void;
 }
 
-export default function ViewFlashcards({ refreshTrigger, onEditDeck }: ViewFlashcardsProps) {
+export default function ViewFlashcards({
+  refreshTrigger,
+  onEditDeck,
+  onDeleteDeck,
+}: ViewFlashcardsProps) {
+  const router = useRouter();
   const [decks, setDecks] = useState<Deck[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedDeck, setSelectedDeck] = useState<Deck | null>(null);
 
-  const fetchDecks = async () => {
+  useEffect(() => {
+    fetchDecks();
+  }, [refreshTrigger]);
+
+  async function fetchDecks() {
     try {
       setLoading(true);
       const response = await DeckService.list();
@@ -28,50 +36,41 @@ export default function ViewFlashcards({ refreshTrigger, onEditDeck }: ViewFlash
     } finally {
       setLoading(false);
     }
-  };
+  }
 
-  useEffect(() => {
-    fetchDecks();
-  }, [refreshTrigger]);
-
-  if (loading && decks.length === 0) return <p>Carregando decks...</p>;
-
-  if (selectedDeck) {
+  if (loading) {
     return (
-      <div className={styles.flashcarsArea}>
-        <div className={styles.headerWrapper}>
-          <button onClick={() => setSelectedDeck(null)} className={styles.backButton}>
-            <LuArrowLeft size={24} />
-            Voltar para os Decks
-          </button>
-          <h2 className={styles.deckTitle}>{selectedDeck.name}</h2>
-        </div>
-        <FlashcardList deckId={selectedDeck.id} />
+      <div className="flex items-center justify-center p-12">
+        <Typography variant="body-1" color="light">
+          Carregando decks...
+        </Typography>
       </div>
     );
   }
 
   return (
-    <div className={styles.menuArea}>
-      <div className={styles.decksContainer}>
-        {decks.map((deck) => (
-          <div
-            key={deck.id}
-            onClick={(e) => {
-              e.preventDefault();
-              setSelectedDeck(deck);
-            }}
-            className={styles.deckWrapper}
-          >
-            <Container
-              href="#"
+    <div className="flex flex-col gap-6">
+      {decks.length === 0 ? (
+        <div className="flex flex-col items-center gap-2 py-12 text-center">
+          <Typography variant="body-1" color="light">
+            Nenhum deck encontrado. Crie seu primeiro deck!
+          </Typography>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {decks.map((deck) => (
+            <FlashcardCard
+              key={deck.id}
+              deck={deck}
               title={deck.name}
-              icon={<LuLayers size={30} />}
-              onEditClick={() => onEditDeck(deck)}
+              cardsCount={deck.flashcards?.length || 0}
+              onClick={() => router.push(`/tools/flashcards/${deck.id}`)}
+              onEdit={onEditDeck}
+              onDelete={onDeleteDeck}
             />
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

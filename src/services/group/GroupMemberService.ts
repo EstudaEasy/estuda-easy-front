@@ -1,9 +1,5 @@
 import { api } from "../api";
-import {
-  GroupMemberResponse,
-  GroupMembersResponse,
-  UpdateGroupMemberRoleRequest,
-} from "@/types";
+import { GroupMemberResponse, GroupMembersResponse, UpdateGroupMemberRoleRequest } from "@/types";
 
 const GroupMemberService = {
   list(groupId: string) {

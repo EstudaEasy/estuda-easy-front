@@ -5,8 +5,6 @@ import Page from "@/components/Page";
 import ViewFlashcards from "@/components/ViewFlashcards/viewFlashcards";
 import { Deck } from "@/types";
 import DeckService from "@/services/deck/DeckService";
-import styles from "@/components/ViewFlashcards/styles.module.css";
-import { toast } from "sonner";
 
 export default function Flashcards() {
   const [refreshTrigger, setRefreshTrigger] = useState(0);
@@ -16,6 +14,7 @@ export default function Flashcards() {
   const [editingDeckId, setEditingDeckId] = useState<string | number | null>(null);
   const [deckName, setDeckName] = useState("");
   const [deckDescription, setDeckDescription] = useState("");
+  const [isConfirmingDelete, setIsConfirmingDelete] = useState(false);
 
   const openCreateModal = () => {
     setEditingDeckId(null);
@@ -66,16 +65,12 @@ export default function Flashcards() {
   const handleDeleteDeck = async () => {
     if (editingDeckId === null || isSaving || isDeleting) return;
 
-    const confirmDelete = window.confirm(
-      "Tem certeza que deseja excluir este deck e todos os seus flashcards?",
-    );
-    if (!confirmDelete) return;
-
     setIsDeleting(true);
     try {
       await DeckService.delete(String(editingDeckId));
 
       setIsModalOpen(false);
+      setIsConfirmingDelete(false);
       setEditingDeckId(null);
       setDeckName("");
       setDeckDescription("");
@@ -100,68 +95,108 @@ export default function Flashcards() {
         onButtonClick={openCreateModal}
       />
       <Page.Content>
-        <ViewFlashcards refreshTrigger={refreshTrigger} onEditDeck={openEditModal} />
+        <ViewFlashcards
+          refreshTrigger={refreshTrigger}
+          onEditDeck={openEditModal}
+          onDeleteDeck={(deck) => {
+            setEditingDeckId(deck.id);
+            setIsConfirmingDelete(true);
+          }}
+        />
       </Page.Content>
 
       {isModalOpen && (
-        <div className={styles.modalOverlay}>
-          <div className={styles.modalContent}>
-            <h3 className={styles.modalTitle}>
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[10000]">
+          <div className="bg-white p-7 rounded-2xl w-[90%] max-w-[500px] shadow-[0_10px_25px_rgba(0,0,0,0.2)]">
+            <h3 className="text-[22px] font-bold text-slate-800 mb-6 text-center">
               {editingDeckId !== null ? "Editar Deck" : "Criar Novo Deck"}
             </h3>
 
-            <div className={styles.inputGroup}>
-              <label className={styles.inputLabel}>Nome do Deck</label>
+            <div className="flex flex-col mb-4 w-full">
+              <label className="text-sm font-semibold text-slate-700 mb-1.5 text-left">
+                Nome do Deck
+              </label>
               <input
                 type="text"
                 placeholder="Ex: Vocabulário de Inglês"
                 value={deckName}
                 onChange={(e) => setDeckName(e.target.value)}
-                className={styles.inputField}
+                className="w-full p-3.5 border border-slate-300 rounded-lg text-base text-slate-900 bg-white outline-none transition-colors duration-200 focus:border-blue-500 disabled:opacity-50 disabled:bg-slate-50"
                 disabled={isSaving || isDeleting}
               />
             </div>
 
-            <div className={styles.inputGroup}>
-              <label className={styles.inputLabel}>Descrição</label>
+            <div className="flex flex-col mb-6 w-full">
+              <label className="text-sm font-semibold text-slate-700 mb-1.5 text-left">
+                Descrição
+              </label>
               <input
                 type="text"
                 placeholder="Ex: Flashcards para estudar vocabulário"
                 value={deckDescription}
                 onChange={(e) => setDeckDescription(e.target.value)}
-                className={styles.inputField}
+                className="w-full p-3.5 border border-slate-300 rounded-lg text-base text-slate-900 bg-white outline-none transition-colors duration-200 focus:border-blue-500 disabled:opacity-50 disabled:bg-slate-50"
                 disabled={isSaving || isDeleting}
               />
             </div>
 
-            <div className={styles.modalActions}>
+            <div className="flex justify-between items-center mt-2.5">
               <div>
                 {editingDeckId !== null && (
                   <button
-                    onClick={handleDeleteDeck}
-                    className={styles.btnDelete}
+                    onClick={() => setIsConfirmingDelete(true)}
+                    className="bg-transparent text-red-500 border border-red-500 px-5 py-3 rounded-lg cursor-pointer font-semibold transition-all duration-200 hover:not(:disabled):bg-red-500 hover:not(:disabled):text-white disabled:opacity-50 disabled:cursor-not-allowed"
                     disabled={isSaving || isDeleting}
                   >
-                    {isDeleting ? "Excluindo..." : "Excluir"}
+                    Excluir
                   </button>
                 )}
               </div>
-              <div className={styles.modalActionsRight}>
+              <div className="flex gap-3">
                 <button
                   onClick={() => setIsModalOpen(false)}
-                  className={styles.btnCancel}
+                  className="bg-slate-100 text-slate-500 border-none px-5 py-3 rounded-lg cursor-pointer font-semibold transition-colors duration-200 hover:not(:disabled):bg-slate-200 disabled:opacity-50 disabled:cursor-not-allowed"
                   disabled={isSaving || isDeleting}
                 >
                   Cancelar
                 </button>
                 <button
                   onClick={handleSaveDeck}
-                  className={styles.btnSubmit}
+                  className="bg-blue-500 text-white border-none px-5 py-3 rounded-lg cursor-pointer font-semibold transition-colors duration-200 hover:not(:disabled):bg-blue-600 disabled:bg-blue-300 disabled:cursor-not-allowed"
                   disabled={isSaving || isDeleting}
                 >
                   {isSaving ? "Salvando..." : "Salvar"}
                 </button>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal de Confirmação para Deletar Deck */}
+      {isConfirmingDelete && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[10001]">
+          <div className="bg-white p-7 rounded-2xl w-[90%] max-w-[400px] shadow-[0_10px_25px_rgba(0,0,0,0.2)]">
+            <h3 className="text-[20px] font-bold text-slate-800 mb-3 text-center">Excluir Deck?</h3>
+            <p className="text-base text-slate-600 mb-6 text-center">
+              Tem certeza que deseja excluir este deck e todos os seus flashcards? Esta ação não
+              pode ser desfeita.
+            </p>
+            <div className="flex gap-3 justify-center">
+              <button
+                onClick={() => setIsConfirmingDelete(false)}
+                className="bg-slate-100 text-slate-500 border-none px-6 py-3 rounded-lg cursor-pointer font-semibold transition-colors duration-200 hover:bg-slate-200 disabled:opacity-50 disabled:cursor-not-allowed flex-1"
+                disabled={isDeleting}
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={handleDeleteDeck}
+                className="bg-red-500 text-white border-none px-6 py-3 rounded-lg cursor-pointer font-semibold transition-colors duration-200 hover:bg-red-600 disabled:bg-red-300 disabled:cursor-not-allowed flex-1"
+                disabled={isDeleting}
+              >
+                {isDeleting ? "Excluindo..." : "Excluir"}
+              </button>
             </div>
           </div>
         </div>
