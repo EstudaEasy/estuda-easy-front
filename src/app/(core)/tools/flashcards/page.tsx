@@ -117,6 +117,7 @@ export default function Flashcards() {
             setEditingDeck(deck);
             setIsDeleteDialogOpen(true);
           }}
+          onCreateDeck={() => setIsCreateModalOpen(true)}
         />
       </Page.Content>
 

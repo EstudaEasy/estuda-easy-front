@@ -6,17 +6,20 @@ import { Deck } from "@/types";
 import DeckService from "@/services/deck/DeckService";
 import FlashcardCard from "./FlashcardCard";
 import { Typography } from "@/components/ui/typography";
+import EmptyToolState from "@/components/EmptyToolState/EmptyToolState";
 
 interface ViewFlashcardsProps {
   refreshTrigger?: number;
   onEditDeck?: (deck: Deck) => void;
   onDeleteDeck?: (deck: Deck) => void;
+  onCreateDeck?: () => void;
 }
 
 export default function ViewFlashcards({
   refreshTrigger,
   onEditDeck,
   onDeleteDeck,
+  onCreateDeck,
 }: ViewFlashcardsProps) {
   const router = useRouter();
   const [decks, setDecks] = useState<Deck[]>([]);
@@ -51,11 +54,12 @@ export default function ViewFlashcards({
   return (
     <div className="flex flex-col gap-6">
       {decks.length === 0 ? (
-        <div className="flex flex-col items-center gap-2 py-12 text-center">
-          <Typography variant="body-1" color="light">
-            Nenhum deck encontrado. Crie seu primeiro deck!
-          </Typography>
-        </div>
+        <EmptyToolState
+          title="Nada de decks por aqui"
+          description="Crie seu primeiro deck e comece a revisar com flashcards!"
+          actionLabel="Criar Deck"
+          onAction={onCreateDeck}
+        />
       ) : (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {decks.map((deck) => (
