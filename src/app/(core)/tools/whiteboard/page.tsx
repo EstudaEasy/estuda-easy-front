@@ -106,7 +106,7 @@ export default function Whiteboard() {
   return (
     <Page>
       <Page.Header
-        title="Quadro"
+        title="WhiteBoard"
         subtitle="Desenhe, anote e organize suas ideias em um quadro interativo!"
         buttonIcon={<Plus />}
         buttonText="Criar Quadro"

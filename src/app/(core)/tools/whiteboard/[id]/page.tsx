@@ -16,7 +16,7 @@ export default function WhiteboardEditor() {
   const params = useParams();
   const router = useRouter();
   const whiteboardId = params.id as string;
-  const { setOpen } = useSidebar();
+  const { setOpen, state, isMobile } = useSidebar();
   const hasCollapsedSidebar = useRef(false);
 
   const [editor, setEditor] = useState<Editor | null>(null);
@@ -89,6 +89,8 @@ export default function WhiteboardEditor() {
     setEditor(editor);
   }
 
+  const sidebarOffset = isMobile ? "0px" : state === "collapsed" ? "3rem" : "16rem";
+
   if (isLoading) {
     return (
       <div className="flex h-screen items-center justify-center">
@@ -100,7 +102,7 @@ export default function WhiteboardEditor() {
   }
 
   return (
-    <div className="fixed inset-0 flex flex-col">
+    <div className="fixed inset-y-0 right-0 flex flex-col" style={{ left: sidebarOffset }}>
       <div className="flex h-16 items-center justify-between border-b bg-white px-6 shadow-sm shrink-0">
         <div className="flex items-center gap-2">
           <SidebarTrigger className="-ml-1" />
