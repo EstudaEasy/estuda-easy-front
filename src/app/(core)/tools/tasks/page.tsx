@@ -25,6 +25,7 @@ export default function Tasks() {
           setSelectedDate={setSelectedDate}
           tasks={tasks}
           refreshTasks={refreshTasks}
+          onCreateTask={() => setIsModalOpen(true)}
         />
       </Page.Content>
 

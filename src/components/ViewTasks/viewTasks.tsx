@@ -7,12 +7,14 @@ import { ptBR } from "date-fns/locale";
 import { TaskCard } from "./components/TaskCard";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { TaskResponse } from "@/types/task";
+import EmptyToolState from "@/components/EmptyToolState/EmptyToolState";
 
 interface ViewTasksProps {
   selectedDate: Date;
   setSelectedDate: (date: Date) => void;
   tasks: TaskResponse[];
   refreshTasks: () => void;
+  onCreateTask: () => void;
 }
 
 export default function Tasks({
@@ -20,6 +22,7 @@ export default function Tasks({
   setSelectedDate,
   tasks,
   refreshTasks,
+  onCreateTask,
 }: ViewTasksProps) {
   const days = Array.from({ length: 17 }, (_, i) => addDays(subDays(selectedDate, 8), i));
 
@@ -101,11 +104,20 @@ export default function Tasks({
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {tasks.map((task) => (
-            <TaskCard key={task.id} task={task} onRefresh={refreshTasks} />
-          ))}
-        </div>
+        {tasks.length === 0 ? (
+          <EmptyToolState
+            title="Nada por aqui... (ainda!)"
+            description="Crie uma task e transforme esse período em progresso."
+            actionLabel="Criar task"
+            onAction={onCreateTask}
+          />
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {tasks.map((task) => (
+              <TaskCard key={task.id} task={task} onRefresh={refreshTasks} />
+            ))}
+          </div>
+        )}
       </div>
     </>
   );

@@ -6,14 +6,21 @@ import { Quiz } from "@/types";
 import QuizService from "@/services/quiz/QuizService";
 import QuizCard from "./QuizCard";
 import { Typography } from "@/components/ui/typography";
+import EmptyToolState from "@/components/EmptyToolState/EmptyToolState";
 
 interface ViewQuizProps {
   refreshTrigger?: number;
   onEditQuiz?: (quiz: Quiz) => void;
   onDeleteQuiz?: (quiz: Quiz) => void;
+  onCreateQuiz?: () => void;
 }
 
-export default function ViewQuiz({ refreshTrigger, onEditQuiz, onDeleteQuiz }: ViewQuizProps) {
+export default function ViewQuiz({
+  refreshTrigger,
+  onEditQuiz,
+  onDeleteQuiz,
+  onCreateQuiz,
+}: ViewQuizProps) {
   const router = useRouter();
   const [quizzes, setQuizzes] = useState<Quiz[]>([]);
   const [loading, setLoading] = useState(true);
@@ -47,11 +54,12 @@ export default function ViewQuiz({ refreshTrigger, onEditQuiz, onDeleteQuiz }: V
   return (
     <div className="flex flex-col gap-6">
       {quizzes.length === 0 ? (
-        <div className="flex flex-col items-center gap-2 py-12 text-center">
-          <Typography variant="body-1" color="light">
-            Nenhum quiz encontrado. Crie seu primeiro quiz!
-          </Typography>
-        </div>
+        <EmptyToolState
+          title="Não encontramos nada por aqui"
+          description="Parece que você ainda não criou nenhum quiz. Bora dar o primeiro passo?"
+          actionLabel="Criar Quiz"
+          onAction={onCreateQuiz}
+        />
       ) : (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {quizzes.map((quiz) => (

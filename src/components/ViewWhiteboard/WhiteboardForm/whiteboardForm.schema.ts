@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { quizFormSchema } from "../../QuizForm/quizForm.schema";
 
 export const whiteboardFormSchema = z.object({
   title: z

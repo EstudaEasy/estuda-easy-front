@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { Tldraw, Editor, getSnapshot, loadSnapshot } from "tldraw";
 // @ts-ignore - TLDraw CSS
 import "tldraw/tldraw.css";
 import { Button } from "@/components/ui/button";
+import { SidebarTrigger, useSidebar } from "@/components/ui/sidebar";
 import WhiteboardService from "@/services/whiteboard/WhiteboardService";
 import { WhiteboardResponse } from "@/types/whiteboard";
 import { toast } from "sonner";
@@ -15,6 +16,8 @@ export default function WhiteboardEditor() {
   const params = useParams();
   const router = useRouter();
   const whiteboardId = params.id as string;
+  const { setOpen, state, isMobile } = useSidebar();
+  const hasCollapsedSidebar = useRef(false);
 
   const [editor, setEditor] = useState<Editor | null>(null);
   const [whiteboard, setWhiteboard] = useState<WhiteboardResponse | null>(null);
@@ -24,6 +27,13 @@ export default function WhiteboardEditor() {
   useEffect(() => {
     loadWhiteboard();
   }, [whiteboardId]);
+
+  useEffect(() => {
+    if (hasCollapsedSidebar.current) return;
+
+    hasCollapsedSidebar.current = true;
+    setOpen(false);
+  }, [setOpen]);
 
   useEffect(() => {
     if (editor && whiteboard && whiteboard.content) {
@@ -79,6 +89,8 @@ export default function WhiteboardEditor() {
     setEditor(editor);
   }
 
+  const sidebarOffset = isMobile ? "0px" : state === "collapsed" ? "3rem" : "16rem";
+
   if (isLoading) {
     return (
       <div className="flex h-screen items-center justify-center">
@@ -90,17 +102,20 @@ export default function WhiteboardEditor() {
   }
 
   return (
-    <div className="fixed inset-0 flex flex-col">
+    <div className="fixed inset-y-0 right-0 flex flex-col" style={{ left: sidebarOffset }}>
       <div className="flex h-16 items-center justify-between border-b bg-white px-6 shadow-sm shrink-0">
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => router.push("/tools/whiteboard")}
-          className="gap-2"
-        >
-          <ArrowLeft size={16} />
-          Voltar
-        </Button>
+        <div className="flex items-center gap-2">
+          <SidebarTrigger className="-ml-1" />
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => router.push("/tools/whiteboard")}
+            className="gap-2"
+          >
+            <ArrowLeft size={16} />
+            Voltar
+          </Button>
+        </div>
 
         <h1 className="text-xl font-bold text-gray-800">{whiteboard?.title}</h1>
 

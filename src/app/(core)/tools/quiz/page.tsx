@@ -121,6 +121,7 @@ export default function QuizPage() {
             setEditingQuiz(quiz);
             setIsDeleteDialogOpen(true);
           }}
+          onCreateQuiz={() => setIsCreateModalOpen(true)}
         />
       </Page.Content>
 
