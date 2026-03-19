@@ -18,6 +18,7 @@ export default function WhiteboardEditor() {
   const whiteboardId = params.id as string;
   const { setOpen, state, isMobile } = useSidebar();
   const hasCollapsedSidebar = useRef(false);
+  const hasLoadedSnapshot = useRef(false);
 
   const [editor, setEditor] = useState<Editor | null>(null);
   const [whiteboard, setWhiteboard] = useState<WhiteboardResponse | null>(null);
@@ -26,6 +27,7 @@ export default function WhiteboardEditor() {
 
   useEffect(() => {
     loadWhiteboard();
+    hasLoadedSnapshot.current = false;
   }, [whiteboardId]);
 
   useEffect(() => {
@@ -36,15 +38,16 @@ export default function WhiteboardEditor() {
   }, [setOpen]);
 
   useEffect(() => {
-    if (editor && whiteboard && whiteboard.content) {
-      try {
-        if (Object.keys(whiteboard.content).length > 0) {
-          loadSnapshot(editor.store, { document: whiteboard.content as any });
-        }
-      } catch (error) {
-        console.error("Erro ao carregar conteúdo do quadro:", error);
-        toast.error("Erro ao carregar o quadro");
+    if (!editor || !whiteboard || hasLoadedSnapshot.current) return;
+
+    try {
+      if (whiteboard.content && Object.keys(whiteboard.content).length > 0) {
+        loadSnapshot(editor.store, { document: whiteboard.content as any });
       }
+      hasLoadedSnapshot.current = true;
+    } catch (error) {
+      console.error("Erro ao carregar conteúdo do quadro:", error);
+      toast.error("Erro ao carregar o quadro");
     }
   }, [editor, whiteboard]);
 
@@ -127,7 +130,7 @@ export default function WhiteboardEditor() {
 
       <div className="flex-1 relative">
         <div className="absolute inset-0">
-          <Tldraw onMount={handleMount} />
+          <Tldraw onMount={handleMount} forceMobile={false} />
         </div>
       </div>
     </div>

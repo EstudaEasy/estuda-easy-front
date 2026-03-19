@@ -124,18 +124,6 @@ body {
   font-family: var(--font-sans);
 }
 
-section[data-section-open="false"] .section-content {
-  max-height: 0;
-  opacity: 0;
-  margin-top: 0;
-  pointer-events: none;
-}
-
-section[data-section-open="true"] .section-content {
-  max-height: 100vh;
-  opacity: 1;
-}
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
