@@ -49,6 +49,7 @@ const NAV_GROUPS: NavGroup[] = [
         ],
         isCollapsible: true,
       },
+      { name: "Grupos", url: "/groups", icon: LucideAlbum },
     ],
   },
 ];

@@ -89,6 +89,40 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  "/auth/google": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Fazer login com conta do Google */
+    get: operations["AuthController_googleAuth"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/auth/google/callback": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Callback de login com conta do Google */
+    get: operations["AuthController_googleAuthCallback"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   "/decks": {
     parameters: {
       query?: never;
@@ -195,6 +229,23 @@ export interface paths {
     head?: never;
     /** Atualizar um diário */
     patch: operations["DiaryController_update"];
+    trace?: never;
+  };
+  "/diaries/{diaryId}/audio": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    /** Atualizar o áudio de um diário */
+    patch: operations["DiaryController_updateAudio"];
     trace?: never;
   };
   "/decks/{deckId}/flashcards": {
@@ -449,6 +500,29 @@ export interface paths {
      * @description Mantém as opções existentes se nenhuma for fornecida
      */
     patch: operations["QuizItemController_update"];
+    trace?: never;
+  };
+  "/resources/{resourceId}/convert": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    get?: never;
+    put?: never;
+    /**
+     * Converter um recurso existente em outro tipo de recurso (quiz, deck ou task)
+     * @description Usa IA para converter um recurso existente (diário, quiz ou deck) em outro tipo (quiz, deck ou task).
+     *           Os tipos suportados são: diary→quiz, diary→deck, diary→task, quiz→deck, quiz→task, deck→quiz, deck→task.
+     *           O recurso gerado não é salvo automaticamente. Para isso, utilize o endpoint de criação
+     *           correspondente ao tipo do recurso gerado.
+     */
+    post: operations["ResourceConversionController_convert"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
     trace?: never;
   };
   "/resources/{resourceId}/shares/from-link/{linkId}": {
@@ -715,6 +789,12 @@ export interface components {
       /** @description Confirmação da nova senha */
       passwordConfirmation: string;
     };
+    SocialLoginResponseDTO: {
+      /** @description Access token */
+      accessToken: string;
+      /** @description Refresh token */
+      refreshToken: string;
+    };
     CreateDeckBodyDTO: {
       /**
        * @description Nome do deck
@@ -904,6 +984,13 @@ export interface components {
        * @example https://example.com/audio.mp3
        */
       audioUrl?: string;
+    };
+    UpdateDiaryAudioBodyDTO: {
+      /**
+       * Format: binary
+       * @description Arquivo de áudio (.mp3, .wav, .ogg) com tamanho máximo de 10MB.
+       */
+      file: string;
     };
     CreateFlashcardBodyDTO: {
       /**
@@ -1394,6 +1481,29 @@ export interface components {
       explanation?: string;
       /** @description Opções de resposta do item */
       options?: components["schemas"]["UpdateQuizOptionDTO"][];
+    };
+    ConvertResourceBodyDTO: {
+      /**
+       * @description ID do recurso de origem a ser convertido
+       * @example 550e8400-e29b-41d4-a716-446655440000
+       */
+      sourceResourceId: string;
+      /**
+       * @description Tipo de recurso de destino
+       * @example quiz
+       * @enum {string}
+       */
+      targetResourceType: "quiz" | "deck" | "task";
+    };
+    ConvertResourceResponseDTO: {
+      /** @description Dados do novo recurso gerado. O formato varia de acordo com o tipo do recurso. */
+      data: Record<string, never>;
+      /**
+       * @description Tipo do novo recurso gerado
+       * @example quiz
+       * @enum {string}
+       */
+      type: "deck" | "diary" | "quiz" | "task" | "whiteboard";
     };
     ResourceShareResponseDTO: {
       /**
@@ -1926,6 +2036,44 @@ export interface operations {
       };
     };
   };
+  AuthController_googleAuth: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Redirecionamento para o Google realizado com sucesso */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  AuthController_googleAuthCallback: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Login com Google realizado com sucesso */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["SocialLoginResponseDTO"];
+        };
+      };
+    };
+  };
   DeckController_find: {
     parameters: {
       query?: {
@@ -2258,6 +2406,47 @@ export interface operations {
     requestBody: {
       content: {
         "application/json": components["schemas"]["UpdateDiaryBodyDTO"];
+      };
+    };
+    responses: {
+      /** @description Diário atualizado com sucesso */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["DiaryResponseDTO"];
+        };
+      };
+      /** @description Permissões insuficientes para acessar o recurso */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Diário não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  DiaryController_updateAudio: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do diário */
+        diaryId: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "multipart/form-data": components["schemas"]["UpdateDiaryAudioBodyDTO"];
       };
     };
     responses: {
@@ -3179,6 +3368,37 @@ export interface operations {
       };
       /** @description Item não encontrado */
       404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  ResourceConversionController_convert: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["ConvertResourceBodyDTO"];
+      };
+    };
+    responses: {
+      /** @description Recurso convertido com sucesso */
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ConvertResourceResponseDTO"];
+        };
+      };
+      /** @description Conversão entre os tipos informados não é suportada */
+      422: {
         headers: {
           [name: string]: unknown;
         };

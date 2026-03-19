@@ -9,12 +9,15 @@ import { Button } from "@/components/ui/button";
 import { Typography } from "@/components/ui/typography";
 import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
+import { useResourceConverter } from "@/context/resourceConverter/ResourceConverterContext";
+import { ArrowRight } from "lucide-react";
 
 export default function QuizResultsPage() {
   const router = useRouter();
   const params = useParams();
   const searchParams = useSearchParams();
   const quizId = params.id as string;
+  const { notifyCompletion } = useResourceConverter();
 
   const [quiz, setQuiz] = useState<Quiz | null>(null);
   const [loading, setLoading] = useState(true);
@@ -151,12 +154,31 @@ export default function QuizResultsPage() {
       </Card>
 
       {/* Actions */}
-      <div className="flex w-full gap-3">
-        <Button variant="outline" className="flex-1" onClick={() => router.push("/tools/quiz")}>
-          Ver Quizzes
-        </Button>
-        <Button className="flex-1" onClick={() => router.push(`/tools/quiz/${quizId}/play`)}>
-          Refazer Quiz
+      <div className="flex w-full flex-col gap-3">
+        <div className="flex gap-3">
+          <Button variant="outline" className="flex-1" onClick={() => router.push("/tools/quiz")}>
+            Ver Quizzes
+          </Button>
+          <Button className="flex-1" onClick={() => router.push(`/tools/quiz/${quizId}/play`)}>
+            Refazer Quiz
+          </Button>
+        </div>
+        <Button
+          variant="outline"
+          className="w-full gap-2 border-blue-200 text-blue-600 hover:bg-blue-50 hover:text-blue-700"
+          onClick={() => {
+            if (quiz) {
+              notifyCompletion({
+                resourceId: quizId,
+                resourceType: "quiz",
+                resourceName: quiz.title,
+              });
+            }
+          }}
+          disabled={!quiz}
+        >
+          <ArrowRight size={16} />
+          Converter este Quiz
         </Button>
       </div>
     </div>

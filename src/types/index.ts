@@ -6,6 +6,7 @@ export * from "./flashcard";
 export * from "./groupMember";
 export * from "./group";
 export * from "./quiz";
+export * from "./resource";
 export * from "./resourceShare";
 export * from "./resourceShareLink";
 export * from "./task";
