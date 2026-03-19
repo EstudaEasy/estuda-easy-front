@@ -97,7 +97,7 @@ export default function ViewDiary({
                   <div
                     className={`w-10 h-12 flex items-center justify-center rounded-xl text-lg font-bold transition-all duration-200 ${
                       isSelected
-                        ? "bg-purple-500 text-white scale-110 shadow-md"
+                        ? "bg-[#1A2E5A] text-white scale-110 shadow-md"
                         : dayHasDiaries
                           ? "bg-purple-100 text-purple-700"
                           : "text-gray-500 hover:bg-gray-50"
@@ -107,7 +107,7 @@ export default function ViewDiary({
                   </div>
 
                   <div
-                    className={`w-1 h-1 rounded-full ${isSelected ? "bg-purple-500" : "bg-transparent"}`}
+                    className={`w-1 h-1 rounded-full ${isSelected ? "bg-blue-900" : "bg-transparent"}`}
                   />
                 </button>
               );

@@ -72,24 +72,26 @@ export function UpdateDiaryModal({ open, diary, onSuccess, onOpenChange }: Props
     if (!diary) return;
 
     try {
-      const formData = new FormData();
-      formData.append("title", data.title);
-      formData.append("content", data.content || "");
+      await DiaryService.update(diary.id, {
+        title: data.title,
+        content: data.content,
+      });
 
       if (audioBlob) {
-        formData.append("audioFile", audioBlob, "audio.webm");
+        const audioFormData = new FormData();
+        audioFormData.append("file", audioBlob, "audio.webm");
+
+        await DiaryService.uploadAudio(diary.id, audioFormData);
       }
 
-      await DiaryService.update(diary.id, formData);
-
-      toast.success("Pensamento atualizado com sucesso!");
+      toast.success("Alterações salvas com sucesso!");
       reset();
       clearRecording();
       onSuccess();
       onOpenChange(false);
     } catch (error) {
-      console.error("Erro ao atualizar diário:", error);
-      toast.error("Erro ao atualizar pensamento.");
+      console.error("Erro na atualização:", error);
+      toast.error("Erro ao atualizar áudio ou texto.");
     }
   };
 
