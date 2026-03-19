@@ -1,6 +1,6 @@
 "use client";
 
-import { LucideAlbum, LucideHome, LucideProps } from "lucide-react";
+import { LucideAlbum, LucideHome, LucideProps, GraduationCap } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -73,6 +73,19 @@ export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sid
 
   return (
     <Sidebar collapsible="icon" {...props}>
+      {/* Logo Header */}
+      <div className="px-4 py-4 border-b border-gray-200 flex items-center space-x-2">
+        <div
+          style={{ backgroundColor: "#3461fd" }}
+          className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
+        >
+          <GraduationCap className="w-5 h-5 text-white" />
+        </div>
+        <span className="font-bold text-sm text-gray-900 truncate group-data-[collapsible=icon]:hidden">
+          EstudaEasy
+        </span>
+      </div>
+
       <SidebarContent>
         {NAV_GROUPS.map((group, groupIndex) => (
           <div key={group.label}>

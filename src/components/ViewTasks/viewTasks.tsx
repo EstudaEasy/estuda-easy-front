@@ -49,12 +49,11 @@ export default function Tasks({
             >
               <ChevronLeft size={18} />
             </Button>
-            <Typography
-              weight="bold"
-              className="min-w-[140px] text-center capitalize text-[#1A2E5A]"
-            >
-              {format(selectedDate, "MMMM yyyy", { locale: ptBR })}
-            </Typography>
+            <div className="flex items-center justify-center h-full min-w-[140px]">
+              <Typography weight="bold" className="text-center capitalize text-[#1A2E5A]">
+                {format(selectedDate, "MMMM yyyy", { locale: ptBR })}
+              </Typography>
+            </div>
             <Button
               variant="ghost"
               size="icon-sm"

@@ -22,6 +22,13 @@ const DiaryService = {
     return api.patch<DiaryResponse>(`/diaries/${diaryId}`, data);
   },
 
+  uploadAudio(diaryId: string, data: FormData) {
+    return api.patch(`/diaries/${diaryId}/audio`, data, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+  },
   remove(diaryId: string) {
     return api.delete<void>(`/diaries/${diaryId}`);
   },

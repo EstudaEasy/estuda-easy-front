@@ -54,12 +54,11 @@ export default function ViewDiary({
             >
               <ChevronLeft size={18} />
             </Button>
-            <Typography
-              weight="bold"
-              className="min-w-[140px] text-center capitalize text-[#1A2E5A]"
-            >
-              {format(selectedDate, "MMMM yyyy", { locale: ptBR })}
-            </Typography>
+            <div className="flex items-center justify-center h-full min-w-[140px]">
+              <Typography weight="bold" className="text-center capitalize text-[#1A2E5A]">
+                {format(selectedDate, "MMMM yyyy", { locale: ptBR })}
+              </Typography>
+            </div>
             <Button
               variant="ghost"
               size="icon-sm"
@@ -80,9 +79,6 @@ export default function ViewDiary({
           >
             {days.map((day) => {
               const isSelected = isSameDay(day, selectedDate);
-              const dayHasDiaries = diaries.some((diary) =>
-                isSameDay(new Date(diary.createdAt), day),
-              );
 
               return (
                 <button
@@ -97,17 +93,15 @@ export default function ViewDiary({
                   <div
                     className={`w-10 h-12 flex items-center justify-center rounded-xl text-lg font-bold transition-all duration-200 ${
                       isSelected
-                        ? "bg-purple-500 text-white scale-110 shadow-md"
-                        : dayHasDiaries
-                          ? "bg-purple-100 text-purple-700"
-                          : "text-gray-500 hover:bg-gray-50"
+                        ? "bg-[#1A2E5A] text-white scale-110 shadow-md"
+                        : "text-gray-500 hover:bg-gray-50"
                     }`}
                   >
                     {format(day, "d")}
                   </div>
 
                   <div
-                    className={`w-1 h-1 rounded-full ${isSelected ? "bg-purple-500" : "bg-transparent"}`}
+                    className={`w-1 h-1 rounded-full ${isSelected ? "bg-blue-900" : "bg-transparent"}`}
                   />
                 </button>
               );
