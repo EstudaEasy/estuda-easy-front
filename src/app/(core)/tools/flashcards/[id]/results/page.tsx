@@ -8,12 +8,15 @@ import { Button } from "@/components/ui/button";
 import { Typography } from "@/components/ui/typography";
 import { LuArrowLeft } from "react-icons/lu";
 import FlashcardResults from "@/components/ViewFlashcards/FlashcardResults";
+import { useResourceConverter } from "@/context/resourceConverter/ResourceConverterContext";
+import { ArrowRight } from "lucide-react";
 
 export default function FlashcardResultsPage() {
   const router = useRouter();
   const params = useParams();
   const searchParams = useSearchParams();
   const deckId = params.id as string;
+  const { notifyCompletion } = useResourceConverter();
 
   const [deck, setDeck] = useState<Deck | null>(null);
   const [loading, setLoading] = useState(true);
@@ -84,7 +87,7 @@ export default function FlashcardResultsPage() {
         <div className="w-16" />
       </div>
 
-      <div className="px-6">
+      <div className="px-6 pb-6">
         <FlashcardResults
           correctCount={correctCount}
           wrongCount={wrongCount}
@@ -96,6 +99,24 @@ export default function FlashcardResultsPage() {
           hardCount={hardCount}
           forgotCount={forgotCount}
         />
+
+        <Button
+          variant="outline"
+          className="mt-4 w-full gap-2 border-blue-200 text-blue-600 hover:bg-blue-50 hover:text-blue-700"
+          onClick={() => {
+            if (deck) {
+              notifyCompletion({
+                resourceId: deckId,
+                resourceType: "deck",
+                resourceName: deck.name,
+              });
+            }
+          }}
+          disabled={!deck}
+        >
+          <ArrowRight size={16} />
+          Converter este Deck
+        </Button>
       </div>
     </div>
   );

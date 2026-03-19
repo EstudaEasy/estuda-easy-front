@@ -45,10 +45,12 @@ const NAV_GROUPS: NavGroup[] = [
           { name: "Flashcards", url: "/tools/flashcards" },
           { name: "Pomodoro", url: "/tools/pomodoro" },
           { name: "Tasks", url: "/tools/tasks" },
+          { name: "Diário", url: "/tools/diary" },
           { name: "WhiteBoard", url: "/tools/whiteboard" },
         ],
         isCollapsible: true,
       },
+      { name: "Grupos", url: "/groups", icon: LucideAlbum },
     ],
   },
 ];

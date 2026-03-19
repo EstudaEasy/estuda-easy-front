@@ -1,9 +1,9 @@
 export interface Activity {
   id: string;
   title: string;
-  tool: "Quiz" | "Flashcards" | "Tarefas" | "Pomodoro";
+  tool: "Quiz" | "Flashcards" | "Tarefas" | "Pomodoro" | "Diário";
   timestamp: number;
-  icon: "LuBrain" | "LuBookOpen" | "LuBook" | "LuClock";
+  icon: "LuBrain" | "LuBookOpen" | "LuBook" | "LuClock" | "LuBook";
   iconClass: string;
 }
 

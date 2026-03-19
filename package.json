@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "generate:types": "openapi-typescript http://localhost:3001/docs-json -o src/types/api.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.2.0",
@@ -36,6 +37,7 @@
     "tailwind-merge": "^3.5.0",
     "tldraw": "^4.4.1",
     "vaul": "^1.1.2",
+    "wavesurfer.js": "^7.12.4",
     "zod": "^4.3.6"
   },
   "devDependencies": {
@@ -49,6 +51,7 @@
     "eslint-config-next": "16.0.10",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.5",
+    "openapi-typescript": "^7.13.0",
     "prettier": "^3.8.1",
     "shadcn": "^3.8.5",
     "tailwindcss": "^4",

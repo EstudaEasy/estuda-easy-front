@@ -2,7 +2,7 @@ import { api } from "../api";
 import { CreateDiaryRequest, DiaryResponse, DiariesResponse, UpdateDiaryRequest } from "@/types";
 
 const DiaryService = {
-  create(data: CreateDiaryRequest) {
+  create(data: CreateDiaryRequest | FormData) {
     return api.post<DiaryResponse>("/diaries", data);
   },
 
@@ -18,7 +18,7 @@ const DiaryService = {
     return api.get<DiaryResponse>(`/diaries/${diaryId}`);
   },
 
-  update(diaryId: string, data: UpdateDiaryRequest) {
+  update(diaryId: string, data: UpdateDiaryRequest | FormData) {
     return api.patch<DiaryResponse>(`/diaries/${diaryId}`, data);
   },
 
