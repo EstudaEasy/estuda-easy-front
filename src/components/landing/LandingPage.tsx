@@ -458,16 +458,6 @@ export function LandingPage() {
                 answer:
                   "Nosso assistente IA pode responder suas dúvidas, explicar conceitos, gerar quizzes baseados em seu material e ajudar a resolver problemas. Está disponível 24/7 para ajudar no seu aprendizado.",
               },
-              {
-                question: "Posso usar a EstudaEasy no celular?",
-                answer:
-                  "Sim! A plataforma é totalmente responsiva e funciona perfeitamente em smartphones, tablets e computadores.",
-              },
-              {
-                question: "Meus dados estão seguros?",
-                answer:
-                  "Sim, utilizamos as melhores práticas de segurança para proteger seus dados. Suas informações são criptografadas e armazenadas com segurança.",
-              },
             ].map((item, index) => (
               <div
                 key={index}
