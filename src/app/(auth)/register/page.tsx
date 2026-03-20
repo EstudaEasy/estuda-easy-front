@@ -13,6 +13,7 @@ import EyeIcon from "@/assets/eyeicon.png";
 import { useAuth } from "@/context/auth/authContext";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { getErrorMessage } from "@/lib/errorMessage";
 
 export default function RegisterPage() {
   const { register, isLoading } = useAuth();
@@ -46,8 +47,7 @@ export default function RegisterPage() {
       toast.success("Conta criada com sucesso!");
       router.push("/login");
     } catch (error) {
-      const message = error instanceof Error ? error.message : "Erro ao criar conta.";
-      toast.error(message);
+      toast.error(getErrorMessage(error, "Erro ao criar conta."));
     }
   };
 

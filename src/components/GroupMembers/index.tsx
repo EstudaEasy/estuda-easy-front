@@ -10,6 +10,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { getErrorMessage } from "@/lib/errorMessage";
 
 interface GroupMembersProps {
   groupId: string;
@@ -29,7 +30,7 @@ export default function GroupMembers({ groupId, currentUserMember }: GroupMember
       setMembers(Array.isArray(data) ? data : data.members || []);
     } catch (error) {
       console.error("Erro ao carregar membros:", error);
-      toast.error("Erro ao carregar membros do grupo");
+      toast.error(getErrorMessage(error, "Erro ao carregar membros do grupo"));
     } finally {
       setIsLoading(false);
     }
@@ -47,7 +48,7 @@ export default function GroupMembers({ groupId, currentUserMember }: GroupMember
       setMembers((prev) => prev.filter((m) => String(m.id) !== String(memberId)));
     } catch (error) {
       console.error("Erro ao remover:", error);
-      toast.error("Erro ao remover membro");
+      toast.error(getErrorMessage(error, "Erro ao remover membro"));
     }
   };
 
@@ -59,7 +60,7 @@ export default function GroupMembers({ groupId, currentUserMember }: GroupMember
       fetchMembers();
     } catch (error) {
       console.error("Erro ao atualizar papel:", error);
-      toast.error("Erro ao atualizar permissão");
+      toast.error(getErrorMessage(error, "Erro ao atualizar permissão"));
     }
   };
 

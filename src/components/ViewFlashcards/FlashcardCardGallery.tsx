@@ -26,6 +26,7 @@ import FlashcardForm from "@/components/FlashcardForm";
 import { FlashcardFormData } from "@/components/FlashcardForm/flashcardForm.schema";
 import { toast } from "sonner";
 import LoadingState from "@/components/LoadingState";
+import { getErrorMessage } from "@/lib/errorMessage";
 
 interface FlashcardCardGalleryProps {
   deckId: string;
@@ -89,7 +90,7 @@ export default function FlashcardCardGallery({
       toast.success("Flashcard criado com sucesso!");
     } catch (error) {
       console.error("Erro ao criar flashcard:", error);
-      toast.error("Erro ao criar flashcard. Tente novamente");
+      toast.error(getErrorMessage(error, "Erro ao criar flashcard. Tente novamente"));
     } finally {
       setIsSaving(false);
     }
@@ -111,7 +112,7 @@ export default function FlashcardCardGallery({
       toast.success("Flashcard atualizado com sucesso!");
     } catch (error) {
       console.error("Erro ao editar flashcard:", error);
-      toast.error("Erro ao atualizar flashcard. Tente novamente");
+      toast.error(getErrorMessage(error, "Erro ao atualizar flashcard. Tente novamente"));
     } finally {
       setIsSaving(false);
     }
@@ -130,7 +131,7 @@ export default function FlashcardCardGallery({
       toast.success("Flashcard excluído com sucesso!");
     } catch (error) {
       console.error("Erro ao excluir flashcard:", error);
-      toast.error("Erro ao excluir flashcard. Tente novamente");
+      toast.error(getErrorMessage(error, "Erro ao excluir flashcard. Tente novamente"));
     } finally {
       setIsDeleting(false);
     }

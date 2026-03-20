@@ -17,6 +17,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Copy, RefreshCw, Trash2, AlertTriangle } from "lucide-react";
+import { getErrorMessage } from "@/lib/errorMessage";
 
 interface GroupSettingsProps {
   group: Group;
@@ -41,7 +42,7 @@ export default function GroupSettings({ group, onUpdate }: GroupSettingsProps) {
       onUpdate();
     } catch (error) {
       console.error("Erro ao atualizar grupo:", error);
-      toast.error("Erro ao atualizar grupo");
+      toast.error(getErrorMessage(error, "Erro ao atualizar grupo"));
     } finally {
       setIsUpdating(false);
     }
@@ -59,7 +60,7 @@ export default function GroupSettings({ group, onUpdate }: GroupSettingsProps) {
       onUpdate(); // reload group data
     } catch (error) {
       console.error("Erro ao gerar novo código:", error);
-      toast.error("Erro ao gerar novo código");
+      toast.error(getErrorMessage(error, "Erro ao gerar novo código"));
     } finally {
       setIsRegenerating(false);
     }
@@ -73,7 +74,7 @@ export default function GroupSettings({ group, onUpdate }: GroupSettingsProps) {
       router.push("/groups");
     } catch (error) {
       console.error("Erro ao deletar grupo:", error);
-      toast.error("Erro ao deletar grupo");
+      toast.error(getErrorMessage(error, "Erro ao deletar grupo"));
       setIsDeleting(false);
       setIsDeleteDialogOpen(false);
     }

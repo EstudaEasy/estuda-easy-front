@@ -22,6 +22,7 @@ import { PreviewDeck } from "./PreviewDeck";
 import { PreviewQuiz } from "./PreviewQuiz";
 import { PreviewTask } from "./PreviewTask";
 import type { Deck, Quiz, Task } from "./resourceTypes";
+import { getErrorMessage } from "@/lib/errorMessage";
 
 interface PreviewModalProps {
   open: boolean;
@@ -154,7 +155,7 @@ export function PreviewModal({
       if (onSaveSuccess) onSaveSuccess();
     } catch (error) {
       console.error("Erro ao salvar recurso:", error);
-      toast.error("Ocorreu um erro ao salvar o recurso.");
+      toast.error(getErrorMessage(error, "Ocorreu um erro ao salvar o recurso."));
     } finally {
       setIsSaving(false);
     }

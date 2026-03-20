@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import GroupService from "@/services/group/GroupService";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { getErrorMessage } from "@/lib/errorMessage";
 
 interface JoinGroupModalProps {
   isOpen: boolean;
@@ -42,10 +43,7 @@ export default function JoinGroupModal({ isOpen, onClose, onSuccess }: JoinGroup
       onClose();
     } catch (error: any) {
       console.error("Erro ao entrar no grupo:", error);
-      toast.error(
-        error.response?.data?.message ||
-          "Erro ao entrar no grupo. Verifique o código e tente novamente.",
-      );
+      toast.error(getErrorMessage(error, "Erro ao entrar no grupo. Verifique o código e tente novamente."));
     } finally {
       setIsLoading(false);
       setInviteCode("");

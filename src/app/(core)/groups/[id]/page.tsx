@@ -13,6 +13,7 @@ import { toast } from "sonner";
 import GroupPosts from "@/components/GroupPosts";
 import GroupMembers from "@/components/GroupMembers";
 import GroupSettings from "@/components/GroupSettings";
+import { getErrorMessage } from "@/lib/errorMessage";
 
 export default function GroupDetails() {
   const params = useParams();
@@ -43,7 +44,7 @@ export default function GroupDetails() {
       }
     } catch (error) {
       console.error("Erro ao carregar detalhes do grupo:", error);
-      toast.error("Erro ao carregar detalhes do grupo");
+      toast.error(getErrorMessage(error, "Erro ao carregar detalhes do grupo"));
     } finally {
       setIsLoading(false);
     }

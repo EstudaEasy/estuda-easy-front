@@ -28,6 +28,7 @@ import { Group, CreateGroupRequest } from "@/types";
 import { toast } from "sonner";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { getErrorMessage } from "@/lib/errorMessage";
 
 export default function Groups() {
   const router = useRouter();
@@ -52,7 +53,7 @@ export default function Groups() {
       setGroups(response.data.groups || []);
     } catch (error) {
       console.log("Error fetching groups:", error);
-      toast.error("Erro ao carregar grupos");
+      toast.error(getErrorMessage(error, "Erro ao carregar grupos"));
     }
   };
 
@@ -73,7 +74,7 @@ export default function Groups() {
       toast.success("Grupo criado com sucesso!");
     } catch (error) {
       console.error("Erro ao criar grupo:", error);
-      toast.error("Erro ao criar grupo. Tente novamente");
+      toast.error(getErrorMessage(error, "Erro ao criar grupo. Tente novamente"));
     } finally {
       setIsCreating(false);
     }
@@ -94,7 +95,7 @@ export default function Groups() {
       toast.success("Grupo atualizado com sucesso!");
     } catch (error) {
       console.error("Erro ao editar grupo:", error);
-      toast.error("Erro ao editar grupo. Tente novamente");
+      toast.error(getErrorMessage(error, "Erro ao editar grupo. Tente novamente"));
     } finally {
       setIsCreating(false);
     }
@@ -113,7 +114,7 @@ export default function Groups() {
       toast.success("Grupo excluído com sucesso!");
     } catch (error) {
       console.error("Erro ao excluir grupo:", error);
-      toast.error("Erro ao excluir grupo. Tente novamente");
+      toast.error(getErrorMessage(error, "Erro ao excluir grupo. Tente novamente"));
     } finally {
       setIsDeleting(false);
     }

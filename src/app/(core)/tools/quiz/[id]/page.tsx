@@ -24,6 +24,7 @@ import { toast } from "sonner";
 import LoadingState from "@/components/LoadingState";
 import ShareResourceModal from "@/components/ShareResourceModal";
 import { useResourcePermission } from "@/hooks/useResourcePermission";
+import { getErrorMessage } from "@/lib/errorMessage";
 
 export default function QuizDetailPage() {
   const router = useRouter();
@@ -102,7 +103,7 @@ export default function QuizDetailPage() {
       setEditingQuestion(null);
     } catch (err) {
       console.error("Erro ao salvar pergunta:", err);
-      toast.error("Erro ao salvar pergunta. Tente novamente.");
+      toast.error(getErrorMessage(err, "Erro ao salvar pergunta. Tente novamente."));
     } finally {
       setIsSubmitting(false);
     }
@@ -129,7 +130,7 @@ export default function QuizDetailPage() {
       toast.success("Pergunta excluída com sucesso!");
     } catch (err) {
       console.error("Erro ao excluir pergunta:", err);
-      toast.error("Erro ao excluir pergunta. Tente novamente.");
+      toast.error(getErrorMessage(err, "Erro ao excluir pergunta. Tente novamente."));
     }
   };
 
