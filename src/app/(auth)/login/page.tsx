@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import styles from "../auth.module.css";
 import Image from "next/image";
 import Link from "next/link";
@@ -13,7 +13,7 @@ import { useAuth } from "@/context/auth";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 
-export default function LoginPage() {
+function LoginPageContent() {
   const { login, isLoading } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -84,5 +84,13 @@ export default function LoginPage() {
         </p>
       </main>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className={styles.container} />}>
+      <LoginPageContent />
+    </Suspense>
   );
 }
