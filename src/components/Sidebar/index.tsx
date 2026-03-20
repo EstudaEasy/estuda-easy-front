@@ -9,6 +9,7 @@ import {
   SidebarGroupAction,
   SidebarGroupContent,
   SidebarGroupLabel,
+  SidebarHeader,
   SidebarMenu,
   SidebarSeparator,
 } from "../ui/sidebar";
@@ -18,6 +19,9 @@ import NavItem, { NavItemProps } from "./navItem";
 import CollapsibleNavItem from "./collapsibleNavItem";
 import { NavUser } from "./navUser";
 import { useAuth } from "@/context/auth";
+import Image from "next/image";
+import LogoPrincipal from "@/assets/EstudaEasyLogoPrincipal.png";
+import LogoReduzida from "@/assets/EstudaEasyLogoReduzida.png";
 
 type IconComponent = ComponentType<{ size?: number | string } | LucideProps>;
 
@@ -73,6 +77,7 @@ export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sid
 
   return (
     <Sidebar collapsible="icon" {...props}>
+<<<<<<< HEAD
       {/* Logo Header */}
       <div className="px-4 py-4 border-b border-gray-200 flex items-center space-x-2">
         <div
@@ -85,6 +90,22 @@ export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sid
           EstudaEasy
         </span>
       </div>
+=======
+      <SidebarHeader className="items-start border-b border-sidebar-border/60 px-4 py-2 pt-10 group-data-[collapsible=icon]:items-center group-data-[collapsible=icon]:px-0">
+        <Image
+          src={LogoPrincipal}
+          alt="EstudaEasy"
+          className="h-auto w-30 object-contain group-data-[collapsible=icon]:hidden"
+          priority
+        />
+        <Image
+          src={LogoReduzida}
+          alt="EstudaEasy"
+          className="hidden h-7 w-7 origin-center object-contain group-data-[collapsible=icon]:block group-data-[collapsible=icon]:scale-125"
+          priority
+        />
+      </SidebarHeader>
+>>>>>>> 9aaf244 (feat: adds system logos to the sidebar (main and reduced))
 
       <SidebarContent>
         {NAV_GROUPS.map((group, groupIndex) => (
