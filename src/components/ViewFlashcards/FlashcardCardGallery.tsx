@@ -166,18 +166,17 @@ export default function FlashcardCardGallery({
         ))}
 
         <div
-          className="bg-slate-50 border-2 border-dashed border-slate-300 rounded-xl h-[450px] w-75 flex items-center justify-center cursor-pointer text-slate-400 transition-all duration-200 hover:bg-slate-100 hover:border-blue-500 hover:text-blue-500 hover:-translate-y-1 flex-shrink-0"
+          className="bg-slate-50 border-2 border-dashed border-slate-300 rounded-xl h-[450px] w-75 flex items-center justify-center cursor-pointer text-slate-400 transition-all duration-200 hover:bg-slate-100 hover:border-blue-500 hover:text-blue-500 hover:-translate-y-1 flex-shrink-0 flex-col margin-top: 200px;"
           onClick={openCreateModal}
           title="Criar Novo Flashcard"
         >
           <LuPlus size={48} />
+          {flashcards.length === 0 && (
+            <p className="text-slate-500 text-center col-span-full py-10 text-base">
+              Este deck ainda não tem flashcards. Crie um clicando nesta carta!
+            </p>
+          )}
         </div>
-
-        {flashcards.length === 0 && (
-          <p className="text-slate-500 text-center col-span-full py-10 text-base">
-            Este deck ainda não tem flashcards. Crie um clicando na carta "+" ao lado!
-          </p>
-        )}
       </div>
 
       <Dialog

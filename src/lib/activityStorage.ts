@@ -2,6 +2,8 @@ export interface Activity {
   id: string;
   title: string;
   tool: "Quiz" | "Flashcards" | "Tarefas" | "Pomodoro" | "Diário";
+  resourceId: string; // ID do item real (deck, task, quiz, etc)
+  resourceType: "deck" | "task" | "quiz" | "diary" | "whiteboard"; // Tipo de recurso
   timestamp: number;
   icon: "LuBrain" | "LuBookOpen" | "LuBook" | "LuClock" | "LuBook";
   iconClass: string;
@@ -27,6 +29,8 @@ export const activityStorage = {
         tool: activity.tool,
         icon: activity.icon,
         iconClass: activity.iconClass,
+        resourceId: activity.resourceId,
+        resourceType: activity.resourceType,
         timestamp: Date.now(),
       };
 
@@ -37,6 +41,19 @@ export const activityStorage = {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(trimmed));
     } catch (error) {
       console.error("Erro ao salvar atividade:", error);
+    }
+  },
+
+  removeActivity(resourceId: string): void {
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      const activities: Activity[] = stored ? JSON.parse(stored) : [];
+
+      const filtered = activities.filter((activity) => activity.resourceId !== resourceId);
+
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(filtered));
+    } catch (error) {
+      console.error("Erro ao remover atividade:", error);
     }
   },
 

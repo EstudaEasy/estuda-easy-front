@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Typography } from "@/components/ui/typography";
@@ -15,14 +16,26 @@ const iconMap = {
   LuClock: LuTimer,
 };
 
+const getRouteByResourceType = (resourceType: string, resourceId: string): string => {
+  const routes: Record<string, string> = {
+    deck: `/tools/flashcards/${resourceId}`,
+    task: `/tools/tasks`,
+    quiz: `/tools/quiz/${resourceId}`,
+    diary: `/tools/diary`,
+    whiteboard: `/tools/whiteboard/${resourceId}`,
+  };
+  return routes[resourceType] || "/";
+};
+
 export default function ActivitySection() {
+  const router = useRouter();
   const { activities, isLoading } = useActivities(50);
 
-  // Deduplicar atividades: manter apenas a mais recente de cada título
+  // Deduplicar atividades: manter apenas a mais recente de cada resourceId
   const deduplicatedActivities = Array.from(
     activities
       .reduce((map, item) => {
-        const key = `${item.title}-${item.tool}`;
+        const key = item.resourceId;
         const existing = map.get(key);
 
         // Se não existe ou a nova é mais recente, sobrescrever
@@ -34,6 +47,11 @@ export default function ActivitySection() {
       }, new Map<string, (typeof activities)[0]>())
       .values(),
   ).slice(0, 3);
+
+  const handleActivityClick = (activity: (typeof activities)[0]) => {
+    const route = getRouteByResourceType(activity.resourceType, activity.resourceId);
+    router.push(route);
+  };
 
   return (
     <div className="flex flex-col gap-4">
@@ -57,7 +75,11 @@ export default function ActivitySection() {
           {deduplicatedActivities.map((item) => {
             const IconComponent = iconMap[item.icon as keyof typeof iconMap] || LuBrain;
             return (
-              <Card key={item.id} className="flex flex-col gap-3 p-4">
+              <Card
+                key={item.id}
+                className="flex flex-col gap-3 p-4 cursor-pointer hover:shadow-md hover:bg-slate-50 transition-all"
+                onClick={() => handleActivityClick(item)}
+              >
                 <div className="flex items-start justify-between">
                   <div className={`flex-shrink-0 p-2 rounded-md ${item.iconClass}`}>
                     <IconComponent size={18} />
