@@ -4,7 +4,7 @@ import { useState } from "react";
 import styles from "../auth.module.css";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Input } from "@/components/FormInput/page";
 
 import GoogleIcon from "@/assets/_Google.png";
@@ -19,12 +19,14 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       await login({ email, password });
-      router.replace("/home");
+      const redirectPath = searchParams.get("redirect");
+      router.replace(redirectPath || "/home");
     } catch (error) {
       console.log("Erro no login:", error);
       toast.error("Erro no login");

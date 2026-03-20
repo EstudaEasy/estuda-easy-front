@@ -13,6 +13,7 @@ interface ViewWhiteboardProps {
   onCreateWhiteboard?: () => void;
   onEditWhiteboard?: (whiteboard: WhiteboardResponse) => void;
   onDeleteWhiteboard?: (whiteboard: WhiteboardResponse) => void;
+  onShareWhiteboard?: (whiteboard: WhiteboardResponse) => void;
 }
 
 export default function ViewWhiteboard({
@@ -20,6 +21,7 @@ export default function ViewWhiteboard({
   onCreateWhiteboard,
   onEditWhiteboard,
   onDeleteWhiteboard,
+  onShareWhiteboard,
 }: ViewWhiteboardProps) {
   const router = useRouter();
   const [whiteboards, setWhiteboards] = useState<WhiteboardResponse[]>([]);
@@ -71,6 +73,7 @@ export default function ViewWhiteboard({
               onClick={() => router.push(`/tools/whiteboard/${whiteboard.id}`)}
               onEdit={onEditWhiteboard}
               onDelete={onDeleteWhiteboard}
+              onShare={onShareWhiteboard}
             />
           ))}
         </div>

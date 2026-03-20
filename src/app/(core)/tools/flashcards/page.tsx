@@ -27,6 +27,7 @@ import { DeckFormData } from "@/components/DeckForm/deckForm.schema";
 import { Deck } from "@/types";
 import DeckService from "@/services/deck/DeckService";
 import { toast } from "sonner";
+import ShareResourceModal from "@/components/ShareResourceModal";
 
 export default function Flashcards() {
   const [refreshTrigger, setRefreshTrigger] = useState(0);
@@ -36,6 +37,9 @@ export default function Flashcards() {
   const [isSaving, setIsSaving] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [editingDeck, setEditingDeck] = useState<Deck | null>(null);
+
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [sharingDeckId, setSharingDeckId] = useState<string | null>(null);
 
   const handleCreateDeck = async (data: DeckFormData) => {
     try {
@@ -100,6 +104,11 @@ export default function Flashcards() {
     setIsEditModalOpen(true);
   };
 
+  const openShareModal = (deck: Deck) => {
+    setSharingDeckId(deck.resourceId);
+    setIsShareModalOpen(true);
+  };
+
   return (
     <Page>
       <Page.Header
@@ -118,6 +127,7 @@ export default function Flashcards() {
             setIsDeleteDialogOpen(true);
           }}
           onCreateDeck={() => setIsCreateModalOpen(true)}
+          onShareDeck={openShareModal}
         />
       </Page.Content>
 
@@ -205,6 +215,17 @@ export default function Flashcards() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      {sharingDeckId && (
+        <ShareResourceModal
+          isOpen={isShareModalOpen}
+          onClose={() => {
+            setIsShareModalOpen(false);
+            setSharingDeckId(null);
+          }}
+          resourceId={sharingDeckId}
+        />
+      )}
     </Page>
   );
 }

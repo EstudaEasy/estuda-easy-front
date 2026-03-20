@@ -8,4 +8,5 @@ export interface QuizCardProps {
   quiz?: Quiz;
   onEdit?: (quiz: Quiz) => void;
   onDelete?: (quiz: Quiz) => void;
+  onShare?: (quiz: Quiz) => void;
 }

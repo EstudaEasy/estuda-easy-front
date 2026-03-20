@@ -8,13 +8,21 @@ import { activityStorage } from "@/lib/activityStorage";
 import { cn } from "@/lib/utils";
 
 const FlashcardCard = React.forwardRef<HTMLDivElement, FlashcardCardProps>(
-  ({ title, cardsCount, onClick, className, deck, onEdit, onDelete }, ref) => {
+  ({ title, cardsCount, onClick, className, deck, onEdit, onDelete, onShare }, ref) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const handleEdit = (e: React.MouseEvent) => {
       e.stopPropagation();
       if (onEdit && deck) {
         onEdit(deck);
+        setIsMenuOpen(false);
+      }
+    };
+
+    const handleShareClick = (e: React.MouseEvent) => {
+      e.stopPropagation();
+      if (onShare && deck) {
+        onShare(deck);
         setIsMenuOpen(false);
       }
     };
@@ -61,7 +69,7 @@ const FlashcardCard = React.forwardRef<HTMLDivElement, FlashcardCardProps>(
             </Typography>
           </div>
 
-          {(onEdit || onDelete) && (
+          {(onEdit || onDelete || onShare) && (
             <div className="relative">
               <button
                 onClick={handleMenuClick}
@@ -73,6 +81,14 @@ const FlashcardCard = React.forwardRef<HTMLDivElement, FlashcardCardProps>(
 
               {isMenuOpen && (
                 <div className="absolute right-0 top-full mt-1 bg-white border border-slate-200 rounded-lg shadow-md z-50 min-w-[150px]">
+                  {onShare && (
+                    <button
+                      onClick={handleShareClick}
+                      className="w-full text-left px-4 py-2 hover:bg-slate-50 text-sm text-slate-700 font-medium border-b border-slate-100 transition-colors"
+                    >
+                      Compartilhar
+                    </button>
+                  )}
                   {onEdit && (
                     <button
                       onClick={handleEdit}
@@ -81,12 +97,14 @@ const FlashcardCard = React.forwardRef<HTMLDivElement, FlashcardCardProps>(
                       Editar
                     </button>
                   )}
-                  <button
-                    onClick={handleDeleteClick}
-                    className="w-full text-left px-4 py-2 hover:bg-red-50 text-sm text-red-600 font-medium transition-colors"
-                  >
-                    Deletar
-                  </button>
+                  {onDelete && (
+                    <button
+                      onClick={handleDeleteClick}
+                      className="w-full text-left px-4 py-2 hover:bg-red-50 text-sm text-red-600 font-medium transition-colors"
+                    >
+                      Deletar
+                    </button>
+                  )}
                 </div>
               )}
             </div>

@@ -28,6 +28,7 @@ import { QuizFormData } from "@/components/QuizForm/quizForm.schema";
 import QuizService from "@/services/quiz/QuizService";
 import { CreateQuizRequest, Quiz } from "@/types";
 import { toast } from "sonner";
+import ShareResourceModal from "@/components/ShareResourceModal";
 
 export default function QuizPage() {
   const router = useRouter();
@@ -38,6 +39,9 @@ export default function QuizPage() {
   const [isDeleting, setIsDeleting] = useState(false);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
   const [editingQuiz, setEditingQuiz] = useState<Quiz | null>(null);
+
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [sharingQuizId, setSharingQuizId] = useState<string | null>(null);
 
   const handleCreateQuiz = async (data: QuizFormData) => {
     try {
@@ -103,6 +107,11 @@ export default function QuizPage() {
     setIsEditModalOpen(true);
   };
 
+  const openShareModal = (quiz: Quiz) => {
+    setSharingQuizId(quiz.resourceId);
+    setIsShareModalOpen(true);
+  };
+
   return (
     <Page>
       <Page.Header
@@ -122,6 +131,7 @@ export default function QuizPage() {
             setIsDeleteDialogOpen(true);
           }}
           onCreateQuiz={() => setIsCreateModalOpen(true)}
+          onShareQuiz={openShareModal}
         />
       </Page.Content>
 
@@ -206,6 +216,17 @@ export default function QuizPage() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      {sharingQuizId && (
+        <ShareResourceModal
+          isOpen={isShareModalOpen}
+          onClose={() => {
+            setIsShareModalOpen(false);
+            setSharingQuizId(null);
+          }}
+          resourceId={sharingQuizId}
+        />
+      )}
     </Page>
   );
 }

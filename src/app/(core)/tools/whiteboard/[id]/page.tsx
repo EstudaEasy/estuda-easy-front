@@ -10,7 +10,9 @@ import { SidebarTrigger, useSidebar } from "@/components/ui/sidebar";
 import WhiteboardService from "@/services/whiteboard/WhiteboardService";
 import { WhiteboardResponse } from "@/types/whiteboard";
 import { toast } from "sonner";
-import { Save, ArrowLeft } from "lucide-react";
+import { Save, ArrowLeft, Share2 } from "lucide-react";
+import ShareResourceModal from "@/components/ShareResourceModal";
+import { useResourcePermission } from "@/hooks/useResourcePermission";
 
 export default function WhiteboardEditor() {
   const params = useParams();
@@ -24,6 +26,9 @@ export default function WhiteboardEditor() {
   const [whiteboard, setWhiteboard] = useState<WhiteboardResponse | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+
+  const { canEdit } = useResourcePermission(whiteboard?.resourceId);
 
   useEffect(() => {
     loadWhiteboard();
@@ -122,10 +127,16 @@ export default function WhiteboardEditor() {
 
         <h1 className="text-xl font-bold text-gray-800">{whiteboard?.title}</h1>
 
-        <Button onClick={handleSave} disabled={isSaving || !editor} className="gap-2">
-          <Save size={16} />
-          {isSaving ? "Salvando..." : "Salvar"}
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button variant="outline" onClick={() => setIsShareModalOpen(true)} className="gap-2">
+            <Share2 size={16} />
+            Compartilhar
+          </Button>
+          <Button onClick={handleSave} disabled={isSaving || !editor || !canEdit} className="gap-2">
+            <Save size={16} />
+            {isSaving ? "Salvando..." : "Salvar"}
+          </Button>
+        </div>
       </div>
 
       <div className="flex-1 relative">
@@ -133,6 +144,13 @@ export default function WhiteboardEditor() {
           <Tldraw onMount={handleMount} forceMobile={false} />
         </div>
       </div>
+      {whiteboard && (
+        <ShareResourceModal
+          isOpen={isShareModalOpen}
+          onClose={() => setIsShareModalOpen(false)}
+          resourceId={whiteboard.resourceId}
+        />
+      )}
     </div>
   );
 }

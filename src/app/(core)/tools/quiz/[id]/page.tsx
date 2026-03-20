@@ -19,8 +19,10 @@ import {
 } from "@/components/ui/dialog";
 import QuestionForm from "@/components/QuestionForm";
 import { QuestionFormData } from "@/components/QuestionForm/questionForm.schema";
-import { LuArrowLeft, LuPencil, LuPlay, LuPlus, LuTrash2 } from "react-icons/lu";
+import { LuArrowLeft, LuPencil, LuPlay, LuPlus, LuTrash2, LuShare2 } from "react-icons/lu";
 import { toast } from "sonner";
+import ShareResourceModal from "@/components/ShareResourceModal";
+import { useResourcePermission } from "@/hooks/useResourcePermission";
 
 export default function QuizDetailPage() {
   const router = useRouter();
@@ -33,6 +35,7 @@ export default function QuizDetailPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [editingQuestion, setEditingQuestion] = useState<QuizItem | null>(null);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const [deleteConfirmation, setDeleteConfirmation] = useState<{
     isOpen: boolean;
     questionId?: number;
@@ -40,6 +43,8 @@ export default function QuizDetailPage() {
   }>({
     isOpen: false,
   });
+
+  const { canEdit } = useResourcePermission(quiz?.resourceId);
 
   useEffect(() => {
     async function fetchQuiz() {
@@ -157,13 +162,19 @@ export default function QuizDetailPage() {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex items-center gap-3">
-        <Button variant="ghost" size="icon" onClick={() => router.back()} aria-label="Voltar">
-          <LuArrowLeft size={20} />
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center gap-3">
+          <Button variant="ghost" size="icon" onClick={() => router.back()} aria-label="Voltar">
+            <LuArrowLeft size={20} />
+          </Button>
+          <Typography variant="heading-3" color="primary">
+            {quiz.title}
+          </Typography>
+        </div>
+        <Button variant="outline" className="gap-2" onClick={() => setIsShareModalOpen(true)}>
+          <LuShare2 size={16} />
+          Compartilhar
         </Button>
-        <Typography variant="heading-3" color="primary">
-          {quiz.title}
-        </Typography>
       </div>
 
       <Card>
@@ -194,10 +205,12 @@ export default function QuizDetailPage() {
             </Typography>
             <Badge variant="secondary">{quiz.items?.length || 0}</Badge>
           </div>
-          <Button onClick={openNewQuestionModal}>
-            <LuPlus />
-            Nova Pergunta
-          </Button>
+          {canEdit && (
+            <Button onClick={openNewQuestionModal}>
+              <LuPlus />
+              Nova Pergunta
+            </Button>
+          )}
         </div>
 
         <Separator />
@@ -215,31 +228,33 @@ export default function QuizDetailPage() {
                       {item.options?.length || 0} alternativas
                     </Typography>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Button
-                      variant="ghost"
-                      size="icon-sm"
-                      onClick={() => handleEditQuestion(item)}
-                      aria-label="Editar pergunta"
-                    >
-                      <LuPencil size={16} />
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="icon-sm"
-                      className="text-destructive hover:text-destructive"
-                      onClick={() =>
-                        setDeleteConfirmation({
-                          isOpen: true,
-                          questionId: item.id,
-                          questionText: item.question,
-                        })
-                      }
-                      aria-label="Excluir pergunta"
-                    >
-                      <LuTrash2 size={16} />
-                    </Button>
-                  </div>
+                  {canEdit && (
+                    <div className="flex items-center gap-2">
+                      <Button
+                        variant="ghost"
+                        size="icon-sm"
+                        onClick={() => handleEditQuestion(item)}
+                        aria-label="Editar pergunta"
+                      >
+                        <LuPencil size={16} />
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="icon-sm"
+                        className="text-destructive hover:text-destructive"
+                        onClick={() =>
+                          setDeleteConfirmation({
+                            isOpen: true,
+                            questionId: item.id,
+                            questionText: item.question,
+                          })
+                        }
+                        aria-label="Excluir pergunta"
+                      >
+                        <LuTrash2 size={16} />
+                      </Button>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             ))}
@@ -249,9 +264,11 @@ export default function QuizDetailPage() {
             <Typography variant="body-1" color="light">
               Nenhuma pergunta criada ainda.
             </Typography>
-            <Typography variant="caption" color="light">
-              Clique em "Nova Pergunta" para começar
-            </Typography>
+            {canEdit && (
+              <Typography variant="caption" color="light">
+                Clique em "Nova Pergunta" para começar
+              </Typography>
+            )}
           </div>
         )}
       </div>
@@ -333,6 +350,14 @@ export default function QuizDetailPage() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {quiz && (
+        <ShareResourceModal
+          isOpen={isShareModalOpen}
+          onClose={() => setIsShareModalOpen(false)}
+          resourceId={quiz.resourceId}
+        />
+      )}
     </div>
   );
 }

@@ -243,7 +243,9 @@ export function ResourceConverter({
 
     if (optionId === "convert-prefill") {
       appendUserMessage("Sim, quero converter agora!");
-      appendAgentMessage("Ótimo! O recurso de origem já está selecionado. Agora escolha apenas o destino:");
+      appendAgentMessage(
+        "Ótimo! O recurso de origem já está selecionado. Agora escolha apenas o destino:",
+      );
 
       setTimeout(() => {
         appendConversionMessage("Selecione o destino para conversão");

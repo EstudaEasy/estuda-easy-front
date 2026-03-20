@@ -8,4 +8,5 @@ export interface FlashcardCardProps {
   deck?: Deck;
   onEdit?: (deck: Deck) => void;
   onDelete?: (deck: Deck) => void;
+  onShare?: (deck: Deck) => void;
 }

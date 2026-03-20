@@ -17,20 +17,21 @@ export function AgentMessage({ message, onOptionClick }: AgentMessageProps) {
         <p className="text-sm text-gray-900">{message.content}</p>
         {message.options && (
           <div className="flex flex-col gap-2 mt-3">
-            {message.options.map((option) => (
-              !option.clicked && (
-                <Button
-                  key={option.id}
-                  variant="outline"
-                  size="sm"
-                  onClick={() => onOptionClick(option.id, message.id)}
-                  className="justify-start"
-                >
-                  <span className="mr-2">{option.icon}</span>
-                  {option.label}
-                </Button>
-              )
-            ))}
+            {message.options.map(
+              (option) =>
+                !option.clicked && (
+                  <Button
+                    key={option.id}
+                    variant="outline"
+                    size="sm"
+                    onClick={() => onOptionClick(option.id, message.id)}
+                    className="justify-start"
+                  >
+                    <span className="mr-2">{option.icon}</span>
+                    {option.label}
+                  </Button>
+                ),
+            )}
           </div>
         )}
       </div>

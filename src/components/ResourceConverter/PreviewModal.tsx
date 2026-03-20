@@ -109,7 +109,7 @@ export function PreviewModal({
 
     const taskData = normalizedData as Task;
     const [year, month, day] = taskDate.split("-").map(Number);
-    
+
     const startDateObj = new Date(year, month - 1, day);
     if (taskStartTime) {
       const [hours, minutes] = taskStartTime.split(":").map(Number);

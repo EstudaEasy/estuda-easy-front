@@ -408,6 +408,52 @@ export interface paths {
     patch: operations["GroupMemberController_changeRole"];
     trace?: never;
   };
+  "/groups/{groupId}/posts": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Buscar posts de um grupo */
+    get: operations["GroupPostController_find"];
+    put?: never;
+    /**
+     * Criar um novo post no grupo
+     * @description Regra de negócio: o usuário-autor do post deve pertencer ao grupo.
+     */
+    post: operations["GroupPostController_create"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/groups/{groupId}/posts/{postId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Buscar um post do grupo por ID */
+    get: operations["GroupPostController_findOne"];
+    put?: never;
+    post?: never;
+    /**
+     * Deletar um post do grupo
+     * @description O post pode ser deletado pelo autor do post, pelo dono do grupo ou por um admin do grupo.
+     */
+    delete: operations["GroupPostController_delete"];
+    options?: never;
+    head?: never;
+    /**
+     * Atualizar um post do grupo
+     * @description Apenas o autor do post pode editar.
+     */
+    patch: operations["GroupPostController_update"];
+    trace?: never;
+  };
   "/quizzes": {
     parameters: {
       query?: never;
@@ -520,6 +566,42 @@ export interface paths {
      */
     post: operations["ResourceConversionController_convert"];
     delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/resources/favorites": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Buscar recursos favoritos do usuário autenticado */
+    get: operations["ResourceFavoriteController_find"];
+    put?: never;
+    /** Favoritar um recurso para o usuário autenticado */
+    post: operations["ResourceFavoriteController_create"];
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/resources/favorites/{favoriteId}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /** Buscar um recurso favorito por ID */
+    get: operations["ResourceFavoriteController_findOne"];
+    put?: never;
+    post?: never;
+    /** Remover um recurso dos favoritos do usuário autenticado */
+    delete: operations["ResourceFavoriteController_delete"];
     options?: never;
     head?: never;
     patch?: never;
@@ -988,7 +1070,7 @@ export interface components {
     UpdateDiaryAudioBodyDTO: {
       /**
        * Format: binary
-       * @description Arquivo de áudio (.mp3, .wav, .ogg) com tamanho máximo de 10MB.
+       * @description Arquivo de áudio (.mp3, .wav, .ogg, .m4a, .opus, .webm) com tamanho máximo de 10MB.
        */
       file: string;
     };
@@ -1213,6 +1295,65 @@ export interface components {
        * @enum {string}
        */
       role: "owner" | "admin" | "member";
+    };
+    CreateGroupPostBodyDTO: {
+      /**
+       * @description Conteúdo do post no grupo
+       * @example Vamos revisar matemática às 19h hoje!
+       */
+      content: string;
+    };
+    GroupPostResponseDTO: {
+      /**
+       * @description ID único do post
+       * @example 550e8400-e29b-41d4-a716-446655440001
+       */
+      id: string;
+      /**
+       * @description Conteúdo do post no grupo
+       * @example Vamos revisar matemática às 19h hoje!
+       */
+      content: string;
+      /**
+       * @description ID do grupo ao qual o post pertence
+       * @example 550e8400-e29b-41d4-a716-446655440000
+       */
+      groupId: string;
+      /**
+       * @description ID do autor do post
+       * @example 12
+       */
+      authorId: number;
+      /** @description Dados do autor do post */
+      author?: components["schemas"]["UserResponseDTO"];
+      /**
+       * Format: date-time
+       * @description Data de criação do registro
+       * @example 2024-01-15T10:30:00.000Z
+       */
+      createdAt: string;
+      /**
+       * Format: date-time
+       * @description Data da última atualização do registro
+       * @example 2024-01-15T10:30:00.000Z
+       */
+      updatedAt: string;
+    };
+    FindGroupPostsResponseDTO: {
+      /** @description Lista de posts do grupo */
+      posts: components["schemas"]["GroupPostResponseDTO"][];
+      /**
+       * @description Total de posts encontrados
+       * @example 25
+       */
+      total: number;
+    };
+    UpdateGroupPostBodyDTO: {
+      /**
+       * @description Conteúdo do post no grupo
+       * @example Vamos revisar matemática às 19h hoje!
+       */
+      content?: string;
     };
     CreateQuizBodyDTO: {
       /**
@@ -1505,6 +1646,170 @@ export interface components {
        */
       type: "deck" | "diary" | "quiz" | "task" | "whiteboard";
     };
+    CreateResourceFavoriteBodyDTO: {
+      /**
+       * @description ID do recurso a ser marcado como favorito
+       * @example 550e8400-e29b-41d4-a716-446655440000
+       */
+      resourceId: string;
+    };
+    TaskResponseDTO: {
+      /**
+       * @description ID único da tarefa
+       * @example 550e8400-e29b-41d4-a716-446655440000
+       */
+      id: string;
+      /**
+       * @description Nome da tarefa
+       * @example Estudar matemática
+       */
+      name: string;
+      /**
+       * @description Descrição da tarefa
+       * @example Revisar álgebra linear e cálculo diferencial
+       */
+      description?: string;
+      /**
+       * @description Status da tarefa
+       * @example pending
+       * @enum {string}
+       */
+      status: "pending" | "in_progress" | "completed" | "cancelled";
+      /**
+       * Format: date-time
+       * @description Data de início da tarefa
+       * @example 2024-01-15T10:00:00.000Z
+       */
+      startDate?: string;
+      /**
+       * Format: date-time
+       * @description Data de término da tarefa
+       * @example 2024-01-20T18:00:00.000Z
+       */
+      endDate?: string;
+      /**
+       * @description ID do recurso associado ao quiz
+       * @example 550e8400-e29b-41d4-a716-446655440000
+       */
+      resourceId: string;
+      /**
+       * Format: date-time
+       * @description Data de criação do registro
+       * @example 2024-01-15T10:30:00.000Z
+       */
+      createdAt: string;
+      /**
+       * Format: date-time
+       * @description Data da última atualização do registro
+       * @example 2024-01-15T10:30:00.000Z
+       */
+      updatedAt: string;
+    };
+    WhiteboardResponseDTO: {
+      /**
+       * @description ID único do whiteboard
+       * @example 550e8400-e29b-41d4-a716-446655440000
+       */
+      id: string;
+      /**
+       * @description Título do whiteboard
+       * @example Brainstorming de Projeto
+       */
+      title: string;
+      /** @description Dados do whiteboard em formato JSON */
+      content: Record<string, never>;
+      /**
+       * @description ID do recurso associado ao quiz
+       * @example 550e8400-e29b-41d4-a716-446655440000
+       */
+      resourceId: string;
+      /**
+       * Format: date-time
+       * @description Data de criação do registro
+       * @example 2024-01-15T10:30:00.000Z
+       */
+      createdAt: string;
+      /**
+       * Format: date-time
+       * @description Data da última atualização do registro
+       * @example 2024-01-15T10:30:00.000Z
+       */
+      updatedAt: string;
+    };
+    ResourceResponseDTO: {
+      /**
+       * @description ID único do recurso
+       * @example 550e8400-e29b-41d4-a716-446655440000
+       */
+      id: string;
+      /**
+       * @description Tipo do recurso favoritado
+       * @example deck
+       * @enum {string}
+       */
+      type: "deck" | "diary" | "quiz" | "task" | "whiteboard";
+      /**
+       * @description ID do usuário dono do recurso
+       * @example 10
+       */
+      userId: number;
+      /** @description Dados do deck, quando o tipo do recurso for deck */
+      deck?: components["schemas"]["DeckResponseDTO"];
+      /** @description Dados do diário, quando o tipo do recurso for diary */
+      diary?: components["schemas"]["DiaryResponseDTO"];
+      /** @description Dados do quiz, quando o tipo do recurso for quiz */
+      quiz?: components["schemas"]["QuizResponseDTO"];
+      /** @description Dados da tarefa, quando o tipo do recurso for task */
+      task?: components["schemas"]["TaskResponseDTO"];
+      /** @description Dados do whiteboard, quando o tipo do recurso for whiteboard */
+      whiteboard?: components["schemas"]["WhiteboardResponseDTO"];
+      /**
+       * Format: date-time
+       * @description Data de criação do recurso
+       * @example 2026-01-15T10:30:00.000Z
+       */
+      createdAt: string;
+      /**
+       * Format: date-time
+       * @description Data da última atualização do recurso
+       * @example 2026-01-15T10:30:00.000Z
+       */
+      updatedAt: string;
+    };
+    ResourceFavoriteResponseDTO: {
+      /**
+       * @description ID único do favorito
+       * @example 550e8400-e29b-41d4-a716-446655440001
+       */
+      id: string;
+      /**
+       * @description ID do usuário dono do favorito
+       * @example 10
+       */
+      userId: number;
+      /**
+       * @description ID do recurso favoritado
+       * @example 550e8400-e29b-41d4-a716-446655440000
+       */
+      resourceId: string;
+      /** @description Dados do recurso favoritado, incluindo o tipo e a entidade correspondente */
+      resource: components["schemas"]["ResourceResponseDTO"];
+      /**
+       * Format: date-time
+       * @description Data de criação do registro
+       * @example 2026-01-15T10:30:00.000Z
+       */
+      createdAt: string;
+    };
+    FindResourceFavoriteResponseDTO: {
+      /** @description Lista de recursos favoritos */
+      favorites: components["schemas"]["ResourceFavoriteResponseDTO"][];
+      /**
+       * @description Total de recursos favoritos encontrados
+       * @example 15
+       */
+      total: number;
+    };
     ResourceShareResponseDTO: {
       /**
        * @description ID único do compartilhamento
@@ -1662,58 +1967,6 @@ export interface components {
        */
       endDate?: string;
     };
-    TaskResponseDTO: {
-      /**
-       * @description ID único da tarefa
-       * @example 550e8400-e29b-41d4-a716-446655440000
-       */
-      id: string;
-      /**
-       * @description Nome da tarefa
-       * @example Estudar matemática
-       */
-      name: string;
-      /**
-       * @description Descrição da tarefa
-       * @example Revisar álgebra linear e cálculo diferencial
-       */
-      description?: string;
-      /**
-       * @description Status da tarefa
-       * @example pending
-       * @enum {string}
-       */
-      status: "pending" | "in_progress" | "completed" | "cancelled";
-      /**
-       * Format: date-time
-       * @description Data de início da tarefa
-       * @example 2024-01-15T10:00:00.000Z
-       */
-      startDate?: string;
-      /**
-       * Format: date-time
-       * @description Data de término da tarefa
-       * @example 2024-01-20T18:00:00.000Z
-       */
-      endDate?: string;
-      /**
-       * @description ID do recurso associado ao quiz
-       * @example 550e8400-e29b-41d4-a716-446655440000
-       */
-      resourceId: string;
-      /**
-       * Format: date-time
-       * @description Data de criação do registro
-       * @example 2024-01-15T10:30:00.000Z
-       */
-      createdAt: string;
-      /**
-       * Format: date-time
-       * @description Data da última atualização do registro
-       * @example 2024-01-15T10:30:00.000Z
-       */
-      updatedAt: string;
-    };
     FindTaskResponseDTO: {
       /** @description Lista de tarefas */
       tasks: components["schemas"]["TaskResponseDTO"][];
@@ -1821,37 +2074,6 @@ export interface components {
       title: string;
       /** @description Dados do whiteboard em formato JSON */
       content: Record<string, never>;
-    };
-    WhiteboardResponseDTO: {
-      /**
-       * @description ID único do whiteboard
-       * @example 550e8400-e29b-41d4-a716-446655440000
-       */
-      id: string;
-      /**
-       * @description Título do whiteboard
-       * @example Brainstorming de Projeto
-       */
-      title: string;
-      /** @description Dados do whiteboard em formato JSON */
-      content: Record<string, never>;
-      /**
-       * @description ID do recurso associado ao quiz
-       * @example 550e8400-e29b-41d4-a716-446655440000
-       */
-      resourceId: string;
-      /**
-       * Format: date-time
-       * @description Data de criação do registro
-       * @example 2024-01-15T10:30:00.000Z
-       */
-      createdAt: string;
-      /**
-       * Format: date-time
-       * @description Data da última atualização do registro
-       * @example 2024-01-15T10:30:00.000Z
-       */
-      updatedAt: string;
     };
     FindWhiteboardResponseDTO: {
       /** @description Lista de whiteboards */
@@ -3021,6 +3243,182 @@ export interface operations {
       };
     };
   };
+  GroupPostController_find: {
+    parameters: {
+      query?: {
+        /** @description ID do post do grupo */
+        id?: string;
+        /** @description Filtrar por conteúdo do post */
+        content?: string;
+        /** @description Filtrar por ID do autor do post */
+        authorId?: number;
+      };
+      header?: never;
+      path: {
+        /** @description ID do grupo */
+        groupId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Posts retornados com sucesso */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["FindGroupPostsResponseDTO"];
+        };
+      };
+    };
+  };
+  GroupPostController_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do grupo */
+        groupId: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["CreateGroupPostBodyDTO"];
+      };
+    };
+    responses: {
+      /** @description Post criado com sucesso */
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["GroupPostResponseDTO"];
+        };
+      };
+      /** @description Membro do grupo não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  GroupPostController_findOne: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do grupo */
+        groupId: string;
+        /** @description ID do post */
+        postId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Post encontrado */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["GroupPostResponseDTO"];
+        };
+      };
+      /** @description Post do grupo não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  GroupPostController_delete: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do grupo */
+        groupId: string;
+        /** @description ID do post */
+        postId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Post deletado com sucesso */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Somente autor, dono ou admin do grupo podem deletar */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Post do grupo não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  GroupPostController_update: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do grupo */
+        groupId: string;
+        /** @description ID do post */
+        postId: string;
+      };
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["UpdateGroupPostBodyDTO"];
+      };
+    };
+    responses: {
+      /** @description Post atualizado com sucesso */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["GroupPostResponseDTO"];
+        };
+      };
+      /** @description Apenas o autor do post pode editar */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Post do grupo não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
   QuizController_find: {
     parameters: {
       query?: {
@@ -3399,6 +3797,129 @@ export interface operations {
       };
       /** @description Conversão entre os tipos informados não é suportada */
       422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  ResourceFavoriteController_find: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Recursos favoritos retornados com sucesso */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["FindResourceFavoriteResponseDTO"];
+        };
+      };
+    };
+  };
+  ResourceFavoriteController_create: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody: {
+      content: {
+        "application/json": components["schemas"]["CreateResourceFavoriteBodyDTO"];
+      };
+    };
+    responses: {
+      /** @description Recurso favoritado com sucesso */
+      201: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ResourceFavoriteResponseDTO"];
+        };
+      };
+      /** @description Recurso não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Recurso já está favoritado para o usuário */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  ResourceFavoriteController_findOne: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do favorito */
+        favoriteId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Recurso favorito encontrado */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ResourceFavoriteResponseDTO"];
+        };
+      };
+      /** @description Recurso favorito não encontrado */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+    };
+  };
+  ResourceFavoriteController_delete: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        /** @description ID do favorito */
+        favoriteId: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Recurso favorito removido com sucesso */
+      204: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Sem permissão para remover este favorito */
+      403: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content?: never;
+      };
+      /** @description Recurso favorito não encontrado */
+      404: {
         headers: {
           [name: string]: unknown;
         };
