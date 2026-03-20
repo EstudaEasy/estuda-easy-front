@@ -8,6 +8,7 @@ import { Separator } from "@/components/ui/separator";
 import { LuBrain, LuTimer, LuBookOpen, LuBook } from "react-icons/lu";
 import { useActivities } from "@/hooks/useActivities";
 import { formatTimeAgo } from "@/lib/activityStorage";
+import LoadingState from "@/components/LoadingState";
 
 const iconMap = {
   LuBrain: LuBrain,
@@ -63,9 +64,7 @@ export default function ActivitySection() {
       </div>
 
       {isLoading ? (
-        <div className="text-center py-8">
-          <Typography color="light">Carregando atividades...</Typography>
-        </div>
+        <LoadingState message="Carregando atividades..." variant="inline" />
       ) : deduplicatedActivities.length === 0 ? (
         <div className="text-center py-8">
           <Typography color="light">Nenhuma atividade registrada ainda</Typography>
@@ -81,7 +80,7 @@ export default function ActivitySection() {
                 onClick={() => handleActivityClick(item)}
               >
                 <div className="flex items-start justify-between">
-                  <div className={`flex-shrink-0 p-2 rounded-md ${item.iconClass}`}>
+                  <div className={`shrink-0 p-2 rounded-md ${item.iconClass}`}>
                     <IconComponent size={18} />
                   </div>
                   <Badge variant="outline" className="text-xs">

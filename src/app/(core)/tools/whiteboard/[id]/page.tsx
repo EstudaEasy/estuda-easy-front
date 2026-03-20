@@ -10,6 +10,7 @@ import { SidebarTrigger, useSidebar } from "@/components/ui/sidebar";
 import WhiteboardService from "@/services/whiteboard/WhiteboardService";
 import { WhiteboardResponse } from "@/types/whiteboard";
 import { toast } from "sonner";
+import LoadingState from "@/components/LoadingState";
 import { Save, ArrowLeft, Share2 } from "lucide-react";
 import ShareResourceModal from "@/components/ShareResourceModal";
 import { useResourcePermission } from "@/hooks/useResourcePermission";
@@ -100,13 +101,7 @@ export default function WhiteboardEditor() {
   const sidebarOffset = isMobile ? "0px" : state === "collapsed" ? "3rem" : "16rem";
 
   if (isLoading) {
-    return (
-      <div className="flex h-screen items-center justify-center">
-        <div className="text-center">
-          <div className="text-lg font-semibold text-gray-700">Carregando quadro...</div>
-        </div>
-      </div>
-    );
+    return <LoadingState message="Carregando quadro..." className="h-screen" />;
   }
 
   return (

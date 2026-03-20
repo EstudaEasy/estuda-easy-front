@@ -27,6 +27,7 @@ import { Button } from "@/components/ui/button";
 import FlashcardForm from "@/components/FlashcardForm";
 import { FlashcardFormData } from "@/components/FlashcardForm/flashcardForm.schema";
 import { toast } from "sonner";
+import LoadingState from "@/components/LoadingState";
 
 interface FlashcardStudyPlayProps {
   deckId: string;
@@ -152,13 +153,7 @@ export default function FlashcardStudyPlay({ deckId, onFinish }: FlashcardStudyP
   };
 
   if (loading && flashcards.length === 0) {
-    return (
-      <div className="flex items-center justify-center p-12">
-        <Typography variant="body-1" color="light">
-          Carregando as cartas...
-        </Typography>
-      </div>
-    );
+    return <LoadingState message="Carregando as cartas..." />;
   }
 
   if (!flashcards || flashcards.length === 0) {

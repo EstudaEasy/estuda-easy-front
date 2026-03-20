@@ -7,6 +7,7 @@ import DeckService from "@/services/deck/DeckService";
 import FlashcardCard from "./FlashcardCard";
 import { Typography } from "@/components/ui/typography";
 import EmptyToolState from "@/components/EmptyToolState/EmptyToolState";
+import LoadingState from "@/components/LoadingState";
 
 interface ViewFlashcardsProps {
   refreshTrigger?: number;
@@ -44,13 +45,7 @@ export default function ViewFlashcards({
   }
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center p-12">
-        <Typography variant="body-1" color="light">
-          Carregando decks...
-        </Typography>
-      </div>
-    );
+    return <LoadingState message="Carregando decks..." />;
   }
 
   return (

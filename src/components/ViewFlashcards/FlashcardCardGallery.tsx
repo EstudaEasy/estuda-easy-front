@@ -25,6 +25,7 @@ import {
 import FlashcardForm from "@/components/FlashcardForm";
 import { FlashcardFormData } from "@/components/FlashcardForm/flashcardForm.schema";
 import { toast } from "sonner";
+import LoadingState from "@/components/LoadingState";
 
 interface FlashcardCardGalleryProps {
   deckId: string;
@@ -135,8 +136,7 @@ export default function FlashcardCardGallery({
     }
   };
 
-  if (loading && flashcards.length === 0)
-    return <p className="text-slate-500">Carregando as cartas...</p>;
+  if (loading && flashcards.length === 0) return <LoadingState message="Carregando as cartas..." />;
 
   return (
     <div className="w-full flex flex-col items-center gap-5">

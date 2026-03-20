@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Typography } from "@/components/ui/typography";
 import { LuArrowLeft } from "react-icons/lu";
 import FlashcardStudyPlay from "@/components/ViewFlashcards/FlashcardStudyPlay";
+import LoadingState from "@/components/LoadingState";
 
 export default function FlashcardPlayPage() {
   const router = useRouter();
@@ -54,13 +55,7 @@ export default function FlashcardPlayPage() {
   };
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center p-12">
-        <Typography variant="body-1" color="light">
-          Carregando...
-        </Typography>
-      </div>
-    );
+    return <LoadingState message="Carregando estudo do deck..." />;
   }
 
   return (

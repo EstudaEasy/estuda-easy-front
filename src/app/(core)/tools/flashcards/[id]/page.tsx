@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Typography } from "@/components/ui/typography";
 import { LuArrowLeft, LuShare2 } from "react-icons/lu";
 import FlashcardCardGallery from "@/components/ViewFlashcards/FlashcardCardGallery";
+import LoadingState from "@/components/LoadingState";
 import ShareResourceModal from "@/components/ShareResourceModal";
 import { useResourcePermission } from "@/hooks/useResourcePermission";
 
@@ -45,13 +46,7 @@ export default function FlashcardDeckPage() {
   };
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center p-12">
-        <Typography variant="body-1" color="light">
-          Carregando...
-        </Typography>
-      </div>
-    );
+    return <LoadingState message="Carregando deck..." />;
   }
 
   return (

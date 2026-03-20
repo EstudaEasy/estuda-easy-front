@@ -21,6 +21,7 @@ import QuestionForm from "@/components/QuestionForm";
 import { QuestionFormData } from "@/components/QuestionForm/questionForm.schema";
 import { LuArrowLeft, LuPencil, LuPlay, LuPlus, LuTrash2, LuShare2 } from "react-icons/lu";
 import { toast } from "sonner";
+import LoadingState from "@/components/LoadingState";
 import ShareResourceModal from "@/components/ShareResourceModal";
 import { useResourcePermission } from "@/hooks/useResourcePermission";
 
@@ -138,13 +139,7 @@ export default function QuizDetailPage() {
   };
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center p-12">
-        <Typography variant="body-1" color="light">
-          Carregando...
-        </Typography>
-      </div>
-    );
+    return <LoadingState message="Carregando quiz..." />;
   }
 
   if (error || !quiz) {
