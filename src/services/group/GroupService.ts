@@ -10,6 +10,10 @@ const GroupService = {
     return api.get<GroupsResponse>("/groups");
   },
 
+  join(inviteCode: string) {
+    return api.post<GroupResponse>("/groups/join", { inviteCode });
+  },
+
   getById(groupId: string) {
     return api.get<GroupResponse>(`/groups/${groupId}`);
   },

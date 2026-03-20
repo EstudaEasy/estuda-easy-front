@@ -10,7 +10,16 @@ interface PomodoroTimerProps {
 }
 
 export default function PomodoroTimer({ label, color = "text-[#1A2E5A]" }: PomodoroTimerProps) {
-  const { timeLeft, isRunning, progress, toggleTimer, resetTimer } = usePomodoro();
+  const {
+    mode,
+    timeLeft,
+    isRunning,
+    progress,
+    focusSessionsCompleted,
+    rounds,
+    toggleTimer,
+    resetTimer,
+  } = usePomodoro();
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -52,6 +61,11 @@ export default function PomodoroTimer({ label, color = "text-[#1A2E5A]" }: Pomod
             {formatTime(timeLeft)}
           </span>
           <span className="text-sm text-gray-500 mt-2 uppercase tracking-wider">{label}</span>
+          {mode === "focus" && (
+            <span className="text-xs text-[#1A2E5A] mt-1 font-medium bg-blue-50 px-2 py-0.5 rounded-full">
+              Sessão {(focusSessionsCompleted % rounds) + 1} de {rounds}
+            </span>
+          )}
         </div>
       </div>
 

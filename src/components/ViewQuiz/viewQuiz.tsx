@@ -14,6 +14,7 @@ interface ViewQuizProps {
   onEditQuiz?: (quiz: Quiz) => void;
   onDeleteQuiz?: (quiz: Quiz) => void;
   onCreateQuiz?: () => void;
+  onShareQuiz?: (quiz: Quiz) => void;
 }
 
 export default function ViewQuiz({
@@ -21,6 +22,7 @@ export default function ViewQuiz({
   onEditQuiz,
   onDeleteQuiz,
   onCreateQuiz,
+  onShareQuiz,
 }: ViewQuizProps) {
   const router = useRouter();
   const [quizzes, setQuizzes] = useState<Quiz[]>([]);
@@ -66,6 +68,7 @@ export default function ViewQuiz({
               onClick={() => router.push(`/tools/quiz/${quiz.id}`)}
               onEdit={onEditQuiz}
               onDelete={onDeleteQuiz}
+              onShare={onShareQuiz}
             />
           ))}
         </div>

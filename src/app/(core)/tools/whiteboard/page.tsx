@@ -29,6 +29,7 @@ import WhiteboardService from "@/services/whiteboard/WhiteboardService";
 import { CreateWhiteboardRequest, WhiteboardResponse } from "@/types/whiteboard";
 import { activityStorage } from "@/lib/activityStorage";
 import { toast } from "sonner";
+import ShareResourceModal from "@/components/ShareResourceModal";
 
 export default function Whiteboard() {
   const router = useRouter();
@@ -40,6 +41,9 @@ export default function Whiteboard() {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [editingWhiteboard, setEditingWhiteboard] = useState<WhiteboardResponse | null>(null);
+
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [sharingWhiteboardId, setSharingWhiteboardId] = useState<string | null>(null);
 
   const handleCreateWhiteboard = async (data: WhiteboardFormData) => {
     try {
@@ -105,6 +109,11 @@ export default function Whiteboard() {
     setIsEditModalOpen(true);
   };
 
+  const openShareModal = (whiteboard: WhiteboardResponse) => {
+    setSharingWhiteboardId(whiteboard.resourceId);
+    setIsShareModalOpen(true);
+  };
+
   return (
     <Page>
       <Page.Header
@@ -124,6 +133,7 @@ export default function Whiteboard() {
             setEditingWhiteboard(whiteboard);
             setIsDeleteDialogOpen(true);
           }}
+          onShareWhiteboard={openShareModal}
         />
       </Page.Content>
 
@@ -210,6 +220,17 @@ export default function Whiteboard() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      {sharingWhiteboardId && (
+        <ShareResourceModal
+          isOpen={isShareModalOpen}
+          onClose={() => {
+            setIsShareModalOpen(false);
+            setSharingWhiteboardId(null);
+          }}
+          resourceId={sharingWhiteboardId}
+        />
+      )}
     </Page>
   );
 }

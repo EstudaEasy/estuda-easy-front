@@ -9,13 +9,21 @@ import { activityStorage } from "@/lib/activityStorage";
 import { WhiteboardCardProps } from "./whiteBoardCard.types";
 
 const WhiteboardCard = React.forwardRef<HTMLDivElement, WhiteboardCardProps>(
-  ({ title, createdAt, whiteboard, onClick, className, onEdit, onDelete }, ref) => {
+  ({ title, createdAt, whiteboard, onClick, className, onEdit, onDelete, onShare }, ref) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const handleEdit = (e: React.MouseEvent) => {
       e.stopPropagation();
       if (onEdit && whiteboard) {
         onEdit(whiteboard);
+        setIsMenuOpen(false);
+      }
+    };
+
+    const handleShareClick = (e: React.MouseEvent) => {
+      e.stopPropagation();
+      if (onShare && whiteboard) {
+        onShare(whiteboard);
         setIsMenuOpen(false);
       }
     };
@@ -70,7 +78,7 @@ const WhiteboardCard = React.forwardRef<HTMLDivElement, WhiteboardCardProps>(
             </Typography>
           </div>
 
-          {(onEdit || onDelete) && (
+          {(onEdit || onDelete || onShare) && (
             <div className="relative">
               <button
                 onClick={handleMenuClick}
@@ -82,6 +90,14 @@ const WhiteboardCard = React.forwardRef<HTMLDivElement, WhiteboardCardProps>(
 
               {isMenuOpen && (
                 <div className="absolute right-0 top-full z-50 mt-1 min-w-37.5 rounded-lg border border-slate-200 bg-white shadow-md">
+                  {onShare && (
+                    <button
+                      onClick={handleShareClick}
+                      className="w-full text-left px-4 py-2 hover:bg-slate-50 text-sm text-slate-700 font-medium border-b border-slate-100 transition-colors"
+                    >
+                      Compartilhar
+                    </button>
+                  )}
                   {onEdit && (
                     <button
                       onClick={handleEdit}

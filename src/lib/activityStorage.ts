@@ -1,7 +1,7 @@
 export interface Activity {
   id: string;
   title: string;
-  tool: "Quiz" | "Flashcards" | "Tarefas" | "Pomodoro" | "Diário";
+  tool: "Quiz" | "Flashcards" | "Tarefas" | "Pomodoro" | "Diário" | "WhiteBoard";
   resourceId: string; // ID do item real (deck, task, quiz, etc)
   resourceType: "deck" | "task" | "quiz" | "diary" | "whiteboard"; // Tipo de recurso
   timestamp: number;

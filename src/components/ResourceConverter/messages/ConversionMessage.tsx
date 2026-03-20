@@ -34,9 +34,7 @@ export function ConversionMessage({
 
         {message.payload != null && (
           <div className="mt-2 space-y-2 pb-2">
-            <span className="text-xs text-gray-500 block">
-              Recurso gerado pronto para uso.
-            </span>
+            <span className="text-xs text-gray-500 block">Recurso gerado pronto para uso.</span>
             <Button
               size="sm"
               variant={message.metadata?.saved ? "ghost" : "outline"}

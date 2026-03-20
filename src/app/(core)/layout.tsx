@@ -16,7 +16,9 @@ export default function HomeLayout({ children }: { children: React.ReactNode }) 
                 <SidebarTrigger className="-ml-1" />
               </div>
             </header>
-            <div className="w-full h-screen bg-background p-12 py-6 overflow-y-auto">{children}</div>
+            <div className="w-full h-screen bg-background p-12 py-6 overflow-y-auto">
+              {children}
+            </div>
           </SidebarInset>
           <AiAssistant />
         </ResourceConverterProvider>

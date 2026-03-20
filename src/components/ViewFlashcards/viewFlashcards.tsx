@@ -14,6 +14,7 @@ interface ViewFlashcardsProps {
   onEditDeck?: (deck: Deck) => void;
   onDeleteDeck?: (deck: Deck) => void;
   onCreateDeck?: () => void;
+  onShareDeck?: (deck: Deck) => void;
 }
 
 export default function ViewFlashcards({
@@ -21,6 +22,7 @@ export default function ViewFlashcards({
   onEditDeck,
   onDeleteDeck,
   onCreateDeck,
+  onShareDeck,
 }: ViewFlashcardsProps) {
   const router = useRouter();
   const [decks, setDecks] = useState<Deck[]>([]);
@@ -66,6 +68,7 @@ export default function ViewFlashcards({
               onClick={() => router.push(`/tools/flashcards/${deck.id}`)}
               onEdit={onEditDeck}
               onDelete={onDeleteDeck}
+              onShare={onShareDeck}
             />
           ))}
         </div>
