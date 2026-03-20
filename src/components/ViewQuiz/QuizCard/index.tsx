@@ -38,7 +38,7 @@ const QuizCard = React.forwardRef<HTMLDivElement, QuizCardProps>(
         tool: "Quiz",
         icon: "LuBrain",
         iconClass: "bg-purple-100 text-purple-600",
-        resourceId: quiz?.id,
+        resourceId: quiz?.id || "",
         resourceType: "quiz",
       });
       onClick?.();
