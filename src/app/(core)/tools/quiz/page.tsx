@@ -27,6 +27,7 @@ import QuizForm from "@/components/QuizForm";
 import { QuizFormData } from "@/components/QuizForm/quizForm.schema";
 import QuizService from "@/services/quiz/QuizService";
 import { CreateQuizRequest, Quiz } from "@/types";
+import { activityStorage } from "@/lib/activityStorage";
 import { toast } from "sonner";
 import ShareResourceModal from "@/components/ShareResourceModal";
 
@@ -89,6 +90,7 @@ export default function QuizPage() {
     try {
       setIsDeleting(true);
       await QuizService.delete(editingQuiz.id);
+      activityStorage.removeActivity(editingQuiz.id);
       setIsDeleteDialogOpen(false);
       setIsEditModalOpen(false);
       setEditingQuiz(null);

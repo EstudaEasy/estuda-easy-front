@@ -27,6 +27,7 @@ import WhiteboardForm from "@/components/ViewWhiteboard/WhiteboardForm";
 import { WhiteboardFormData } from "@/components/ViewWhiteboard/WhiteboardForm/whiteboardForm.schema";
 import WhiteboardService from "@/services/whiteboard/WhiteboardService";
 import { CreateWhiteboardRequest, WhiteboardResponse } from "@/types/whiteboard";
+import { activityStorage } from "@/lib/activityStorage";
 import { toast } from "sonner";
 import ShareResourceModal from "@/components/ShareResourceModal";
 
@@ -69,6 +70,7 @@ export default function Whiteboard() {
     try {
       setIsDeleting(true);
       await WhiteboardService.delete(editingWhiteboard.id);
+      activityStorage.removeActivity(editingWhiteboard.id);
       setIsDeleteDialogOpen(false);
       setIsEditModalOpen(false);
       setEditingWhiteboard(null);

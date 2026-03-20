@@ -5,6 +5,7 @@ import { LuEllipsisVertical } from "react-icons/lu";
 import { Card, CardContent } from "@/components/ui/card";
 import { Typography } from "@/components/ui/typography";
 import { cn } from "@/lib/utils";
+import { activityStorage } from "@/lib/activityStorage";
 import { WhiteboardCardProps } from "./whiteBoardCard.types";
 
 const WhiteboardCard = React.forwardRef<HTMLDivElement, WhiteboardCardProps>(
@@ -46,10 +47,22 @@ const WhiteboardCard = React.forwardRef<HTMLDivElement, WhiteboardCardProps>(
       year: "numeric",
     });
 
+    const handleClick = () => {
+      activityStorage.addActivity({
+        title: title,
+        tool: "WhiteBoard",
+        icon: "LuBrain",
+        iconClass: "bg-blue-100 text-blue-600",
+        resourceId: whiteboard?.id,
+        resourceType: "whiteboard",
+      });
+      onClick?.();
+    };
+
     return (
       <Card
         ref={ref}
-        onClick={onClick}
+        onClick={handleClick}
         className={cn("cursor-pointer transition-colors hover:bg-accent relative", className)}
       >
         <CardContent className="flex items-center gap-4 py-4">

@@ -10,6 +10,7 @@ interface UseAudioRecorderReturn {
   stopRecording: () => Promise<void>;
   clearRecording: () => void;
   recordingDuration: number;
+  setExternalAudio: (file: File) => void;
 }
 
 export const useAudioRecorder = (): UseAudioRecorderReturn => {
@@ -86,6 +87,16 @@ export const useAudioRecorder = (): UseAudioRecorderReturn => {
     setRecordingDuration(0);
   }, [audioUrl]);
 
+  const setExternalAudio = useCallback(
+    (file: File) => {
+      if (audioUrl) URL.revokeObjectURL(audioUrl);
+      setAudioBlob(file);
+      const url = URL.createObjectURL(file);
+      setAudioUrl(url);
+    },
+    [audioUrl],
+  );
+
   return {
     isRecording,
     audioBlob,
@@ -94,5 +105,6 @@ export const useAudioRecorder = (): UseAudioRecorderReturn => {
     stopRecording,
     clearRecording,
     recordingDuration,
+    setExternalAudio,
   };
 };

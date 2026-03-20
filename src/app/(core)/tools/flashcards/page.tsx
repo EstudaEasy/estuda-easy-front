@@ -26,6 +26,7 @@ import DeckForm from "@/components/DeckForm";
 import { DeckFormData } from "@/components/DeckForm/deckForm.schema";
 import { Deck } from "@/types";
 import DeckService from "@/services/deck/DeckService";
+import { activityStorage } from "@/lib/activityStorage";
 import { toast } from "sonner";
 import ShareResourceModal from "@/components/ShareResourceModal";
 
@@ -86,6 +87,7 @@ export default function Flashcards() {
     try {
       setIsDeleting(true);
       await DeckService.delete(editingDeck.id);
+      activityStorage.removeActivity(editingDeck.id);
       setIsDeleteDialogOpen(false);
       setIsEditModalOpen(false);
       setEditingDeck(null);

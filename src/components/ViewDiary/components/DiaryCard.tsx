@@ -6,9 +6,20 @@ import { format, parseISO } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { UpdateDiaryModal } from "./UpdateDiaryModal";
 import DiaryService from "@/services/diary/DiaryService";
+import { activityStorage } from "@/lib/activityStorage";
 import { toast } from "sonner";
 import { Trash2, Edit2, Play, Pause, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 interface DiaryCardProps {
   diary: DiaryResponse;
@@ -17,6 +28,7 @@ interface DiaryCardProps {
 
 export function DiaryCard({ diary, onRefresh }: DiaryCardProps) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
 
@@ -76,11 +88,15 @@ export function DiaryCard({ diary, onRefresh }: DiaryCardProps) {
 
   const handleDelete = async (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (!confirm("Tem certeza que deseja deletar este pensamento?")) return;
+    setIsDeleteDialogOpen(true);
+  };
 
+  const handleConfirmDelete = async () => {
     try {
       setIsDeleting(true);
       await DiaryService.remove(diary.id);
+      activityStorage.removeActivity(diary.id);
+      setIsDeleteDialogOpen(false);
       toast.success("Pensamento deletado com sucesso!");
       onRefresh();
     } catch (error) {
@@ -93,7 +109,19 @@ export function DiaryCard({ diary, onRefresh }: DiaryCardProps) {
   return (
     <>
       <div
-        onClick={() => !isDeleting && setIsEditModalOpen(true)}
+        onClick={() => {
+          if (!isDeleting) {
+            activityStorage.addActivity({
+              title: diary.title,
+              tool: "Diário",
+              icon: "LuBook",
+              iconClass: "bg-purple-100 text-purple-600",
+              resourceId: diary.id,
+              resourceType: "diary",
+            });
+            setIsEditModalOpen(true);
+          }
+        }}
         className={`p-4 rounded-xl bg-white border border-purple-100 shadow-sm hover:shadow-md transition-all h-full flex flex-col justify-between ${isDeleting ? "opacity-60 cursor-not-allowed" : "cursor-pointer hover:scale-[1.01]"}`}
       >
         <div className="flex gap-3">
@@ -204,6 +232,27 @@ export function DiaryCard({ diary, onRefresh }: DiaryCardProps) {
         onSuccess={onRefresh}
         onOpenChange={setIsEditModalOpen}
       />
+
+      <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+        <AlertDialogContent className="max-w-[400px]">
+          <AlertDialogHeader>
+            <AlertDialogTitle>Excluir Pensamento?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Tem certeza que deseja excluir este pensamento? Esta ação não pode ser desfeita.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={isDeleting}>Cancelar</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handleConfirmDelete}
+              disabled={isDeleting}
+              className="bg-red-500 hover:bg-red-600"
+            >
+              {isDeleting ? "Excluindo..." : "Excluir"}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </>
   );
 }

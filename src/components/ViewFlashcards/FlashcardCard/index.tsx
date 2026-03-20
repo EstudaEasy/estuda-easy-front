@@ -38,6 +38,8 @@ const FlashcardCard = React.forwardRef<HTMLDivElement, FlashcardCardProps>(
         tool: "Flashcards",
         icon: "LuBookOpen",
         iconClass: "bg-green-100 text-green-600",
+        resourceId: deck?.id || "",
+        resourceType: "deck",
       });
       onClick?.();
     };
@@ -45,6 +47,7 @@ const FlashcardCard = React.forwardRef<HTMLDivElement, FlashcardCardProps>(
     const handleDeleteClick = (e: React.MouseEvent) => {
       e.stopPropagation();
       if (onDelete && deck) {
+        activityStorage.removeActivity(deck.id);
         onDelete(deck);
         setIsMenuOpen(false);
       }

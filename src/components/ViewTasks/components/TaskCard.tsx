@@ -50,6 +50,8 @@ export function TaskCard({ task, onRefresh }: { task: TaskResponse; onRefresh: (
       tool: "Tarefas",
       icon: "LuBook",
       iconClass: "bg-blue-100 text-blue-600",
+      resourceId: task.id,
+      resourceType: "task",
     });
     setIsEditModalOpen(true);
   };
