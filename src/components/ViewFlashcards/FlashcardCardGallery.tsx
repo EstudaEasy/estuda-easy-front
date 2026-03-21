@@ -177,7 +177,7 @@ export default function FlashcardCardGallery({
             <LuPlus size={48} />
             {flashcards.length === 0 && canEdit && (
               <p className="text-slate-500 text-center col-span-full py-10 text-base">
-                Este deck ainda não tem flashcards. Crie um clicando na carta "+" ao lado!
+                Este deck ainda não tem flashcards. Crie um clicando nesta carta!
               </p>
             )}
           </div>
