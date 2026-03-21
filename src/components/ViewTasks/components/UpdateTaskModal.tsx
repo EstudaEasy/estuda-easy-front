@@ -122,7 +122,7 @@ export function UpdateTaskModal({ open, task, onSuccess, onOpenChange }: Props) 
               <label className="text-sm font-bold text-gray-700">Descrição</label>
               <textarea
                 {...register("description")}
-                className="w-full border border-gray-200 p-3 rounded-xl min-h-[100px] bg-gray-50 text-gray-900"
+                className="w-full border border-gray-200 p-3 rounded-xl min-h-25 bg-gray-50 text-gray-900"
               />
             </div>
 
@@ -171,7 +171,7 @@ export function UpdateTaskModal({ open, task, onSuccess, onOpenChange }: Props) 
       </Dialog>
 
       <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
-        <AlertDialogContent className="max-w-[400px]">
+        <AlertDialogContent className="max-w-100">
           <AlertDialogHeader>
             <AlertDialogTitle>Excluir Tarefa?</AlertDialogTitle>
             <AlertDialogDescription>

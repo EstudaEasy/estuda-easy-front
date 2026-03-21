@@ -126,7 +126,7 @@ export function DiaryCard({ diary, onRefresh }: DiaryCardProps) {
         className={`p-4 rounded-xl bg-white border border-purple-100 shadow-sm hover:shadow-md transition-all h-full flex flex-col justify-between ${isDeleting ? "opacity-60 cursor-not-allowed" : "cursor-pointer hover:scale-[1.01]"}`}
       >
         <div className="flex gap-3">
-          <div className="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0" />
+          <div className="w-2 h-2 bg-purple-500 rounded-full mt-2 shrink-0" />
           <div className="flex-1">
             <div className="flex items-start justify-between">
               <div className="flex-1 min-w-0">
@@ -186,7 +186,7 @@ export function DiaryCard({ diary, onRefresh }: DiaryCardProps) {
                   setIsPlayingAudio(!isPlayingAudio);
                 }
               }}
-              className="bg-white shadow-sm h-9 w-9 rounded-full flex-shrink-0 text-purple-600 hover:bg-white flex items-center justify-center disabled:opacity-50"
+              className="bg-white shadow-sm h-9 w-9 rounded-full shrink-0 text-purple-600 hover:bg-white flex items-center justify-center disabled:opacity-50"
             >
               {isPlayingAudio ? (
                 <Pause size={16} fill="currentColor" />
@@ -235,7 +235,7 @@ export function DiaryCard({ diary, onRefresh }: DiaryCardProps) {
       />
 
       <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
-        <AlertDialogContent className="max-w-[400px]">
+        <AlertDialogContent className="max-w-100">
           <AlertDialogHeader>
             <AlertDialogTitle>Excluir Pensamento?</AlertDialogTitle>
             <AlertDialogDescription>

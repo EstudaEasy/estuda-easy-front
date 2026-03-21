@@ -87,7 +87,7 @@ export function CreateTaskModal({ open, selectedDate, onSuccess, onOpenChange }:
             <textarea
               {...register("description")}
               placeholder="Detalhes sobre a atividade..."
-              className="w-full border border-gray-200 p-3 rounded-xl min-h-[100px] text-gray-900 focus:border-blue-500 outline-none bg-gray-50 resize-none"
+              className="w-full border border-gray-200 p-3 rounded-xl min-h-25 text-gray-900 focus:border-blue-500 outline-none bg-gray-50 resize-none"
             />
           </div>
 

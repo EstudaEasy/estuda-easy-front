@@ -156,7 +156,7 @@ export default function Profile() {
           </CardContent>
         </Card>
 
-        <Card className="flex-1 min-w-[400px]">
+        <Card className="flex-1 min-w-100">
           <CardHeader>
             <CardTitle>Informações Pessoais</CardTitle>
           </CardHeader>

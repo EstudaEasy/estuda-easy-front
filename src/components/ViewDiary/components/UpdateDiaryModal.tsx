@@ -153,7 +153,7 @@ export function UpdateDiaryModal({ open, diary, onSuccess, onOpenChange }: Props
             <label className="text-sm font-bold text-gray-700 ml-1">Descrição (Texto)</label>
             <textarea
               {...register("content")}
-              className="w-full border border-gray-200 p-3 rounded-xl min-h-[100px] bg-gray-50 resize-none outline-none focus:border-blue-500"
+              className="w-full border border-gray-200 p-3 rounded-xl min-h-25 bg-gray-50 resize-none outline-none focus:border-blue-500"
             />
           </div>
 
@@ -166,7 +166,7 @@ export function UpdateDiaryModal({ open, diary, onSuccess, onOpenChange }: Props
                   type="button"
                   size="icon"
                   variant="ghost"
-                  className="h-9 w-9 text-blue-600 bg-blue-50 rounded-full flex-shrink-0"
+                  className="h-9 w-9 text-blue-600 bg-blue-50 rounded-full shrink-0"
                   onClick={() => {
                     if (audioRef.current) {
                       if (isPlayingAudio) {
