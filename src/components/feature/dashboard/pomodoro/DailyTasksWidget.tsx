@@ -36,7 +36,7 @@ export function DailyTasksWidget() {
   };
 
   return (
-    <Card className="w-full h-full xl:min-w-[400px] border-gray-200">
+    <Card className="w-full h-full xl:min-w-100 border-gray-200">
       <CardHeader className="pb-3 border-b border-gray-100">
         <CardTitle className="text-xl text-[#1A2E5A] flex justify-between items-center">
           Tarefas de Hoje
@@ -63,7 +63,7 @@ export function DailyTasksWidget() {
             Nenhuma tarefa marcada para hoje!
           </p>
         ) : (
-          <div className="space-y-3 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
+          <div className="space-y-3 max-h-100 overflow-y-auto pr-2 custom-scrollbar">
             {tasks.map((task) => (
               <div
                 key={task.id}

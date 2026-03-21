@@ -216,7 +216,7 @@ export default function FlashcardStudyPlay({ deckId, onFinish }: FlashcardStudyP
           <LuPencil size={20} />
         </button>
         <div
-          className={`bg-blue-500 rounded-2xl w-75 h-[450px] flex items-center justify-center p-8 text-center shadow-lg cursor-pointer transition-all duration-300 overflow-hidden ${isFlipped ? "[transform:rotateY(180deg)]" : ""}`}
+          className={`bg-blue-500 rounded-2xl w-75 h-112.5 flex items-center justify-center p-8 text-center shadow-lg cursor-pointer transition-all duration-300 overflow-hidden ${isFlipped ? "transform-[rotateY(180deg)]" : ""}`}
           onClick={() => setIsFlipped(!isFlipped)}
           title="Clique para virar"
           style={{
@@ -234,7 +234,7 @@ export default function FlashcardStudyPlay({ deckId, onFinish }: FlashcardStudyP
               variant="heading-4"
               color="white"
               weight="bold"
-              className="break-words line-clamp-none text-center"
+              className="wrap-break-word line-clamp-none text-center"
             >
               {isFlipped ? currentCard?.back : currentCard?.front}
             </Typography>
@@ -276,7 +276,7 @@ export default function FlashcardStudyPlay({ deckId, onFinish }: FlashcardStudyP
       </div>
 
       <Dialog open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
-        <DialogContent className="max-w-[400px]">
+        <DialogContent className="max-w-100">
           <DialogHeader>
             <DialogTitle>Editar Flashcard</DialogTitle>
           </DialogHeader>
@@ -312,7 +312,7 @@ export default function FlashcardStudyPlay({ deckId, onFinish }: FlashcardStudyP
       </Dialog>
 
       <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
-        <AlertDialogContent className="max-w-[400px]">
+        <AlertDialogContent className="max-w-100">
           <AlertDialogHeader>
             <AlertDialogTitle>Excluir Flashcard?</AlertDialogTitle>
             <AlertDialogDescription>

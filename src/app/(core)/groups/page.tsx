@@ -258,7 +258,7 @@ export default function Groups() {
 
       {/* Dialog de confirmação de exclusão */}
       <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
-        <AlertDialogContent className="max-w-[400px]">
+        <AlertDialogContent className="max-w-100">
           <AlertDialogHeader>
             <AlertDialogTitle>Deletar Grupo?</AlertDialogTitle>
             <AlertDialogDescription>

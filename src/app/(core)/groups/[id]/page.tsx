@@ -84,7 +84,7 @@ export default function GroupDetails() {
       <Page.Header title={group.name} subtitle={group.description || "Sem descrição"} />
       <Page.Content className="overflow-hidden">
         <Tabs defaultValue="posts" className="w-full">
-          <TabsList className="grid w-full grid-cols-3 lg:w-[450px] mb-6">
+          <TabsList className="grid w-full grid-cols-3 lg:w-112.5 mb-6">
             <TabsTrigger value="posts">Posts</TabsTrigger>
             <TabsTrigger value="members">Membros</TabsTrigger>
             {(currentUserMember.role === "owner" || currentUserMember.role === "admin") && (

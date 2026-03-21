@@ -133,7 +133,7 @@ export default function GroupSettings({ group, onUpdate }: GroupSettingsProps) {
           </div>
           <Button
             variant="outline"
-            className="h-[52px]"
+            className="h-13"
             onClick={handleRegenerateCode}
             disabled={isRegenerating}
           >
@@ -173,7 +173,7 @@ export default function GroupSettings({ group, onUpdate }: GroupSettingsProps) {
       </div>
 
       <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
-        <AlertDialogContent className="max-w-[400px]">
+        <AlertDialogContent className="max-w-100">
           <AlertDialogHeader>
             <AlertDialogTitle className="text-red-600 flex items-center gap-2">
               <AlertTriangle className="h-5 w-5" /> Confirmar Exclusão

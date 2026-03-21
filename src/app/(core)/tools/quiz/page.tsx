@@ -200,7 +200,7 @@ export default function QuizPage() {
 
       {/* Dialog de confirmação de exclusão */}
       <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
-        <AlertDialogContent className="max-w-[400px]">
+        <AlertDialogContent className="max-w-100">
           <AlertDialogHeader>
             <AlertDialogTitle>Deletar Quiz?</AlertDialogTitle>
             <AlertDialogDescription>
