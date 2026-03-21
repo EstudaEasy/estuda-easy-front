@@ -28,7 +28,6 @@ Este é o front-end da plataforma SaaS **EstudaEasy** desenvolvida para discipli
 - 📊 **Estatísticas Detalhadas** de progresso e desempenho
 - ✏️ **WhiteBoard Digital** para anotações e visualizações criativas
 - 🔗 **Compartilhamento de Recursos** com links direcionados
-- 🔐 **Autenticação com Google OAuth**
 - 📱 **Interface Responsiva** e intuitiva
 
 ---
