@@ -61,7 +61,7 @@ export function TaskCard({ task, onRefresh }: { task: TaskResponse; onRefresh: (
     <>
       <div
         onClick={handleCardClick}
-        className={`p-6 rounded-2xl flex items-center justify-between min-h-[120px] shadow-sm transition-all hover:scale-[1.02] cursor-pointer relative ${
+        className={`p-6 rounded-2xl flex items-center justify-between min-h-30 shadow-sm transition-all hover:scale-[1.02] cursor-pointer relative ${
           isCompleted ? "bg-emerald-500 opacity-80" : "bg-blue-500"
         } text-white`}
       >
@@ -69,7 +69,7 @@ export function TaskCard({ task, onRefresh }: { task: TaskResponse; onRefresh: (
           <button
             onClick={handleToggleStatus}
             disabled={isUpdating}
-            className={`w-6 h-6 border-2 rounded-full flex-shrink-0 transition-all flex items-center justify-center ${
+            className={`w-6 h-6 border-2 rounded-full shrink-0 transition-all flex items-center justify-center ${
               isCompleted ? "bg-white border-white" : "border-white/50 hover:bg-white/20"
             }`}
           >

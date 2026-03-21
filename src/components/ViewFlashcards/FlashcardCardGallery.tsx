@@ -159,18 +159,18 @@ export default function FlashcardCardGallery({
         {flashcards.map((card) => (
           <div
             key={`${deckId}-${card.id}`}
-            className={`bg-blue-500 border border-slate-200 rounded-xl p-6 relative transition-all duration-200 shadow-sm flex flex-col gap-3 text-center h-[450px] w-75 items-center justify-center flex-shrink-0 ${canEdit ? "cursor-pointer hover:-translate-y-1 hover:border-blue-600" : ""}`}
+            className={`bg-blue-500 border border-slate-200 rounded-xl p-6 relative transition-all duration-200 shadow-sm flex flex-col gap-3 text-center h-112.5 w-75 items-center justify-center shrink-0 ${canEdit ? "cursor-pointer hover:-translate-y-1 hover:border-blue-600" : ""}`}
             onClick={() => canEdit && openEditModal(card)}
             title={canEdit ? "Clique para editar" : ""}
           >
-            <div className="text-lg font-bold text-white break-words">{card.front}</div>
-            <div className="text-sm text-gray-200 break-words">{card.back}</div>
+            <div className="text-lg font-bold text-white wrap-break-word">{card.front}</div>
+            <div className="text-sm text-gray-200 wrap-break-word">{card.back}</div>
           </div>
         ))}
 
         {canEdit && (
           <div
-            className="bg-slate-50 border-2 border-dashed border-slate-300 rounded-xl h-[450px] w-75 flex items-center justify-center cursor-pointer text-slate-400 transition-all duration-200 hover:bg-slate-100 hover:border-blue-500 hover:text-blue-500 hover:-translate-y-1 flex-shrink-0 flex-col"
+            className="bg-slate-50 border-2 border-dashed border-slate-300 rounded-xl h-112.5 w-75 flex items-center justify-center cursor-pointer text-slate-400 transition-all duration-200 hover:bg-slate-100 hover:border-blue-500 hover:text-blue-500 hover:-translate-y-1 shrink-0 flex-col"
             onClick={openCreateModal}
             title="Criar Novo Flashcard"
           >
@@ -217,7 +217,7 @@ export default function FlashcardCardGallery({
       </Dialog>
 
       <Dialog open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
-        <DialogContent className="max-w-[400px]">
+        <DialogContent className="max-w-100">
           <DialogHeader>
             <DialogTitle>Editar Flashcard</DialogTitle>
           </DialogHeader>
@@ -253,7 +253,7 @@ export default function FlashcardCardGallery({
       </Dialog>
 
       <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
-        <AlertDialogContent className="max-w-[400px]">
+        <AlertDialogContent className="max-w-100">
           <AlertDialogHeader>
             <AlertDialogTitle>Excluir Flashcard?</AlertDialogTitle>
             <AlertDialogDescription>
