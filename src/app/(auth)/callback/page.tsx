@@ -1,12 +1,13 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, Suspense } from "react"; // Adicionei Suspense
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAuth } from "@/context/auth";
 import { toast } from "sonner";
 import AuthService from "@/services/auth/AuthService";
 
-export default function AuthCallbackPage() {
+// 1. Crie um componente interno com a lógica
+function CallbackContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { loadUser } = useAuth();
@@ -22,33 +23,27 @@ export default function AuthCallbackPage() {
     if (accessTokenURL && refreshTokenURL) {
       const finalizeLogin = async () => {
         try {
-          // 1. Fazemos o REFRESH imediato para invalidar os tokens da URL
-          // Enviamos o refreshToken que veio na URL para receber um novo par
           const { data: newData } = await AuthService.refreshToken({
             refreshToken: refreshTokenURL,
           });
 
           const { accessToken, refreshToken } = newData;
 
-          // 2. Salva os NOVOS tokens (seguros) no LocalStorage
           localStorage.setItem("@EstudaEasy:accessToken", accessToken);
           localStorage.setItem("@EstudaEasy:refreshToken", refreshToken);
 
-          // 3. Sincroniza os NOVOS cookies com o servidor Next.js
           await fetch("/api/auth/set-cookies", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ accessToken, refreshToken }),
           });
 
-          // 4. Carrega os dados do usuário e limpa a rota
           await loadUser();
-
           toast.success("Conexão segura estabelecida!");
           router.replace("/home");
         } catch (error) {
           console.error("Erro ao rotacionar tokens:", error);
-          toast.error("Falha na validação de segurança do Google.");
+          toast.error("Falha na validação de segurança.");
           router.replace("/login");
         }
       };
@@ -67,5 +62,12 @@ export default function AuthCallbackPage() {
         <p className="text-sm text-gray-500">Estamos preparando seu ambiente de estudos...</p>
       </div>
     </div>
+  );
+}
+export default function AuthCallbackPage() {
+  return (
+    <Suspense fallback={<div>Carregando...</div>}>
+      <CallbackContent />
+    </Suspense>
   );
 }
