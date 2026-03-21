@@ -10,6 +10,7 @@ import TaskService from "@/services/task/TaskService";
 import { useState } from "react";
 import { toast } from "sonner";
 import { TaskResponse } from "@/types/task";
+import { getErrorMessage } from "@/lib/errorMessage";
 
 export function DailyTasksWidget() {
   const { tasks, loading, refreshTasks } = useTasks();
@@ -28,7 +29,7 @@ export function DailyTasksWidget() {
       await refreshTasks();
     } catch (error) {
       console.error(error);
-      toast.error("Erro ao atualizar tarefa.");
+      toast.error(getErrorMessage(error, "Erro ao atualizar tarefa."));
     } finally {
       setUpdatingTaskId(null);
     }

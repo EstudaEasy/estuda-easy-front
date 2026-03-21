@@ -10,6 +10,7 @@ import { activityStorage } from "@/lib/activityStorage";
 import { toast } from "sonner";
 import { Trash2, Edit2, Play, Pause, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { getErrorMessage } from "@/lib/errorMessage";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -101,7 +102,7 @@ export function DiaryCard({ diary, onRefresh }: DiaryCardProps) {
       onRefresh();
     } catch (error) {
       console.error("Erro ao deletar:", error);
-      toast.error("Não foi possível deletar o pensamento.");
+      toast.error(getErrorMessage(error, "Não foi possível deletar o pensamento."));
       setIsDeleting(false);
     }
   };

@@ -26,6 +26,7 @@ import FlashcardForm from "@/components/FlashcardForm";
 import { FlashcardFormData } from "@/components/FlashcardForm/flashcardForm.schema";
 import { toast } from "sonner";
 import LoadingState from "@/components/LoadingState";
+import { getErrorMessage } from "@/lib/errorMessage";
 
 interface FlashcardCardGalleryProps {
   deckId: string;
@@ -89,7 +90,7 @@ export default function FlashcardCardGallery({
       toast.success("Flashcard criado com sucesso!");
     } catch (error) {
       console.error("Erro ao criar flashcard:", error);
-      toast.error("Erro ao criar flashcard. Tente novamente");
+      toast.error(getErrorMessage(error, "Erro ao criar flashcard. Tente novamente"));
     } finally {
       setIsSaving(false);
     }
@@ -111,7 +112,7 @@ export default function FlashcardCardGallery({
       toast.success("Flashcard atualizado com sucesso!");
     } catch (error) {
       console.error("Erro ao editar flashcard:", error);
-      toast.error("Erro ao atualizar flashcard. Tente novamente");
+      toast.error(getErrorMessage(error, "Erro ao atualizar flashcard. Tente novamente"));
     } finally {
       setIsSaving(false);
     }
@@ -130,7 +131,7 @@ export default function FlashcardCardGallery({
       toast.success("Flashcard excluído com sucesso!");
     } catch (error) {
       console.error("Erro ao excluir flashcard:", error);
-      toast.error("Erro ao excluir flashcard. Tente novamente");
+      toast.error(getErrorMessage(error, "Erro ao excluir flashcard. Tente novamente"));
     } finally {
       setIsDeleting(false);
     }
@@ -169,19 +170,19 @@ export default function FlashcardCardGallery({
 
         {canEdit && (
           <div
-            className="bg-slate-50 border-2 border-dashed border-slate-300 rounded-xl h-[450px] w-75 flex items-center justify-center cursor-pointer text-slate-400 transition-all duration-200 hover:bg-slate-100 hover:border-blue-500 hover:text-blue-500 hover:-translate-y-1 flex-shrink-0"
+            className="bg-slate-50 border-2 border-dashed border-slate-300 rounded-xl h-[450px] w-75 flex items-center justify-center cursor-pointer text-slate-400 transition-all duration-200 hover:bg-slate-100 hover:border-blue-500 hover:text-blue-500 hover:-translate-y-1 flex-shrink-0 flex-col"
             onClick={openCreateModal}
             title="Criar Novo Flashcard"
           >
             <LuPlus size={48} />
+            {flashcards.length === 0 && canEdit && (
+              <p className="text-slate-500 text-center col-span-full py-10 text-base">
+                Este deck ainda não tem flashcards. Crie um clicando nesta carta!
+              </p>
+            )}
           </div>
         )}
 
-        {flashcards.length === 0 && canEdit && (
-          <p className="text-slate-500 text-center col-span-full py-10 text-base">
-            Este deck ainda não tem flashcards. Crie um clicando nesta carta!
-          </p>
-        )}
         {flashcards.length === 0 && !canEdit && (
           <p className="text-slate-500 text-center col-span-full py-10 text-base">
             Este deck ainda não tem flashcards.

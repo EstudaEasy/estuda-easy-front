@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { useAudioRecorder } from "@/hooks/useAudioRecorder";
 import { Mic, Trash2, Play, Upload, Pause } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
+import { getErrorMessage } from "@/lib/errorMessage";
 
 interface Props {
   open: boolean;
@@ -117,7 +118,7 @@ export function CreateDiaryModal({ open, selectedDate, onSuccess, onOpenChange }
       onSuccess();
     } catch (error) {
       console.error(error);
-      toast.error("Erro ao salvar pensamento.");
+      toast.error(getErrorMessage(error, "Erro ao salvar pensamento."));
     }
   };
 

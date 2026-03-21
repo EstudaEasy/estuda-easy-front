@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { taskSchema, TaskFormData } from "../schemas/taskSchema";
 import TaskService from "@/services/task/TaskService";
 import { toast } from "sonner";
+import { getErrorMessage } from "@/lib/errorMessage";
 import {
   Dialog,
   DialogContent,
@@ -53,7 +54,7 @@ export function CreateTaskModal({ open, selectedDate, onSuccess, onOpenChange }:
       onOpenChange(false);
     } catch (error) {
       console.error("Erro ao criar tarefa:", error);
-      toast.error("Erro ao criar tarefa.");
+      toast.error(getErrorMessage(error, "Erro ao criar tarefa."));
     }
   };
 

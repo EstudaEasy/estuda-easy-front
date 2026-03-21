@@ -7,6 +7,7 @@ import ResourceShareService from "@/services/resource/ResourceShareService";
 import ResourceShareLinkService from "@/services/resource/ResourceShareLinkService";
 import { Copy, Link as LinkIcon, Users, Trash2, Globe } from "lucide-react";
 import { ResourceShareItem, ResourceShareLinkResponse } from "@/types";
+import { getErrorMessage } from "@/lib/errorMessage";
 
 interface ShareResourceModalProps {
   isOpen: boolean;
@@ -69,7 +70,7 @@ export default function ShareResourceModal({
       toast.success("Link gerado com sucesso!");
     } catch (error) {
       console.error("Erro ao gerar link:", error);
-      toast.error("Erro ao gerar link de compartilhamento");
+      toast.error(getErrorMessage(error, "Erro ao gerar link de compartilhamento"));
     } finally {
       setIsGenerating(false);
     }
@@ -83,7 +84,7 @@ export default function ShareResourceModal({
       toast.success("Link de convite removido");
     } catch (error) {
       console.error("Erro ao remover link:", error);
-      toast.error("Erro ao desativar link");
+      toast.error(getErrorMessage(error, "Erro ao desativar link"));
     } finally {
       setIsGenerating(false);
     }
@@ -96,7 +97,7 @@ export default function ShareResourceModal({
       toast.success("Acesso revogado!");
     } catch (error) {
       console.error("Erro ao remover acesso:", error);
-      toast.error("Erro ao revogar acesso");
+      toast.error(getErrorMessage(error, "Erro ao revogar acesso"));
     }
   };
 

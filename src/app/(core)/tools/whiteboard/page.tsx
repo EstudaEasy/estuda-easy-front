@@ -30,6 +30,7 @@ import { CreateWhiteboardRequest, WhiteboardResponse } from "@/types/whiteboard"
 import { activityStorage } from "@/lib/activityStorage";
 import { toast } from "sonner";
 import ShareResourceModal from "@/components/ShareResourceModal";
+import { getErrorMessage } from "@/lib/errorMessage";
 
 export default function Whiteboard() {
   const router = useRouter();
@@ -58,7 +59,7 @@ export default function Whiteboard() {
       router.push(`/tools/whiteboard/${response.data.id}`);
     } catch (error) {
       console.error("Erro ao criar quadro:", error);
-      toast.error("Erro ao criar quadro. Tente novamente");
+      toast.error(getErrorMessage(error, "Erro ao criar quadro. Tente novamente"));
     } finally {
       setIsCreating(false);
     }
@@ -78,7 +79,7 @@ export default function Whiteboard() {
       toast.success("Quadro excluído com sucesso!");
     } catch (error) {
       console.error("Erro ao excluir quadro:", error);
-      toast.error("Erro ao excluir quadro. Tente novamente");
+      toast.error(getErrorMessage(error, "Erro ao excluir quadro. Tente novamente"));
     } finally {
       setIsDeleting(false);
     }
@@ -98,7 +99,7 @@ export default function Whiteboard() {
       toast.success("Quadro atualizado com sucesso!");
     } catch (error) {
       console.error("Erro ao editar quadro:", error);
-      toast.error("Erro ao editar quadro. Tente novamente");
+      toast.error(getErrorMessage(error, "Erro ao editar quadro. Tente novamente"));
     } finally {
       setIsEditing(false);
     }

@@ -12,6 +12,7 @@ import EyeIcon from "@/assets/eyeicon.png";
 import { useAuth } from "@/context/auth";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { getErrorMessage } from "@/lib/errorMessage";
 
 function LoginPageContent() {
   const { login, isLoading } = useAuth();
@@ -29,7 +30,7 @@ function LoginPageContent() {
       router.replace(redirectPath || "/home");
     } catch (error) {
       console.log("Erro no login:", error);
-      toast.error("Erro no login");
+      toast.error(getErrorMessage(error, "Erro no login"));
     }
   };
 

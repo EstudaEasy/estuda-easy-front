@@ -29,6 +29,7 @@ import DeckService from "@/services/deck/DeckService";
 import { activityStorage } from "@/lib/activityStorage";
 import { toast } from "sonner";
 import ShareResourceModal from "@/components/ShareResourceModal";
+import { getErrorMessage } from "@/lib/errorMessage";
 
 export default function Flashcards() {
   const [refreshTrigger, setRefreshTrigger] = useState(0);
@@ -54,7 +55,7 @@ export default function Flashcards() {
       toast.success("Deck criado com sucesso!");
     } catch (error) {
       console.error("Erro ao criar deck:", error);
-      toast.error("Erro ao criar deck. Tente novamente");
+      toast.error(getErrorMessage(error, "Erro ao criar deck. Tente novamente"));
     } finally {
       setIsSaving(false);
     }
@@ -75,7 +76,7 @@ export default function Flashcards() {
       toast.success("Deck atualizado com sucesso!");
     } catch (error) {
       console.error("Erro ao editar deck:", error);
-      toast.error("Erro ao editar deck. Tente novamente");
+      toast.error(getErrorMessage(error, "Erro ao editar deck. Tente novamente"));
     } finally {
       setIsSaving(false);
     }
@@ -95,7 +96,7 @@ export default function Flashcards() {
       toast.success("Deck excluído com sucesso!");
     } catch (error) {
       console.error("Erro ao excluir deck:", error);
-      toast.error("Erro ao excluir deck. Tente novamente");
+      toast.error(getErrorMessage(error, "Erro ao excluir deck. Tente novamente"));
     } finally {
       setIsDeleting(false);
     }

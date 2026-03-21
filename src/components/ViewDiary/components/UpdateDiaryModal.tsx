@@ -17,6 +17,7 @@ import { useAudioRecorder } from "@/hooks/useAudioRecorder";
 import { Mic, Play, Pause, Upload } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { DiaryResponse } from "@/types/diary";
+import { getErrorMessage } from "@/lib/errorMessage";
 
 interface Props {
   open: boolean;
@@ -114,7 +115,7 @@ export function UpdateDiaryModal({ open, diary, onSuccess, onOpenChange }: Props
       onSuccess();
     } catch (error) {
       console.error("Erro ao atualizar pensamento:", error);
-      toast.error("Erro ao atualizar.");
+      toast.error(getErrorMessage(error, "Erro ao atualizar."));
     }
   };
 
