@@ -57,7 +57,7 @@ export default function GroupSettings({ group, onUpdate }: GroupSettingsProps) {
       setIsRegenerating(true);
       await GroupService.resetInviteCode(String(group.id));
       toast.success("Novo código de convite gerado!");
-      onUpdate(); // reload group data
+      onUpdate(); 
     } catch (error) {
       console.error("Erro ao gerar novo código:", error);
       toast.error(getErrorMessage(error, "Erro ao gerar novo código"));

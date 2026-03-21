@@ -25,7 +25,7 @@ export default function GroupMembers({ groupId, currentUserMember }: GroupMember
     try {
       setIsLoading(true);
       const res = await GroupMemberService.list(groupId);
-      // O endpoint pode retornar os membros num array ou num objeto: {members: []}
+   
       const data = res.data as any;
       setMembers(Array.isArray(data) ? data : data.members || []);
     } catch (error) {
@@ -54,7 +54,6 @@ export default function GroupMembers({ groupId, currentUserMember }: GroupMember
 
   const handleChangeRole = async (memberId: string | number, newRole: "admin" | "member") => {
     try {
-      // Como definido no OpenAPI: /groups/{groupId}/members/{memberId}/role
       await GroupMemberService.updateRole(groupId, String(memberId), { role: newRole });
       toast.success("Permissão atualizada!");
       fetchMembers();
