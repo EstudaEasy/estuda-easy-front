@@ -1,7 +1,9 @@
 import React from "react";
+import Image from "next/image";
 import { Button } from "../../ui/button";
 import { Check, ArrowRight, Loader2 } from "lucide-react";
 import { Message, ConversionState } from "../types";
+import TiaFalando from "@/assets/TIA_falando.png";
 
 interface ConversionMessageProps {
   message: Message;
@@ -26,8 +28,16 @@ export function ConversionMessage({
 }: ConversionMessageProps) {
   return (
     <div className="flex gap-3">
-      <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-sm flex-shrink-0">
-        🤖
+      <div className="w-9 h-9 rounded-full overflow-hidden bg-blue-100 flex items-center justify-center shrink-0 ring-1 ring-blue-200">
+        <Image
+          src={TiaFalando}
+          alt="Assistente TIA"
+          width={36}
+          height={36}
+          className="h-full w-full object-cover object-top"
+          quality={100}
+          priority
+        />
       </div>
       <div className="bg-blue-50 rounded-lg p-4 flex-1 space-y-3">
         <p className="text-sm font-medium text-gray-900">{message.content}</p>
