@@ -14,13 +14,13 @@
 
 .estudante {
   font-weight: bold;
-  font-size: 40px;
+  font-size: clamp(24px, 8vw, 40px);
   color: rgb(0, 0, 0);
 }
 
 .welcomeText {
-  margin-bottom: auto;
   color: #6a7282;
+  font-size: clamp(14px, 4vw, 16px);
 }
 
 .sidebar {
