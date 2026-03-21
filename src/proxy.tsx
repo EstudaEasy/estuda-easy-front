@@ -6,6 +6,7 @@ const publicRoutes = [
   { path: "/register", whenAuthenticated: "redirect" },
   { path: "/forgot-password", whenAuthenticated: "redirect" },
   { path: "/share/:id", whenAuthenticated: "next" },
+  { path: "/social-login", whenAuthenticated: "next" },
 ] as const;
 
 const WHEN_NOT_AUTHENTICATED_ROUTE = "/login";
