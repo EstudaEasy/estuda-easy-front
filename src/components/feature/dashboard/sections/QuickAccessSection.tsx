@@ -50,23 +50,27 @@ export default function QuickAccessSection() {
         <Separator className="mt-2" />
       </div>
 
-      <div className="flex gap-2">
+      <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:gap-3">
         {quickAccessItems.map((item, i) => (
-          <Link key={i} href={item.href} className="flex-1">
+          <Link key={i} href={item.href} className="w-full">
             <Card
               className={cn(
-                "h-full cursor-pointer transition-opacity hover:opacity-70 rounded-lg py-8",
+                "h-full cursor-pointer transition-opacity hover:opacity-70 rounded-lg py-6 sm:py-8",
                 item.cardClass,
               )}
             >
-              <CardContent className="flex flex-col gap-3">
+              <CardContent className="flex flex-col gap-2 sm:gap-3">
                 <div className={cn("w-fit rounded-md p-2", item.iconClass)}>
-                  <item.Icon size={20} />
+                  <item.Icon size={18} className="sm:w-5 sm:h-5" />
                 </div>
-                <Typography variant="heading-4" color="dark">
+                <Typography variant="heading-4" color="dark" className="text-sm sm:text-base">
                   {item.title}
                 </Typography>
-                <Typography color="light" weight="normal" className="line-clamp-3">
+                <Typography
+                  color="light"
+                  weight="normal"
+                  className="line-clamp-2 text-xs sm:text-sm"
+                >
                   {item.description}
                 </Typography>
               </CardContent>
