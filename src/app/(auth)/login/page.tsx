@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import styles from "../auth.module.css";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Input } from "@/components/FormInput/page";
 
 import GoogleIcon from "@/assets/_Google.png";
@@ -12,22 +12,25 @@ import EyeIcon from "@/assets/eyeicon.png";
 import { useAuth } from "@/context/auth";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { getErrorMessage } from "@/lib/errorMessage";
 
-export default function LoginPage() {
+function LoginPageContent() {
   const { login, isLoading, loginWithGoogle } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       await login({ email, password });
-      router.replace("/home");
+      const redirectPath = searchParams.get("redirect");
+      router.replace(redirectPath || "/home");
     } catch (error) {
       console.log("Erro no login:", error);
-      toast.error("Erro no login");
+      toast.error(getErrorMessage(error, "Erro no login"));
     }
   };
 
@@ -87,5 +90,13 @@ export default function LoginPage() {
         </p>
       </main>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className={styles.container} />}>
+      <LoginPageContent />
+    </Suspense>
   );
 }

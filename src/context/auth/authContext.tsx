@@ -5,6 +5,7 @@ import { IAuthContext, UserDataJWT } from "./authContext.types";
 import { CreateUserRequest, LoginRequest, UserResponse } from "@/types";
 import AuthService from "@/services/auth/AuthService";
 import UserService from "@/services/user/UserService";
+import { activityStorage } from "@/lib/activityStorage";
 import { useRouter } from "next/navigation";
 
 export const AuthContext = createContext<IAuthContext>({} as IAuthContext);
@@ -71,6 +72,9 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
     setIsLoading(true);
     localStorage.removeItem("@EstudaEasy:accessToken");
     localStorage.removeItem("@EstudaEasy:refreshToken");
+
+    // Clear all activity data from previous user
+    activityStorage.clearAllActivityData();
 
     await fetch("/api/auth/set-cookies", {
       method: "DELETE",

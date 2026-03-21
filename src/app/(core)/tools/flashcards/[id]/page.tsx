@@ -6,8 +6,11 @@ import { Deck } from "@/types";
 import DeckService from "@/services/deck/DeckService";
 import { Button } from "@/components/ui/button";
 import { Typography } from "@/components/ui/typography";
-import { LuArrowLeft } from "react-icons/lu";
+import { LuArrowLeft, LuShare2 } from "react-icons/lu";
 import FlashcardCardGallery from "@/components/ViewFlashcards/FlashcardCardGallery";
+import LoadingState from "@/components/LoadingState";
+import ShareResourceModal from "@/components/ShareResourceModal";
+import { useResourcePermission } from "@/hooks/useResourcePermission";
 
 export default function FlashcardDeckPage() {
   const router = useRouter();
@@ -16,6 +19,9 @@ export default function FlashcardDeckPage() {
 
   const [deck, setDeck] = useState<Deck | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+
+  const { canEdit } = useResourcePermission(deck?.resourceId);
 
   useEffect(() => {
     async function fetchDeck() {
@@ -40,13 +46,7 @@ export default function FlashcardDeckPage() {
   };
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center p-12">
-        <Typography variant="body-1" color="light">
-          Carregando...
-        </Typography>
-      </div>
-    );
+    return <LoadingState message="Carregando deck..." />;
   }
 
   return (
@@ -70,7 +70,13 @@ export default function FlashcardDeckPage() {
           {deck?.name}
         </Typography>
 
-        <div className="w-16" />
+        <Button
+          variant="outline"
+          className="gap-2 shrink-0"
+          onClick={() => setIsShareModalOpen(true)}
+        >
+          <LuShare2 size={16} />
+        </Button>
       </div>
 
       <div className="px-6">
@@ -78,8 +84,16 @@ export default function FlashcardDeckPage() {
           deckId={deckId}
           onStudyClick={handleStudy}
           cardsCount={deck?.flashcards?.length}
+          canEdit={canEdit}
         />
       </div>
+      {deck && (
+        <ShareResourceModal
+          isOpen={isShareModalOpen}
+          onClose={() => setIsShareModalOpen(false)}
+          resourceId={deck.resourceId}
+        />
+      )}
     </div>
   );
 }

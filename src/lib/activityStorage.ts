@@ -9,8 +9,29 @@ export interface Activity {
   iconClass: string;
 }
 
-const STORAGE_KEY = "@EstudaEasy:activities";
+const STORAGE_KEY_PREFIX = "@EstudaEasy:activities";
 const MAX_ACTIVITIES = 10;
+
+// Extract userId from JWT token
+const getUserIdFromToken = (): string | null => {
+  try {
+    const token = localStorage.getItem("@EstudaEasy:accessToken");
+    if (!token) return null;
+
+    const payload = JSON.parse(atob(token.split(".")[1]));
+    // Try multiple possible locations for userId
+    return payload.user?.id || payload.id || payload.sub || null;
+  } catch {
+    return null;
+  }
+};
+
+// Get storage key with user isolation
+const getStorageKey = (): string => {
+  const userId = getUserIdFromToken();
+  if (!userId) return STORAGE_KEY_PREFIX;
+  return `${STORAGE_KEY_PREFIX}:${userId}`;
+};
 
 // Generate unique ID for activities
 const generateActivityId = (): string => {
@@ -20,7 +41,8 @@ const generateActivityId = (): string => {
 export const activityStorage = {
   addActivity(activity: Omit<Activity, "timestamp" | "id"> & { id?: string }): void {
     try {
-      const stored = localStorage.getItem(STORAGE_KEY);
+      const storageKey = getStorageKey();
+      const stored = localStorage.getItem(storageKey);
       const activities: Activity[] = stored ? JSON.parse(stored) : [];
 
       const newActivity: Activity = {
@@ -38,7 +60,7 @@ export const activityStorage = {
 
       const trimmed = activities.slice(0, MAX_ACTIVITIES);
 
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(trimmed));
+      localStorage.setItem(storageKey, JSON.stringify(trimmed));
     } catch (error) {
       console.error("Erro ao salvar atividade:", error);
     }
@@ -46,12 +68,13 @@ export const activityStorage = {
 
   removeActivity(resourceId: string): void {
     try {
-      const stored = localStorage.getItem(STORAGE_KEY);
+      const storageKey = getStorageKey();
+      const stored = localStorage.getItem(storageKey);
       const activities: Activity[] = stored ? JSON.parse(stored) : [];
 
       const filtered = activities.filter((activity) => activity.resourceId !== resourceId);
 
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(filtered));
+      localStorage.setItem(storageKey, JSON.stringify(filtered));
     } catch (error) {
       console.error("Erro ao remover atividade:", error);
     }
@@ -59,7 +82,8 @@ export const activityStorage = {
 
   getRecentActivities(limit: number = 3): Activity[] {
     try {
-      const stored = localStorage.getItem(STORAGE_KEY);
+      const storageKey = getStorageKey();
+      const stored = localStorage.getItem(storageKey);
       const activities: Activity[] = stored ? JSON.parse(stored) : [];
       return activities.slice(0, limit);
     } catch (error) {
@@ -70,7 +94,8 @@ export const activityStorage = {
 
   getAllActivities(): Activity[] {
     try {
-      const stored = localStorage.getItem(STORAGE_KEY);
+      const storageKey = getStorageKey();
+      const stored = localStorage.getItem(storageKey);
       return stored ? JSON.parse(stored) : [];
     } catch (error) {
       console.error("Erro ao buscar atividades:", error);
@@ -80,9 +105,21 @@ export const activityStorage = {
 
   clearActivities(): void {
     try {
-      localStorage.removeItem(STORAGE_KEY);
+      const storageKey = getStorageKey();
+      localStorage.removeItem(storageKey);
     } catch (error) {
       console.error("Erro ao limpar atividades:", error);
+    }
+  },
+
+  clearAllActivityData(): void {
+    try {
+      // Clear all activity-related keys from localStorage
+      const keys = Object.keys(localStorage);
+      const activityKeys = keys.filter((key) => key.startsWith(STORAGE_KEY_PREFIX));
+      activityKeys.forEach((key) => localStorage.removeItem(key));
+    } catch (error) {
+      console.error("Erro ao limpar dados de atividades:", error);
     }
   },
 };

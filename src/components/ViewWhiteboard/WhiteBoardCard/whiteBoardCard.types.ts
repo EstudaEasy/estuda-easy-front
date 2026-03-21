@@ -7,5 +7,6 @@ export interface WhiteboardCardProps {
   onClick?: () => void;
   onEdit?: (whiteboard: WhiteboardResponse) => void;
   onDelete?: (whiteboard: WhiteboardResponse) => void;
+  onShare?: (whiteboard: WhiteboardResponse) => void;
   className?: string;
 }

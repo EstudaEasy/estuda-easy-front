@@ -7,6 +7,7 @@ import { UpdateTaskModal } from "./UpdateTaskModal";
 import TaskService from "@/services/task/TaskService";
 import { activityStorage } from "@/lib/activityStorage";
 import { toast } from "sonner";
+import { getErrorMessage } from "@/lib/errorMessage";
 
 export function TaskCard({ task, onRefresh }: { task: TaskResponse; onRefresh: () => void }) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -38,7 +39,7 @@ export function TaskCard({ task, onRefresh }: { task: TaskResponse; onRefresh: (
       onRefresh();
     } catch (error) {
       console.error("Erro ao atualizar status:", error);
-      toast.error("Não foi possível atualizar o status da tarefa.");
+      toast.error(getErrorMessage(error, "Não foi possível atualizar o status da tarefa."));
     } finally {
       setIsUpdating(false);
     }

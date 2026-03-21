@@ -7,12 +7,14 @@ import DeckService from "@/services/deck/DeckService";
 import FlashcardCard from "./FlashcardCard";
 import { Typography } from "@/components/ui/typography";
 import EmptyToolState from "@/components/EmptyToolState/EmptyToolState";
+import LoadingState from "@/components/LoadingState";
 
 interface ViewFlashcardsProps {
   refreshTrigger?: number;
   onEditDeck?: (deck: Deck) => void;
   onDeleteDeck?: (deck: Deck) => void;
   onCreateDeck?: () => void;
+  onShareDeck?: (deck: Deck) => void;
 }
 
 export default function ViewFlashcards({
@@ -20,6 +22,7 @@ export default function ViewFlashcards({
   onEditDeck,
   onDeleteDeck,
   onCreateDeck,
+  onShareDeck,
 }: ViewFlashcardsProps) {
   const router = useRouter();
   const [decks, setDecks] = useState<Deck[]>([]);
@@ -42,13 +45,7 @@ export default function ViewFlashcards({
   }
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center p-12">
-        <Typography variant="body-1" color="light">
-          Carregando decks...
-        </Typography>
-      </div>
-    );
+    return <LoadingState message="Carregando decks..." />;
   }
 
   return (
@@ -71,6 +68,7 @@ export default function ViewFlashcards({
               onClick={() => router.push(`/tools/flashcards/${deck.id}`)}
               onEdit={onEditDeck}
               onDelete={onDeleteDeck}
+              onShare={onShareDeck}
             />
           ))}
         </div>

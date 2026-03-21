@@ -1,5 +1,11 @@
 import { api } from "../api";
-import { CreateGroupRequest, UpdateGroupRequest, GroupResponse, GroupsResponse } from "@/types";
+import {
+  CreateGroupRequest,
+  UpdateGroupRequest,
+  GroupResponse,
+  GroupsResponse,
+  GroupMemberResponse,
+} from "@/types";
 
 const GroupService = {
   create(data: CreateGroupRequest) {
@@ -8,6 +14,10 @@ const GroupService = {
 
   list() {
     return api.get<GroupsResponse>("/groups");
+  },
+
+  join(inviteCode: string) {
+    return api.post<GroupMemberResponse>("/groups/join", { inviteCode });
   },
 
   getById(groupId: string) {

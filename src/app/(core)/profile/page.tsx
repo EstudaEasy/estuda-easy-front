@@ -15,6 +15,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { toast } from "sonner";
+import { getErrorMessage } from "@/lib/errorMessage";
 
 const profileSchema = z
   .object({
@@ -122,7 +123,7 @@ export default function Profile() {
       toast.success("Perfil atualizado com sucesso!");
     } catch (error) {
       console.error("Erro ao atualizar perfil:", error);
-      toast.error("Erro ao atualizar perfil");
+      toast.error(getErrorMessage(error, "Erro ao atualizar perfil"));
     }
   };
 

@@ -29,6 +29,8 @@ import QuizService from "@/services/quiz/QuizService";
 import { CreateQuizRequest, Quiz } from "@/types";
 import { activityStorage } from "@/lib/activityStorage";
 import { toast } from "sonner";
+import ShareResourceModal from "@/components/ShareResourceModal";
+import { getErrorMessage } from "@/lib/errorMessage";
 
 export default function QuizPage() {
   const router = useRouter();
@@ -39,6 +41,9 @@ export default function QuizPage() {
   const [isDeleting, setIsDeleting] = useState(false);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
   const [editingQuiz, setEditingQuiz] = useState<Quiz | null>(null);
+
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [sharingQuizId, setSharingQuizId] = useState<string | null>(null);
 
   const handleCreateQuiz = async (data: QuizFormData) => {
     try {
@@ -53,7 +58,7 @@ export default function QuizPage() {
       router.push(`/tools/quiz/${response.data.id}`);
     } catch (error) {
       console.error("Erro ao criar quiz:", error);
-      toast.error("Erro ao criar quiz. Tente novamente");
+      toast.error(getErrorMessage(error, "Erro ao criar quiz. Tente novamente"));
     } finally {
       setIsCreating(false);
     }
@@ -74,7 +79,7 @@ export default function QuizPage() {
       toast.success("Quiz atualizado com sucesso!");
     } catch (error) {
       console.error("Erro ao editar quiz:", error);
-      toast.error("Erro ao editar quiz. Tente novamente");
+      toast.error(getErrorMessage(error, "Erro ao editar quiz. Tente novamente"));
     } finally {
       setIsCreating(false);
     }
@@ -94,7 +99,7 @@ export default function QuizPage() {
       toast.success("Quiz excluído com sucesso!");
     } catch (error) {
       console.error("Erro ao excluir quiz:", error);
-      toast.error("Erro ao excluir quiz. Tente novamente");
+      toast.error(getErrorMessage(error, "Erro ao excluir quiz. Tente novamente"));
     } finally {
       setIsDeleting(false);
     }
@@ -103,6 +108,11 @@ export default function QuizPage() {
   const openEditModal = (quiz: Quiz) => {
     setEditingQuiz(quiz);
     setIsEditModalOpen(true);
+  };
+
+  const openShareModal = (quiz: Quiz) => {
+    setSharingQuizId(quiz.resourceId);
+    setIsShareModalOpen(true);
   };
 
   return (
@@ -124,6 +134,7 @@ export default function QuizPage() {
             setIsDeleteDialogOpen(true);
           }}
           onCreateQuiz={() => setIsCreateModalOpen(true)}
+          onShareQuiz={openShareModal}
         />
       </Page.Content>
 
@@ -208,6 +219,17 @@ export default function QuizPage() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      {sharingQuizId && (
+        <ShareResourceModal
+          isOpen={isShareModalOpen}
+          onClose={() => {
+            setIsShareModalOpen(false);
+            setSharingQuizId(null);
+          }}
+          resourceId={sharingQuizId}
+        />
+      )}
     </Page>
   );
 }

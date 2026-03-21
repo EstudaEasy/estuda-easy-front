@@ -27,8 +27,11 @@ import GroupService from "@/services/group/GroupService";
 import { Group, CreateGroupRequest } from "@/types";
 import { toast } from "sonner";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { getErrorMessage } from "@/lib/errorMessage";
 
 export default function Groups() {
+  const router = useRouter();
   const [groups, setGroups] = useState<Group[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
@@ -50,7 +53,7 @@ export default function Groups() {
       setGroups(response.data.groups || []);
     } catch (error) {
       console.log("Error fetching groups:", error);
-      toast.error("Erro ao carregar grupos");
+      toast.error(getErrorMessage(error, "Erro ao carregar grupos"));
     }
   };
 
@@ -71,7 +74,7 @@ export default function Groups() {
       toast.success("Grupo criado com sucesso!");
     } catch (error) {
       console.error("Erro ao criar grupo:", error);
-      toast.error("Erro ao criar grupo. Tente novamente");
+      toast.error(getErrorMessage(error, "Erro ao criar grupo. Tente novamente"));
     } finally {
       setIsCreating(false);
     }
@@ -92,7 +95,7 @@ export default function Groups() {
       toast.success("Grupo atualizado com sucesso!");
     } catch (error) {
       console.error("Erro ao editar grupo:", error);
-      toast.error("Erro ao editar grupo. Tente novamente");
+      toast.error(getErrorMessage(error, "Erro ao editar grupo. Tente novamente"));
     } finally {
       setIsCreating(false);
     }
@@ -111,7 +114,7 @@ export default function Groups() {
       toast.success("Grupo excluído com sucesso!");
     } catch (error) {
       console.error("Erro ao excluir grupo:", error);
-      toast.error("Erro ao excluir grupo. Tente novamente");
+      toast.error(getErrorMessage(error, "Erro ao excluir grupo. Tente novamente"));
     } finally {
       setIsDeleting(false);
     }
@@ -154,16 +157,23 @@ export default function Groups() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {filteredGroups.map((group) => (
-                <Link
+                <div
                   key={group.id}
-                  href={`/groups/${group.id}`}
-                  className="p-4 bg-white border border-gray-200 rounded-lg hover:border-blue-500 hover:shadow-md transition-all duration-300"
+                  onClick={() => router.push(`/groups/${group.id}`)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      router.push(`/groups/${group.id}`);
+                    }
+                  }}
+                  className="p-4 bg-white border border-gray-200 rounded-lg hover:border-blue-500 hover:shadow-md transition-all duration-300 cursor-pointer text-left focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">{group.name}</h3>
                   {group.description && (
                     <p className="text-sm text-gray-600 mb-4 line-clamp-2">{group.description}</p>
                   )}
-                  <div className="flex gap-2 mt-4">
+                  <div className="flex gap-2 mt-4" onClick={(e) => e.stopPropagation()}>
                     <Button size="sm" variant="outline" onClick={() => openEditModal(group)}>
                       Editar
                     </Button>
@@ -179,7 +189,7 @@ export default function Groups() {
                       Deletar
                     </Button>
                   </div>
-                </Link>
+                </div>
               ))}
             </div>
           )}

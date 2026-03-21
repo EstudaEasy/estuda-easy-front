@@ -29,6 +29,8 @@ import WhiteboardService from "@/services/whiteboard/WhiteboardService";
 import { CreateWhiteboardRequest, WhiteboardResponse } from "@/types/whiteboard";
 import { activityStorage } from "@/lib/activityStorage";
 import { toast } from "sonner";
+import ShareResourceModal from "@/components/ShareResourceModal";
+import { getErrorMessage } from "@/lib/errorMessage";
 
 export default function Whiteboard() {
   const router = useRouter();
@@ -40,6 +42,9 @@ export default function Whiteboard() {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [editingWhiteboard, setEditingWhiteboard] = useState<WhiteboardResponse | null>(null);
+
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [sharingWhiteboardId, setSharingWhiteboardId] = useState<string | null>(null);
 
   const handleCreateWhiteboard = async (data: WhiteboardFormData) => {
     try {
@@ -54,7 +59,7 @@ export default function Whiteboard() {
       router.push(`/tools/whiteboard/${response.data.id}`);
     } catch (error) {
       console.error("Erro ao criar quadro:", error);
-      toast.error("Erro ao criar quadro. Tente novamente");
+      toast.error(getErrorMessage(error, "Erro ao criar quadro. Tente novamente"));
     } finally {
       setIsCreating(false);
     }
@@ -74,7 +79,7 @@ export default function Whiteboard() {
       toast.success("Quadro excluído com sucesso!");
     } catch (error) {
       console.error("Erro ao excluir quadro:", error);
-      toast.error("Erro ao excluir quadro. Tente novamente");
+      toast.error(getErrorMessage(error, "Erro ao excluir quadro. Tente novamente"));
     } finally {
       setIsDeleting(false);
     }
@@ -94,7 +99,7 @@ export default function Whiteboard() {
       toast.success("Quadro atualizado com sucesso!");
     } catch (error) {
       console.error("Erro ao editar quadro:", error);
-      toast.error("Erro ao editar quadro. Tente novamente");
+      toast.error(getErrorMessage(error, "Erro ao editar quadro. Tente novamente"));
     } finally {
       setIsEditing(false);
     }
@@ -103,6 +108,11 @@ export default function Whiteboard() {
   const openEditModal = (whiteboard: WhiteboardResponse) => {
     setEditingWhiteboard(whiteboard);
     setIsEditModalOpen(true);
+  };
+
+  const openShareModal = (whiteboard: WhiteboardResponse) => {
+    setSharingWhiteboardId(whiteboard.resourceId);
+    setIsShareModalOpen(true);
   };
 
   return (
@@ -124,6 +134,7 @@ export default function Whiteboard() {
             setEditingWhiteboard(whiteboard);
             setIsDeleteDialogOpen(true);
           }}
+          onShareWhiteboard={openShareModal}
         />
       </Page.Content>
 
@@ -210,6 +221,17 @@ export default function Whiteboard() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      {sharingWhiteboardId && (
+        <ShareResourceModal
+          isOpen={isShareModalOpen}
+          onClose={() => {
+            setIsShareModalOpen(false);
+            setSharingWhiteboardId(null);
+          }}
+          resourceId={sharingWhiteboardId}
+        />
+      )}
     </Page>
   );
 }

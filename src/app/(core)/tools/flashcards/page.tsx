@@ -28,6 +28,8 @@ import { Deck } from "@/types";
 import DeckService from "@/services/deck/DeckService";
 import { activityStorage } from "@/lib/activityStorage";
 import { toast } from "sonner";
+import ShareResourceModal from "@/components/ShareResourceModal";
+import { getErrorMessage } from "@/lib/errorMessage";
 
 export default function Flashcards() {
   const [refreshTrigger, setRefreshTrigger] = useState(0);
@@ -37,6 +39,9 @@ export default function Flashcards() {
   const [isSaving, setIsSaving] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [editingDeck, setEditingDeck] = useState<Deck | null>(null);
+
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [sharingDeckId, setSharingDeckId] = useState<string | null>(null);
 
   const handleCreateDeck = async (data: DeckFormData) => {
     try {
@@ -50,7 +55,7 @@ export default function Flashcards() {
       toast.success("Deck criado com sucesso!");
     } catch (error) {
       console.error("Erro ao criar deck:", error);
-      toast.error("Erro ao criar deck. Tente novamente");
+      toast.error(getErrorMessage(error, "Erro ao criar deck. Tente novamente"));
     } finally {
       setIsSaving(false);
     }
@@ -71,7 +76,7 @@ export default function Flashcards() {
       toast.success("Deck atualizado com sucesso!");
     } catch (error) {
       console.error("Erro ao editar deck:", error);
-      toast.error("Erro ao editar deck. Tente novamente");
+      toast.error(getErrorMessage(error, "Erro ao editar deck. Tente novamente"));
     } finally {
       setIsSaving(false);
     }
@@ -91,7 +96,7 @@ export default function Flashcards() {
       toast.success("Deck excluído com sucesso!");
     } catch (error) {
       console.error("Erro ao excluir deck:", error);
-      toast.error("Erro ao excluir deck. Tente novamente");
+      toast.error(getErrorMessage(error, "Erro ao excluir deck. Tente novamente"));
     } finally {
       setIsDeleting(false);
     }
@@ -100,6 +105,11 @@ export default function Flashcards() {
   const openEditModal = (deck: Deck) => {
     setEditingDeck(deck);
     setIsEditModalOpen(true);
+  };
+
+  const openShareModal = (deck: Deck) => {
+    setSharingDeckId(deck.resourceId);
+    setIsShareModalOpen(true);
   };
 
   return (
@@ -120,6 +130,7 @@ export default function Flashcards() {
             setIsDeleteDialogOpen(true);
           }}
           onCreateDeck={() => setIsCreateModalOpen(true)}
+          onShareDeck={openShareModal}
         />
       </Page.Content>
 
@@ -207,6 +218,17 @@ export default function Flashcards() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      {sharingDeckId && (
+        <ShareResourceModal
+          isOpen={isShareModalOpen}
+          onClose={() => {
+            setIsShareModalOpen(false);
+            setSharingDeckId(null);
+          }}
+          resourceId={sharingDeckId}
+        />
+      )}
     </Page>
   );
 }

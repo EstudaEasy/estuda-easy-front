@@ -25,17 +25,21 @@ import {
 import FlashcardForm from "@/components/FlashcardForm";
 import { FlashcardFormData } from "@/components/FlashcardForm/flashcardForm.schema";
 import { toast } from "sonner";
+import LoadingState from "@/components/LoadingState";
+import { getErrorMessage } from "@/lib/errorMessage";
 
 interface FlashcardCardGalleryProps {
   deckId: string;
   onStudyClick?: () => void;
   cardsCount?: number;
+  canEdit?: boolean;
 }
 
 export default function FlashcardCardGallery({
   deckId,
   onStudyClick,
   cardsCount,
+  canEdit = true,
 }: FlashcardCardGalleryProps) {
   const [flashcards, setFlashcards] = useState<Flashcard[]>([]);
   const [loading, setLoading] = useState(true);
@@ -86,7 +90,7 @@ export default function FlashcardCardGallery({
       toast.success("Flashcard criado com sucesso!");
     } catch (error) {
       console.error("Erro ao criar flashcard:", error);
-      toast.error("Erro ao criar flashcard. Tente novamente");
+      toast.error(getErrorMessage(error, "Erro ao criar flashcard. Tente novamente"));
     } finally {
       setIsSaving(false);
     }
@@ -108,7 +112,7 @@ export default function FlashcardCardGallery({
       toast.success("Flashcard atualizado com sucesso!");
     } catch (error) {
       console.error("Erro ao editar flashcard:", error);
-      toast.error("Erro ao atualizar flashcard. Tente novamente");
+      toast.error(getErrorMessage(error, "Erro ao atualizar flashcard. Tente novamente"));
     } finally {
       setIsSaving(false);
     }
@@ -127,14 +131,13 @@ export default function FlashcardCardGallery({
       toast.success("Flashcard excluído com sucesso!");
     } catch (error) {
       console.error("Erro ao excluir flashcard:", error);
-      toast.error("Erro ao excluir flashcard. Tente novamente");
+      toast.error(getErrorMessage(error, "Erro ao excluir flashcard. Tente novamente"));
     } finally {
       setIsDeleting(false);
     }
   };
 
-  if (loading && flashcards.length === 0)
-    return <p className="text-slate-500">Carregando as cartas...</p>;
+  if (loading && flashcards.length === 0) return <LoadingState message="Carregando as cartas..." />;
 
   return (
     <div className="w-full flex flex-col items-center gap-5">
@@ -156,27 +159,35 @@ export default function FlashcardCardGallery({
         {flashcards.map((card) => (
           <div
             key={`${deckId}-${card.id}`}
-            className="bg-blue-500 border border-slate-200 rounded-xl p-6 relative cursor-pointer transition-all duration-200 shadow-sm flex flex-col gap-3 text-center h-[450px] w-75 items-center justify-center hover:-translate-y-1 hover:border-blue-600 flex-shrink-0"
-            onClick={() => openEditModal(card)}
-            title="Clique para editar"
+            className={`bg-blue-500 border border-slate-200 rounded-xl p-6 relative transition-all duration-200 shadow-sm flex flex-col gap-3 text-center h-[450px] w-75 items-center justify-center flex-shrink-0 ${canEdit ? "cursor-pointer hover:-translate-y-1 hover:border-blue-600" : ""}`}
+            onClick={() => canEdit && openEditModal(card)}
+            title={canEdit ? "Clique para editar" : ""}
           >
             <div className="text-lg font-bold text-white break-words">{card.front}</div>
             <div className="text-sm text-gray-200 break-words">{card.back}</div>
           </div>
         ))}
 
-        <div
-          className="bg-slate-50 border-2 border-dashed border-slate-300 rounded-xl h-[450px] w-75 flex items-center justify-center cursor-pointer text-slate-400 transition-all duration-200 hover:bg-slate-100 hover:border-blue-500 hover:text-blue-500 hover:-translate-y-1 flex-shrink-0 flex-col margin-top: 200px;"
-          onClick={openCreateModal}
-          title="Criar Novo Flashcard"
-        >
-          <LuPlus size={48} />
-          {flashcards.length === 0 && (
-            <p className="text-slate-500 text-center col-span-full py-10 text-base">
-              Este deck ainda não tem flashcards. Crie um clicando nesta carta!
-            </p>
-          )}
-        </div>
+        {canEdit && (
+          <div
+            className="bg-slate-50 border-2 border-dashed border-slate-300 rounded-xl h-[450px] w-75 flex items-center justify-center cursor-pointer text-slate-400 transition-all duration-200 hover:bg-slate-100 hover:border-blue-500 hover:text-blue-500 hover:-translate-y-1 flex-shrink-0 flex-col"
+            onClick={openCreateModal}
+            title="Criar Novo Flashcard"
+          >
+            <LuPlus size={48} />
+            {flashcards.length === 0 && canEdit && (
+              <p className="text-slate-500 text-center col-span-full py-10 text-base">
+                Este deck ainda não tem flashcards. Crie um clicando na carta "+" ao lado!
+              </p>
+            )}
+          </div>
+        )}
+
+        {flashcards.length === 0 && !canEdit && (
+          <p className="text-slate-500 text-center col-span-full py-10 text-base">
+            Este deck ainda não tem flashcards.
+          </p>
+        )}
       </div>
 
       <Dialog

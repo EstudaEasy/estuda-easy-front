@@ -11,6 +11,9 @@ import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
 import { useResourceConverter } from "@/context/resourceConverter/ResourceConverterContext";
 import { ArrowRight } from "lucide-react";
+import Image from "next/image";
+import TiaFalando from "@/assets/TIA_falando.png";
+import LoadingState from "@/components/LoadingState";
 
 export default function QuizResultsPage() {
   const router = useRouter();
@@ -76,17 +79,11 @@ export default function QuizResultsPage() {
   const perf = getPerformanceData();
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center p-12">
-        <Typography variant="body-1" color="light">
-          Carregando...
-        </Typography>
-      </div>
-    );
+    return <LoadingState message="Carregando resultado do quiz..." />;
   }
 
   return (
-    <div className="flex flex-col items-center gap-6 p-6 max-w-lg mx-auto">
+    <div className="mx-auto flex w-full max-w-2xl flex-col items-center gap-6 p-6">
       <Card className="w-full">
         <CardContent className="flex flex-col items-center gap-6 py-8">
           {/* Performance title & message */}
@@ -163,23 +160,46 @@ export default function QuizResultsPage() {
             Refazer Quiz
           </Button>
         </div>
-        <Button
-          variant="outline"
-          className="w-full gap-2 border-blue-200 text-blue-600 hover:bg-blue-50 hover:text-blue-700"
-          onClick={() => {
-            if (quiz) {
-              notifyCompletion({
-                resourceId: quizId,
-                resourceType: "quiz",
-                resourceName: quiz.title,
-              });
-            }
-          }}
-          disabled={!quiz}
-        >
-          <ArrowRight size={16} />
-          Converter este Quiz
-        </Button>
+        <Card className="w-full border-blue-100 bg-linear-to-r from-blue-50 to-sky-100 shadow-sm">
+          <CardContent className="flex items-center gap-4 p-4">
+            <div className="hidden h-16 w-16 shrink-0 overflow-hidden rounded-full bg-white ring-2 ring-blue-200 sm:block">
+              <Image
+                src={TiaFalando}
+                alt="tIA"
+                width={64}
+                height={64}
+                className="h-full w-full object-cover object-top"
+                quality={100}
+              />
+            </div>
+
+            <div className="flex min-w-0 flex-1 flex-col gap-2">
+              <Typography variant="caption" className="text-blue-700" weight="semibold">
+                Sugestao da tIA
+              </Typography>
+              <Typography variant="body-2" className="text-slate-700">
+                Quer aproveitar seu resultado e transformar este quiz em outro formato para revisar
+                melhor depois?
+              </Typography>
+              <Button
+                className="w-full gap-2 bg-blue-600 hover:bg-blue-700 sm:w-fit"
+                onClick={() => {
+                  if (quiz) {
+                    notifyCompletion({
+                      resourceId: quizId,
+                      resourceType: "quiz",
+                      resourceName: quiz.title,
+                    });
+                  }
+                }}
+                disabled={!quiz}
+              >
+                <ArrowRight size={16} />
+                Conversar com a tIA sobre este quiz
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
