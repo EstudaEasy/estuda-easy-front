@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { formatDistanceToNow } from "date-fns";
 import { ptBR } from "date-fns/locale";
+import { getErrorMessage } from "@/lib/errorMessage";
 
 interface GroupPostsProps {
   groupId: string;
@@ -40,7 +41,7 @@ export default function GroupPosts({ groupId, currentUserMember }: GroupPostsPro
       setPosts(extractedPosts);
     } catch (error: any) {
       console.error("Erro ao carregar posts:", error);
-      toast.error(error?.response?.data?.message || "Erro ao carregar os posts do grupo");
+      toast.error(getErrorMessage(error, "Erro ao carregar os posts do grupo"));
     } finally {
       setIsLoading(false);
     }
@@ -61,11 +62,7 @@ export default function GroupPosts({ groupId, currentUserMember }: GroupPostsPro
       toast.success("Post criado com sucesso!");
     } catch (error: any) {
       console.error("Erro ao criar post:", error);
-      toast.error(
-        error?.response?.data?.message || typeof error?.response?.data === "string"
-          ? error.response.data
-          : "Erro ao criar post",
-      );
+      toast.error(getErrorMessage(error, "Erro ao criar post"));
     } finally {
       setIsSubmitting(false);
     }
@@ -80,7 +77,7 @@ export default function GroupPosts({ groupId, currentUserMember }: GroupPostsPro
       toast.success("Post deletado");
     } catch (error) {
       console.error("Erro ao deletar:", error);
-      toast.error("Erro ao deletar post");
+      toast.error(getErrorMessage(error, "Erro ao deletar post"));
     }
   };
 
@@ -93,7 +90,7 @@ export default function GroupPosts({ groupId, currentUserMember }: GroupPostsPro
       toast.success("Post atualizado");
     } catch (error) {
       console.error("Erro ao atualizar:", error);
-      toast.error("Erro ao atualizar post");
+      toast.error(getErrorMessage(error, "Erro ao atualizar post"));
     }
   };
 

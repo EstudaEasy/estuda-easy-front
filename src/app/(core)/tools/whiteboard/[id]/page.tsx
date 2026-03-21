@@ -10,9 +10,11 @@ import { SidebarTrigger, useSidebar } from "@/components/ui/sidebar";
 import WhiteboardService from "@/services/whiteboard/WhiteboardService";
 import { WhiteboardResponse } from "@/types/whiteboard";
 import { toast } from "sonner";
+import LoadingState from "@/components/LoadingState";
 import { Save, ArrowLeft, Share2 } from "lucide-react";
 import ShareResourceModal from "@/components/ShareResourceModal";
 import { useResourcePermission } from "@/hooks/useResourcePermission";
+import { getErrorMessage } from "@/lib/errorMessage";
 
 export default function WhiteboardEditor() {
   const params = useParams();
@@ -52,7 +54,7 @@ export default function WhiteboardEditor() {
       hasLoadedSnapshot.current = true;
     } catch (error) {
       console.error("Erro ao carregar conteúdo do quadro:", error);
-      toast.error("Erro ao carregar o quadro");
+      toast.error(getErrorMessage(error, "Erro ao carregar o quadro"));
     }
   }, [editor, whiteboard]);
 
@@ -63,7 +65,7 @@ export default function WhiteboardEditor() {
       setWhiteboard(response.data);
     } catch (error) {
       console.error("Erro ao carregar quadro:", error);
-      toast.error("Erro ao carregar o quadro");
+      toast.error(getErrorMessage(error, "Erro ao carregar o quadro"));
       router.push("/tools/whiteboard");
     } finally {
       setIsLoading(false);
@@ -87,7 +89,7 @@ export default function WhiteboardEditor() {
       toast.success("Quadro salvo com sucesso!");
     } catch (error) {
       console.error("Erro ao salvar whiteBoard:", error);
-      toast.error("Erro ao salvar whiteBoard. Tente novamente");
+      toast.error(getErrorMessage(error, "Erro ao salvar whiteBoard. Tente novamente"));
     } finally {
       setIsSaving(false);
     }
@@ -100,13 +102,7 @@ export default function WhiteboardEditor() {
   const sidebarOffset = isMobile ? "0px" : state === "collapsed" ? "3rem" : "16rem";
 
   if (isLoading) {
-    return (
-      <div className="flex h-screen items-center justify-center">
-        <div className="text-center">
-          <div className="text-lg font-semibold text-gray-700">Carregando quadro...</div>
-        </div>
-      </div>
-    );
+    return <LoadingState message="Carregando quadro..." className="h-screen" />;
   }
 
   return (

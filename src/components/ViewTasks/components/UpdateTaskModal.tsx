@@ -9,6 +9,7 @@ import TaskService from "@/services/task/TaskService";
 import { TaskResponse } from "../../../types/task";
 import { toast } from "sonner";
 import { activityStorage } from "@/lib/activityStorage";
+import { getErrorMessage } from "@/lib/errorMessage";
 import {
   Dialog,
   DialogContent,
@@ -79,7 +80,7 @@ export function UpdateTaskModal({ open, task, onSuccess, onOpenChange }: Props) 
       onSuccess();
     } catch (error) {
       console.error("Erro ao atualizar tarefa:", error);
-      toast.error("Não foi possível atualizar a tarefa.");
+      toast.error(getErrorMessage(error, "Não foi possível atualizar a tarefa."));
     }
   };
 
@@ -94,7 +95,7 @@ export function UpdateTaskModal({ open, task, onSuccess, onOpenChange }: Props) 
       onSuccess();
     } catch (error) {
       console.error("Erro ao deletar:", error);
-      toast.error("Erro ao excluir tarefa.");
+      toast.error(getErrorMessage(error, "Erro ao excluir tarefa."));
       setIsDeleting(false);
     }
   };
@@ -121,7 +122,7 @@ export function UpdateTaskModal({ open, task, onSuccess, onOpenChange }: Props) 
               <label className="text-sm font-bold text-gray-700">Descrição</label>
               <textarea
                 {...register("description")}
-                className="w-full border border-gray-200 p-3 rounded-xl min-h-[100px] bg-gray-50 text-gray-900"
+                className="w-full border border-gray-200 p-3 rounded-xl min-h-25 bg-gray-50 text-gray-900"
               />
             </div>
 
@@ -170,7 +171,7 @@ export function UpdateTaskModal({ open, task, onSuccess, onOpenChange }: Props) 
       </Dialog>
 
       <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
-        <AlertDialogContent className="max-w-[400px]">
+        <AlertDialogContent className="max-w-100">
           <AlertDialogHeader>
             <AlertDialogTitle>Excluir Tarefa?</AlertDialogTitle>
             <AlertDialogDescription>

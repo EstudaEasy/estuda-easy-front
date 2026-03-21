@@ -11,6 +11,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { LuArrowLeft } from "react-icons/lu";
 import { toast } from "sonner";
+import LoadingState from "@/components/LoadingState";
+import { getErrorMessage } from "@/lib/errorMessage";
 
 export default function QuizPlayPage() {
   const router = useRouter();
@@ -34,7 +36,7 @@ export default function QuizPlayPage() {
         }
       } catch (err) {
         console.error("Erro ao buscar quiz:", err);
-        toast.error("Não foi possível carregar o quiz");
+        toast.error(getErrorMessage(err, "Não foi possível carregar o quiz"));
         router.push(`/tools/quiz/${quizId}`);
       } finally {
         setLoading(false);
@@ -125,13 +127,7 @@ export default function QuizPlayPage() {
   };
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center p-12">
-        <Typography variant="body-1" color="light">
-          Carregando...
-        </Typography>
-      </div>
-    );
+    return <LoadingState message="Carregando quiz para jogar..." />;
   }
 
   if (!quiz || !quiz.items || quiz.items.length === 0) {

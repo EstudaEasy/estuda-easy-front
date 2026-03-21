@@ -5,6 +5,7 @@ import { useRouter, useParams } from "next/navigation";
 import { Quiz, QuizItem } from "@/types";
 import QuizService from "@/services/quiz/QuizService";
 import QuizItemService from "@/services/quiz/QuizItemService";
+import ResourceConversionService from "@/services/resource/ResourceConversionService";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Typography } from "@/components/ui/typography";
@@ -20,9 +21,33 @@ import {
 import QuestionForm from "@/components/QuestionForm";
 import { QuestionFormData } from "@/components/QuestionForm/questionForm.schema";
 import { LuArrowLeft, LuPencil, LuPlay, LuPlus, LuTrash2, LuShare2 } from "react-icons/lu";
+import { Sparkles, Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import LoadingState from "@/components/LoadingState";
 import ShareResourceModal from "@/components/ShareResourceModal";
 import { useResourcePermission } from "@/hooks/useResourcePermission";
+import { getErrorMessage } from "@/lib/errorMessage";
+import { ScrollArea } from "@/components/ui/scroll-area";
+
+interface QuizOption {
+  text: string;
+  isCorrect: boolean;
+  position?: number;
+}
+
+interface QuizItemPayload {
+  question: string;
+  explanation?: string;
+  position?: number;
+  options: QuizOption[];
+}
+
+interface AIGeneratedPayload {
+  data?: {
+    items: QuizItemPayload[];
+  };
+  type?: string;
+}
 
 export default function QuizDetailPage() {
   const router = useRouter();
@@ -43,6 +68,11 @@ export default function QuizDetailPage() {
   }>({
     isOpen: false,
   });
+
+  const [isAIGenerating, setIsAIGenerating] = useState(false);
+  const [isAIPreviewOpen, setIsAIPreviewOpen] = useState(false);
+  const [aiGeneratedPayload, setAIGeneratedPayload] = useState<AIGeneratedPayload | null>(null);
+  const [isAISaving, setIsAISaving] = useState(false);
 
   const { canEdit } = useResourcePermission(quiz?.resourceId);
 
@@ -101,7 +131,7 @@ export default function QuizDetailPage() {
       setEditingQuestion(null);
     } catch (err) {
       console.error("Erro ao salvar pergunta:", err);
-      toast.error("Erro ao salvar pergunta. Tente novamente.");
+      toast.error(getErrorMessage(err, "Erro ao salvar pergunta. Tente novamente."));
     } finally {
       setIsSubmitting(false);
     }
@@ -128,7 +158,91 @@ export default function QuizDetailPage() {
       toast.success("Pergunta excluída com sucesso!");
     } catch (err) {
       console.error("Erro ao excluir pergunta:", err);
-      toast.error("Erro ao excluir pergunta. Tente novamente.");
+      toast.error(getErrorMessage(err, "Erro ao excluir pergunta. Tente novamente."));
+    }
+  };
+
+  const handleGenerateWithAI = async () => {
+    if (!quiz) return;
+
+    try {
+      setIsAIGenerating(true);
+
+      // Call conversion service to generate questions via AI
+      const conversionResponse = await ResourceConversionService.convert(quiz.resourceId, {
+        sourceResourceId: quiz.resourceId,
+        targetResourceType: "quiz",
+      });
+
+      // Parse response
+      let parsedData: AIGeneratedPayload = {
+        data: {
+          items: [],
+        },
+      };
+      if (typeof conversionResponse.data === "string") {
+        try {
+          parsedData = JSON.parse(conversionResponse.data) as AIGeneratedPayload;
+        } catch (e) {
+          console.error("Falha ao parsear JSON do recurso convertido", e);
+        }
+      } else if (conversionResponse.data) {
+        parsedData = conversionResponse.data as unknown as AIGeneratedPayload;
+      }
+
+      setAIGeneratedPayload(parsedData);
+      setIsAIPreviewOpen(true);
+    } catch (err) {
+      console.error("Erro ao gerar questões com IA:", err);
+      toast.error("Erro ao gerar questões com IA. Tente novamente.");
+    } finally {
+      setIsAIGenerating(false);
+    }
+  };
+
+  const handleSaveAIQuestions = async () => {
+    if (!aiGeneratedPayload || !quiz) {
+      toast.error("Dados de conversão inválidos");
+      return;
+    }
+
+    try {
+      setIsAISaving(true);
+      const items = aiGeneratedPayload.data?.items || [];
+
+      if (items.length === 0) {
+        toast.error("Nenhuma questão foi gerada. Tente novamente");
+        return;
+      }
+
+      // Create all quiz items in parallel
+      await Promise.all(
+        items.map((item: QuizItemPayload, index: number) =>
+          QuizItemService.create(quizId, {
+            question: item.question,
+            explanation: item.explanation || "",
+            position: item.position ?? (quiz.items?.length || 0) + index + 1,
+            options: item.options.map((opt: QuizOption, j: number) => ({
+              text: opt.text,
+              isCorrect: opt.isCorrect,
+              position: opt.position ?? j + 1,
+            })),
+          }),
+        ),
+      );
+
+      // Reload quiz
+      const response = await QuizService.getById(quizId);
+      setQuiz(response.data);
+
+      toast.success("Questões geradas com sucesso!");
+      setIsAIPreviewOpen(false);
+      setAIGeneratedPayload(null);
+    } catch (error) {
+      console.error("Erro ao salvar questões geradas:", error);
+      toast.error("Erro ao salvar questões. Tente novamente");
+    } finally {
+      setIsAISaving(false);
     }
   };
 
@@ -138,13 +252,7 @@ export default function QuizDetailPage() {
   };
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center p-12">
-        <Typography variant="body-1" color="light">
-          Carregando...
-        </Typography>
-      </div>
-    );
+    return <LoadingState message="Carregando quiz..." />;
   }
 
   if (error || !quiz) {
@@ -206,10 +314,21 @@ export default function QuizDetailPage() {
             <Badge variant="secondary">{quiz.items?.length || 0}</Badge>
           </div>
           {canEdit && (
-            <Button onClick={openNewQuestionModal}>
-              <LuPlus />
-              Nova Pergunta
-            </Button>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                onClick={handleGenerateWithAI}
+                disabled={isAIGenerating}
+                className="gap-2"
+              >
+                <Sparkles size={16} />
+                {isAIGenerating ? "Gerando..." : "IA"}
+              </Button>
+              <Button onClick={openNewQuestionModal}>
+                <LuPlus />
+                Nova Pergunta
+              </Button>
+            </div>
           )}
         </div>
 
@@ -346,6 +465,105 @@ export default function QuizDetailPage() {
             </Button>
             <Button variant="destructive" onClick={handleDeleteQuestion}>
               Excluir
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Modal de Preview de IA */}
+      <Dialog open={isAIPreviewOpen} onOpenChange={setIsAIPreviewOpen}>
+        <DialogContent className="sm:max-w-2xl max-h-[80vh]">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Sparkles className="h-5 w-5 text-blue-500" />
+              Questões Geradas pela IA
+            </DialogTitle>
+          </DialogHeader>
+          <ScrollArea className="h-[400px] pr-4">
+            <div className="space-y-4">
+              {aiGeneratedPayload?.data?.items && aiGeneratedPayload.data.items.length > 0 ? (
+                aiGeneratedPayload.data.items.map((item: QuizItemPayload, index: number) => (
+                  <div key={index} className="border rounded-lg p-4 bg-slate-50 space-y-3">
+                    <div>
+                      <p className="text-sm font-medium text-slate-600">Questão {index + 1}</p>
+                      <p className="text-base font-semibold mt-1">{item.question}</p>
+                    </div>
+
+                    {item.options && item.options.length > 0 && (
+                      <div className="space-y-2">
+                        <p className="text-sm font-medium text-slate-600">Opções:</p>
+                        <div className="space-y-1 ml-2">
+                          {item.options.map((option: QuizOption, optIndex: number) => (
+                            <div
+                              key={optIndex}
+                              className={`flex items-start gap-2 p-2 rounded ${
+                                option.isCorrect
+                                  ? "bg-green-50 border border-green-200"
+                                  : "bg-white border border-slate-200"
+                              }`}
+                            >
+                              <span
+                                className={`inline-flex items-center justify-center w-5 h-5 rounded-full text-xs font-semibold ${
+                                  option.isCorrect
+                                    ? "bg-green-500 text-white"
+                                    : "bg-slate-300 text-slate-700"
+                                }`}
+                              >
+                                {String.fromCharCode(65 + optIndex)}
+                              </span>
+                              <span className="text-sm">{option.text}</span>
+                              {option.isCorrect && (
+                                <span className="ml-auto text-xs font-semibold text-green-600">
+                                  ✓ Correta
+                                </span>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {item.explanation && (
+                      <div>
+                        <p className="text-sm font-medium text-slate-600">Explicação:</p>
+                        <p className="text-sm text-slate-700 mt-1">{item.explanation}</p>
+                      </div>
+                    )}
+                  </div>
+                ))
+              ) : (
+                <div className="flex items-center justify-center h-32 text-slate-500">
+                  {isAISaving ? (
+                    <div className="flex items-center gap-2">
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      <span>Salvando...</span>
+                    </div>
+                  ) : (
+                    "Nenhuma questão foi gerada"
+                  )}
+                </div>
+              )}
+            </div>
+          </ScrollArea>
+
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => {
+                setIsAIPreviewOpen(false);
+                setAIGeneratedPayload(null);
+              }}
+              disabled={isAISaving}
+            >
+              Cancelar
+            </Button>
+            <Button
+              onClick={handleSaveAIQuestions}
+              disabled={isAISaving || !aiGeneratedPayload?.data?.items?.length}
+              className="gap-2"
+            >
+              {isAISaving && <Loader2 className="h-4 w-4 animate-spin" />}
+              {isAISaving ? "Salvando..." : "Adicionar Questões"}
             </Button>
           </DialogFooter>
         </DialogContent>

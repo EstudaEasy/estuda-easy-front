@@ -6,6 +6,7 @@ import { Typography } from "@/components/ui/typography";
 import { Separator } from "@/components/ui/separator";
 import { LuBrain, LuBookOpen, LuBook, LuClock, LuX } from "react-icons/lu";
 import { useFavorites } from "@/hooks/useFavorites";
+import LoadingState from "@/components/LoadingState";
 
 const iconMap = {
   LuBrain: LuBrain,
@@ -33,9 +34,7 @@ export default function DashboardSection() {
       </div>
 
       {isLoading ? (
-        <div className="text-center py-8">
-          <Typography color="light">Carregando favoritos...</Typography>
-        </div>
+        <LoadingState message="Carregando favoritos..." variant="inline" />
       ) : favorites.length === 0 ? (
         <div className="text-center py-8">
           <Typography color="light">Nenhum favorito adicionado ainda</Typography>

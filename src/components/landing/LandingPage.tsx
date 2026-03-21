@@ -15,6 +15,9 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { useState } from "react";
+import Image from "next/image";
+import LogoPrincipal from "@/assets/EstudaEasyLogoPrincipal.png";
+import LogoReduzida from "@/assets/EstudaEasyLogoReduzida.png";
 
 export function LandingPage() {
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
@@ -69,15 +72,18 @@ export function LandingPage() {
       {/* Header/Navigation */}
       <header className="fixed top-0 w-full bg-white/80 backdrop-blur-md border-b border-gray-100 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <div
-              style={{ backgroundColor: "#3461fd" }}
-              className="w-10 h-10 rounded-lg flex items-center justify-center"
-            >
-              <GraduationCap className="w-6 h-6 text-white" />
-            </div>
-            <span className="font-bold text-xl text-gray-900">EstudaEasy</span>
-          </div>
+          <Image
+            src={LogoPrincipal}
+            alt="EstudaEasy"
+            className="h-auto w-30 object-contain group-data-[collapsible=icon]:hidden"
+            priority
+          />
+          <Image
+            src={LogoReduzida}
+            alt="EstudaEasy"
+            className="hidden h-6 w-6 origin-center object-contain group-data-[collapsible=icon]:block group-data-[collapsible=icon]:scale-125"
+            priority
+          />
 
           <nav className="hidden md:flex items-center space-x-8">
             <a href="#features" className="text-gray-600 hover:text-gray-900 transition">
@@ -457,16 +463,6 @@ export function LandingPage() {
                 question: "Como a IA me ajuda a estudar?",
                 answer:
                   "Nosso assistente IA pode responder suas dúvidas, explicar conceitos, gerar quizzes baseados em seu material e ajudar a resolver problemas. Está disponível 24/7 para ajudar no seu aprendizado.",
-              },
-              {
-                question: "Posso usar a EstudaEasy no celular?",
-                answer:
-                  "Sim! A plataforma é totalmente responsiva e funciona perfeitamente em smartphones, tablets e computadores.",
-              },
-              {
-                question: "Meus dados estão seguros?",
-                answer:
-                  "Sim, utilizamos as melhores práticas de segurança para proteger seus dados. Suas informações são criptografadas e armazenadas com segurança.",
               },
             ].map((item, index) => (
               <div

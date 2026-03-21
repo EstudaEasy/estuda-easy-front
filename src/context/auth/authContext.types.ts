@@ -6,6 +6,8 @@ export interface IAuthContext {
   login: (request: LoginRequest) => Promise<void>;
   logout: () => void;
   register: (request: CreateUserRequest) => Promise<void>;
+  loadUser: () => Promise<void>;
+  loginWithGoogle: () => void;
 }
 
 export interface UserDataJWT {

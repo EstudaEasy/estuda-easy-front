@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import Image from "next/image";
 import { Button } from "../ui/button";
 import { ScrollArea } from "../ui/scroll-area";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
@@ -28,6 +29,10 @@ import { ConversionMessage } from "./messages/ConversionMessage";
 import { FinishConversionMessage } from "./messages/FinishConversionMessage";
 import { ResetChatMessage } from "./messages/ResetChatMessage";
 import { useResourceConverter } from "@/context/resourceConverter/ResourceConverterContext";
+import TiaFalando from "@/assets/TIA_falando.png";
+
+const DEFAULT_TIA_WELCOME =
+  "Oi! Eu sou a tIA ✨ Posso te ajudar a transformar seus recursos entre Quiz, Deck e Task em poucos cliques. O que você quer converter agora?";
 
 export function ResourceConverter({
   open,
@@ -40,12 +45,11 @@ export function ResourceConverter({
     {
       id: "welcome",
       type: "agent",
-      content:
-        "Olá! Eu sou seu assistente de conversão de recursos. Com a minha ajuda, você pode converter seus recursos entre diferentes formatos. O que você gostaria de fazer?",
+      content: DEFAULT_TIA_WELCOME,
       options: [
         {
           id: "convert",
-          label: "Converter Recursos",
+          label: "Quero converter recursos",
           icon: "🔄",
         },
       ],
@@ -69,7 +73,7 @@ export function ResourceConverter({
   const [previewData, setPreviewData] = useState<IPayloadJSON>({ data: null, type: null });
   const [previewType, setPreviewType] = useState<ResourceTargetType>(null);
 
-  // Pre-fill when the converter opens with a pending completion event
+  
   useEffect(() => {
     if (!open) {
       preFillHandledRef.current = false;
@@ -101,10 +105,10 @@ export function ResourceConverter({
       {
         id: "welcome",
         type: "agent",
-        content: `Parabéns por finalizar o ${label} "${pendingCompletion.resourceName}"! 🎉 Quer aproveitar e converter ele para outro formato?`,
+        content: `Amei ver você concluindo o ${label} "${pendingCompletion.resourceName}"! Quer que eu converta esse conteúdo para outro formato agora?`,
         options: [
-          { id: "convert-prefill", label: "Sim, converter agora", icon: "🔄" },
-          { id: "no-thanks", label: "Agora não", icon: "❌" },
+          { id: "convert-prefill", label: "Sim, vamos converter", icon: "✨" },
+          { id: "no-thanks", label: "Vou deixar pra depois", icon: "🙂" },
         ],
       },
     ]);
@@ -198,12 +202,11 @@ export function ResourceConverter({
       {
         id: "welcome",
         type: "agent",
-        content:
-          "Olá! Eu sou seu assistente de conversão de recursos. Com a minha ajuda, você pode converter seus recursos entre diferentes formatos. O que você gostaria de fazer?",
+        content: DEFAULT_TIA_WELCOME,
         options: [
           {
             id: "convert",
-            label: "Converter Recursos",
+            label: "Quero converter recursos",
             icon: "🔄",
           },
         ],
@@ -234,29 +237,27 @@ export function ResourceConverter({
 
     if (optionId === "convert") {
       appendUserMessage("Quero converter recursos.");
-      appendAgentMessage("Perfeito! Para converter recursos, preciso que você selecione:");
+      appendAgentMessage("Perfeito! Me diz de onde vem o conteúdo e para onde você quer levar:");
 
       setTimeout(() => {
-        appendConversionMessage("Selecione os recursos para conversão");
+        appendConversionMessage("Escolha os recursos para a conversão");
       }, 800);
     }
 
     if (optionId === "convert-prefill") {
       appendUserMessage("Sim, quero converter agora!");
-      appendAgentMessage(
-        "Ótimo! O recurso de origem já está selecionado. Agora escolha apenas o destino:",
-      );
+      appendAgentMessage("Perfeito! A origem já está pronta. Falta só você escolher o destino:");
 
       setTimeout(() => {
-        appendConversionMessage("Selecione o destino para conversão");
+        appendConversionMessage("Escolha o formato de destino");
       }, 800);
     }
 
     if (optionId === "no-thanks") {
       appendUserMessage("Agora não, obrigado.");
       appendAgentMessage(
-        "Tudo bem! Se quiser converter depois, é só abrir o assistente novamente. 😊",
-        [{ id: "convert", label: "Converter Recursos", icon: "🔄" }],
+        "Sem problemas! Quando quiser, eu te ajudo a converter rapidinho. 💙",
+        [{ id: "convert", label: "Quero converter recursos", icon: "🔄" }],
       );
     }
   };
@@ -415,14 +416,30 @@ export function ResourceConverter({
 
   return (
     <>
-      <div className="fixed bottom-24 right-6 z-50 w-96 h-[500px] bg-white rounded-lg shadow-2xl border border-gray-200 flex flex-col overflow-hidden animate-in slide-in-from-bottom-2 duration-300">
-        <div className="flex items-center justify-between p-4 border-b border-gray-200">
-          <h2 className="font-semibold text-gray-900">Assistente de Conversão</h2>
+      <div className="fixed bottom-24 right-6 z-50 w-96 h-125 bg-white rounded-2xl shadow-2xl border border-gray-200 flex flex-col overflow-hidden animate-in slide-in-from-bottom-2 duration-300">
+        <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-linear-to-r from-blue-50 to-sky-100">
+          <div className="flex items-center gap-3">
+            <div className="h-10 w-10 rounded-full overflow-hidden ring-2 ring-white/80 shadow-sm bg-white">
+              <Image
+                src={TiaFalando}
+                alt="tIA"
+                width={40}
+                height={40}
+                className="h-full w-full object-cover object-top"
+                quality={100}
+                priority
+              />
+            </div>
+            <div>
+              <h2 className="font-semibold leading-tight text-gray-900">tIA</h2>
+              <p className="text-xs text-gray-600">Sua assistente de conversao</p>
+            </div>
+          </div>
           <Button
             variant="ghost"
             size="icon"
             onClick={() => onOpenChange(false)}
-            className="h-8 w-8"
+            className="h-8 w-8 hover:bg-white/70"
           >
             <X size={18} />
           </Button>
@@ -553,7 +570,7 @@ export function ResourceConverter({
                             {resource.name}
                           </span>
                           {resource.description && (
-                            <span className="text-xs text-gray-500 line-clamp-2 w-full whitespace-normal break-words mt-1">
+                            <span className="text-xs text-gray-500 line-clamp-2 w-full whitespace-normal wrap-break-word mt-1">
                               {resource.description}
                             </span>
                           )}

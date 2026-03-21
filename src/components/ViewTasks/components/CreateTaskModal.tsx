@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { taskSchema, TaskFormData } from "../schemas/taskSchema";
 import TaskService from "@/services/task/TaskService";
 import { toast } from "sonner";
+import { getErrorMessage } from "@/lib/errorMessage";
 import {
   Dialog,
   DialogContent,
@@ -53,7 +54,7 @@ export function CreateTaskModal({ open, selectedDate, onSuccess, onOpenChange }:
       onOpenChange(false);
     } catch (error) {
       console.error("Erro ao criar tarefa:", error);
-      toast.error("Erro ao criar tarefa.");
+      toast.error(getErrorMessage(error, "Erro ao criar tarefa."));
     }
   };
 
@@ -86,7 +87,7 @@ export function CreateTaskModal({ open, selectedDate, onSuccess, onOpenChange }:
             <textarea
               {...register("description")}
               placeholder="Detalhes sobre a atividade..."
-              className="w-full border border-gray-200 p-3 rounded-xl min-h-[100px] text-gray-900 focus:border-blue-500 outline-none bg-gray-50 resize-none"
+              className="w-full border border-gray-200 p-3 rounded-xl min-h-25 text-gray-900 focus:border-blue-500 outline-none bg-gray-50 resize-none"
             />
           </div>
 

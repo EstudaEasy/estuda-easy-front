@@ -47,6 +47,7 @@ import { Group } from "@/types";
 import GroupService from "@/services/group/GroupService";
 import JoinGroupModal from "./JoinGroupModal";
 import Link from "next/link";
+import { getErrorMessage } from "@/lib/errorMessage";
 
 type IconComponent = ComponentType<{ size?: number | string } | LucideProps>;
 
@@ -129,7 +130,7 @@ export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sid
       }
     } catch (error) {
       console.error("Erro ao sair do grupo", error);
-      toast.error("Erro ao sair do grupo");
+      toast.error(getErrorMessage(error, "Erro ao sair do grupo"));
     } finally {
       setIsLeavingGroup(false);
       setGroupToLeave(null);

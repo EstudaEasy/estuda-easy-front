@@ -7,6 +7,7 @@ import WhiteboardService from "@/services/whiteboard/WhiteboardService";
 import WhiteboardCard from "./WhiteBoardCard/whiteboardCard";
 import { Typography } from "@/components/ui/typography";
 import EmptyToolState from "@/components/EmptyToolState/EmptyToolState";
+import LoadingState from "@/components/LoadingState";
 
 interface ViewWhiteboardProps {
   refreshTrigger?: number;
@@ -44,13 +45,7 @@ export default function ViewWhiteboard({
   }
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center p-12">
-        <Typography variant="body-1" color="light">
-          Carregando quadros...
-        </Typography>
-      </div>
-    );
+    return <LoadingState message="Carregando quadros..." />;
   }
 
   return (

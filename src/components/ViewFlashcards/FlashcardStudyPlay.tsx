@@ -27,6 +27,8 @@ import { Button } from "@/components/ui/button";
 import FlashcardForm from "@/components/FlashcardForm";
 import { FlashcardFormData } from "@/components/FlashcardForm/flashcardForm.schema";
 import { toast } from "sonner";
+import LoadingState from "@/components/LoadingState";
+import { getErrorMessage } from "@/lib/errorMessage";
 
 interface FlashcardStudyPlayProps {
   deckId: string;
@@ -126,7 +128,7 @@ export default function FlashcardStudyPlay({ deckId, onFinish }: FlashcardStudyP
       toast.success("Flashcard atualizado com sucesso!");
     } catch (error) {
       console.error("Erro ao editar flashcard:", error);
-      toast.error("Erro ao atualizar flashcard. Tente novamente");
+      toast.error(getErrorMessage(error, "Erro ao atualizar flashcard. Tente novamente"));
     } finally {
       setIsSaving(false);
     }
@@ -145,20 +147,14 @@ export default function FlashcardStudyPlay({ deckId, onFinish }: FlashcardStudyP
       toast.success("Flashcard excluído com sucesso!");
     } catch (error) {
       console.error("Erro ao excluir flashcard:", error);
-      toast.error("Erro ao excluir flashcard. Tente novamente");
+      toast.error(getErrorMessage(error, "Erro ao excluir flashcard. Tente novamente"));
     } finally {
       setIsDeleting(false);
     }
   };
 
   if (loading && flashcards.length === 0) {
-    return (
-      <div className="flex items-center justify-center p-12">
-        <Typography variant="body-1" color="light">
-          Carregando as cartas...
-        </Typography>
-      </div>
-    );
+    return <LoadingState message="Carregando as cartas..." />;
   }
 
   if (!flashcards || flashcards.length === 0) {
@@ -220,7 +216,7 @@ export default function FlashcardStudyPlay({ deckId, onFinish }: FlashcardStudyP
           <LuPencil size={20} />
         </button>
         <div
-          className={`bg-blue-500 rounded-2xl w-75 h-[450px] flex items-center justify-center p-8 text-center shadow-lg cursor-pointer transition-all duration-300 overflow-hidden ${isFlipped ? "[transform:rotateY(180deg)]" : ""}`}
+          className={`bg-blue-500 rounded-2xl w-75 h-112.5 flex items-center justify-center p-8 text-center shadow-lg cursor-pointer transition-all duration-300 overflow-hidden ${isFlipped ? "transform-[rotateY(180deg)]" : ""}`}
           onClick={() => setIsFlipped(!isFlipped)}
           title="Clique para virar"
           style={{
@@ -238,7 +234,7 @@ export default function FlashcardStudyPlay({ deckId, onFinish }: FlashcardStudyP
               variant="heading-4"
               color="white"
               weight="bold"
-              className="break-words line-clamp-none text-center"
+              className="wrap-break-word line-clamp-none text-center"
             >
               {isFlipped ? currentCard?.back : currentCard?.front}
             </Typography>
@@ -280,7 +276,7 @@ export default function FlashcardStudyPlay({ deckId, onFinish }: FlashcardStudyP
       </div>
 
       <Dialog open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
-        <DialogContent className="max-w-[400px]">
+        <DialogContent className="max-w-100">
           <DialogHeader>
             <DialogTitle>Editar Flashcard</DialogTitle>
           </DialogHeader>
@@ -316,7 +312,7 @@ export default function FlashcardStudyPlay({ deckId, onFinish }: FlashcardStudyP
       </Dialog>
 
       <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
-        <AlertDialogContent className="max-w-[400px]">
+        <AlertDialogContent className="max-w-100">
           <AlertDialogHeader>
             <AlertDialogTitle>Excluir Flashcard?</AlertDialogTitle>
             <AlertDialogDescription>

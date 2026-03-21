@@ -13,9 +13,10 @@ import EyeIcon from "@/assets/eyeicon.png";
 import { useAuth } from "@/context/auth/authContext";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { getErrorMessage } from "@/lib/errorMessage";
 
 export default function RegisterPage() {
-  const { register, isLoading } = useAuth();
+  const { register, isLoading, loginWithGoogle } = useAuth();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -46,8 +47,7 @@ export default function RegisterPage() {
       toast.success("Conta criada com sucesso!");
       router.push("/login");
     } catch (error) {
-      const message = error instanceof Error ? error.message : "Erro ao criar conta.";
-      toast.error(message);
+      toast.error(getErrorMessage(error, "Erro ao criar conta."));
     }
   };
 
@@ -57,7 +57,12 @@ export default function RegisterPage() {
         <h1 className={styles.title}>Crie sua Conta</h1>
         <p className={styles.text}>Registe-se para começar a organizar os seus estudos.</p>
 
-        <Button type="button" variant="outline" className={styles.googleButton}>
+        <Button
+          type="button"
+          variant="outline"
+          onClick={loginWithGoogle}
+          className={styles.googleButton}
+        >
           <Image src={GoogleIcon} alt="Google" width={22} />
           Google
         </Button>

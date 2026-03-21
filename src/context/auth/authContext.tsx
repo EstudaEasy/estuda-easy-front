@@ -5,11 +5,14 @@ import { IAuthContext, UserDataJWT } from "./authContext.types";
 import { CreateUserRequest, LoginRequest, UserResponse } from "@/types";
 import AuthService from "@/services/auth/AuthService";
 import UserService from "@/services/user/UserService";
+import { activityStorage } from "@/lib/activityStorage";
+import { useRouter } from "next/navigation";
 
 export const AuthContext = createContext<IAuthContext>({} as IAuthContext);
 
 export default function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<UserResponse | null>(null);
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -70,14 +73,21 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
     localStorage.removeItem("@EstudaEasy:accessToken");
     localStorage.removeItem("@EstudaEasy:refreshToken");
 
+    // Clear all activity data from previous user
+    activityStorage.clearAllActivityData();
+
     await fetch("/api/auth/set-cookies", {
       method: "DELETE",
     });
 
     setUser(null);
-    window.location.reload();
+    router.push("/");
     setIsLoading(false);
   }
+
+  const loginWithGoogle = () => {
+    window.location.href = "https://estuda-easy-api.onrender.com/auth/google";
+  };
 
   async function register(request: CreateUserRequest) {
     try {
@@ -110,7 +120,9 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
   }
 
   return (
-    <AuthContext.Provider value={{ login, logout, register, user, isLoading }}>
+    <AuthContext.Provider
+      value={{ login, logout, register, user, isLoading, loadUser, loginWithGoogle }}
+    >
       {children}
     </AuthContext.Provider>
   );

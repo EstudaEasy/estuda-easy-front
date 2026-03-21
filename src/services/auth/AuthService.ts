@@ -29,6 +29,10 @@ const AuthService = {
   resetPassword(data: ResetPasswordRequest) {
     return authApi.post<void>("/auth/password/reset", data);
   },
+
+  loginWithGoogle() {
+    return `${process.env.NEXT_PUBLIC_API_URL}/auth/google`;
+  },
 };
 
 export default AuthService;

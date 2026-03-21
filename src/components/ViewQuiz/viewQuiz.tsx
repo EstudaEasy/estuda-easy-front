@@ -7,6 +7,7 @@ import QuizService from "@/services/quiz/QuizService";
 import QuizCard from "./QuizCard";
 import { Typography } from "@/components/ui/typography";
 import EmptyToolState from "@/components/EmptyToolState/EmptyToolState";
+import LoadingState from "@/components/LoadingState";
 
 interface ViewQuizProps {
   refreshTrigger?: number;
@@ -44,13 +45,7 @@ export default function ViewQuiz({
   }
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center p-12">
-        <Typography variant="body-1" color="light">
-          Carregando quizzes...
-        </Typography>
-      </div>
-    );
+    return <LoadingState message="Carregando quizzes..." />;
   }
 
   return (
