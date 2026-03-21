@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 
 export default function LoginPage() {
-  const { login, isLoading } = useAuth();
+  const { login, isLoading, loginWithGoogle } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -37,7 +37,12 @@ export default function LoginPage() {
         <h1 className={styles.title}>Entrar</h1>
         <p className={styles.text}>Entre ou crie sua conta e simplifique sua rotina de estudos</p>
 
-        <Button type="button" variant="outline" className={styles.googleButton}>
+        <Button
+          type="button"
+          variant="outline"
+          onClick={loginWithGoogle}
+          className={styles.googleButton}
+        >
           <Image src={GoogleIcon} alt="Google" width={22} />
           Google
         </Button>
