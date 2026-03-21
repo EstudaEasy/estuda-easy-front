@@ -58,6 +58,8 @@ export default function QuizForm({ onSubmit, initialData, isLoading = false }: Q
         {errors.description && <span className={styles.error}>{errors.description.message}</span>}
         <div className={styles.charCount}>{description.length}/500 caracteres</div>
       </div>
+
+      {/* Button container for form actions - handled by parent Dialog */}
     </form>
   );
 }
