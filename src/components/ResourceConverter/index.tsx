@@ -32,7 +32,7 @@ import { useResourceConverter } from "@/context/resourceConverter/ResourceConver
 import TiaFalando from "@/assets/TIA_falando.png";
 
 const DEFAULT_TIA_WELCOME =
-  "Oi! Eu sou a tIA ✨ Posso te ajudar a transformar seus recursos entre Quiz, Deck e Task em poucos cliques. O que você quer converter agora?";
+  "Oi! Eu sou a tIA! Posso te ajudar a transformar seus recursos entre Quiz, Deck e Task em poucos cliques. O que você quer converter agora?";
 
 export function ResourceConverter({
   open,
